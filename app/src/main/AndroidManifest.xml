@@ -2,6 +2,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <permission
+        android:name="com.xiaomi.micolauncher.feature.appmainscreen.permission.READ_SETTINGS"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="signatureOrSystem"
+        android:label="@string/permlab_read_settings"
+        android:description="@string/permdesc_read_settings"/>
+    <permission
+        android:name="com.xiaomi.micolauncher.feature.appmainscreen.permission.WRITE_SETTINGS"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="signatureOrSystem"
+        android:label="@string/permlab_write_settings"
+        android:description="@string/permdesc_write_settings"/>
+
+    <permission
+        android:name="com.android.launcher.permission.INSTALL_SHORTCUT"
+        android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
+        android:protectionLevel="dangerous"
+        android:label="@string/permlab_install_shortcut"
+        android:description="@string/permdesc_install_shortcut" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER_HINTS" />
+    <uses-permission android:name="android.permission.BIND_APPWIDGET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -10,8 +38,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MainScreenApp"
-        tools:targetApi="31">
+        android:sharedUserId="android.uid.system"
+        android:theme="@style/LauncherTheme">
         <activity
             android:name=".Launcher"
             android:exported="true">
@@ -109,8 +137,8 @@
             android:name=".LauncherProvider"
             android:authorities="com.xiaomi.micolauncher.settings"
             android:exported="true"
-            android:writePermission="com.android.launcher4.permission.WRITE_SETTINGS"
-            android:readPermission="com.android.launcher4.permission.READ_SETTINGS" />
+            android:writePermission="com.xiaomi.micolauncher.feature.appmainscreen.permission.WRITE_SETTINGS"
+            android:readPermission="com.xiaomi.micolauncher.feature.appmainscreen.permission.READ_SETTINGS" />
     </application>
 
 </manifest>
