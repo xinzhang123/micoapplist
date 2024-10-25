@@ -193,7 +193,7 @@ public class CellLayout extends ViewGroup {
     public CellLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CellLayout, defStyle, 0);
-        mContainerType = a.getInteger(R.styleable.CellLayout_containerType, WORKSPACE);
+        mContainerType = a.getInteger(R.styleable.CellLayout_mico_containerType, WORKSPACE);
         a.recycle();
 
         // A ViewGroup usually does not draw, but CellLayout needs to draw a rectangle to show
@@ -233,7 +233,7 @@ public class CellLayout extends ViewGroup {
         for (int i = 0; i < mDragOutlines.length; i++) {
             mDragOutlines[i] = new Rect(-1, -1, -1, -1);
         }
-        mDragOutlinePaint.setColor(Themes.getAttrColor(context, R.attr.workspaceTextColor));
+        mDragOutlinePaint.setColor(Themes.getAttrColor(context, R.attr.mico_workspaceTextColor));
 
         // When dragging things around the home screens, we show a green outline of
         // where the item will land. The outlines gradually fade out, leaving a trail

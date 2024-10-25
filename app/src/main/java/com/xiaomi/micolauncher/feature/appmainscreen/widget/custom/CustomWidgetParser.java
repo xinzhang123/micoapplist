@@ -123,7 +123,7 @@ public class CustomWidgetParser {
     }
 
     private static CustomAppWidgetProviderInfo newInfo(TypedArray a, Parcel parcel, Context context) {
-        int providerId = a.getInt(R.styleable.CustomAppWidgetProviderInfo_providerId, 0);
+        int providerId = a.getInt(R.styleable.CustomAppWidgetProviderInfo_mico_providerId, 0);
         CustomAppWidgetProviderInfo info = new CustomAppWidgetProviderInfo(parcel, false, providerId);
         info.provider = new ComponentName(context.getPackageName(), CLS_CUSTOM_WIDGET_PREFIX + providerId);
 
@@ -133,10 +133,10 @@ public class CustomWidgetParser {
         info.previewImage = a.getResourceId(R.styleable.CustomAppWidgetProviderInfo_android_previewImage, 0);
         info.resizeMode = a.getInt(R.styleable.CustomAppWidgetProviderInfo_android_resizeMode, 0);
 
-        info.spanX = a.getInt(R.styleable.CustomAppWidgetProviderInfo_numColumns, 1);
-        info.spanY = a.getInt(R.styleable.CustomAppWidgetProviderInfo_numRows, 1);
-        info.minSpanX = a.getInt(R.styleable.CustomAppWidgetProviderInfo_numMinColumns, 1);
-        info.minSpanY = a.getInt(R.styleable.CustomAppWidgetProviderInfo_numMinRows, 1);
+        info.spanX = a.getInt(R.styleable.CustomAppWidgetProviderInfo_mico_numColumns, 1);
+        info.spanY = a.getInt(R.styleable.CustomAppWidgetProviderInfo_mico_numRows, 1);
+        info.minSpanX = a.getInt(R.styleable.CustomAppWidgetProviderInfo_mico_numMinColumns, 1);
+        info.minSpanY = a.getInt(R.styleable.CustomAppWidgetProviderInfo_mico_numMinRows, 1);
         return info;
     }
 }

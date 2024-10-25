@@ -58,7 +58,7 @@
             android:id="@+id/text_and_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/popupColorPrimary"
+            android:background="?attr/mico_popupColorPrimary"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:paddingBottom="14dp"
@@ -102,7 +102,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/popup_item_divider_height"
         android:layout_below="@id/main_view"
-        android:background="?attr/popupColorTertiary" />
+        android:background="?attr/mico_popupColorTertiary" />
 
     <!-- Footer -->
     <com.xiaomi.micolauncher.feature.appmainscreen.notification.NotificationFooterLayout

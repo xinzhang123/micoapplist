@@ -34,9 +34,9 @@
         android:textSize="14sp"
         android:textColor="?android:attr/textColorPrimary"
         android:fontFamily="sans-serif"
-        launcher:layoutHorizontal="true"
-        launcher:iconDisplay="shortcut_popup"
-        launcher:iconSizeOverride="@dimen/deep_shortcut_icon_size" />
+        launcher:mico_layoutHorizontal="true"
+        launcher:mico_iconDisplay="shortcut_popup"
+        launcher:mico_iconSizeOverride="@dimen/deep_shortcut_icon_size" />
 
     <View
         android:id="@+id/icon"
@@ -51,6 +51,6 @@
         android:layout_height="@dimen/popup_item_divider_height"
         android:layout_gravity="end|bottom"
         android:visibility="gone"
-        android:background="?attr/popupColorTertiary" />
+        android:background="?attr/mico_popupColorTertiary" />
 
 </com.xiaomi.micolauncher.feature.appmainscreen.shortcuts.DeepShortcutView>

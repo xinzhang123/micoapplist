@@ -44,7 +44,7 @@ public class TopRoundedCornerView extends SpringRelativeLayout {
         mRadii = new float[] {radius, radius, radius, radius, 0, 0, 0, 0};
 
         mNavBarScrimPaint = new Paint();
-        mNavBarScrimPaint.setColor(Themes.getAttrColor(context, R.attr.allAppsNavBarScrimColor));
+        mNavBarScrimPaint.setColor(Themes.getAttrColor(context, R.attr.mico_allAppsNavBarScrimColor));
     }
 
     public TopRoundedCornerView(Context context, AttributeSet attrs) {

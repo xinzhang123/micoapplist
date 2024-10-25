@@ -91,7 +91,7 @@ public class NotificationFooterLayout extends FrameLayout {
                 - iconSize * MAX_FOOTER_NOTIFICATIONS;
         mIconLayoutParams.setMarginStart(availableIconRowSpace / MAX_FOOTER_NOTIFICATIONS);
 
-        mBackgroundColor = Themes.getAttrColor(context, R.attr.popupColorPrimary);
+        mBackgroundColor = Themes.getAttrColor(context, R.attr.mico_popupColorPrimary);
     }
 
     @Override

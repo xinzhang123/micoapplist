@@ -25,14 +25,14 @@
         android:translateY="11.5">
         <path
             android:pathData="M2 8.5L6.5 4L11 8.5"
-            android:strokeColor="?attr/workspaceAmbientShadowColor"
+            android:strokeColor="?attr/mico_workspaceAmbientShadowColor"
             android:strokeWidth="3.6"
             android:strokeLineCap="round"
             android:strokeLineJoin="round" />
 
         <path
             android:pathData="M2 8.5L6.5 4L11 8.5"
-            android:strokeColor="?attr/workspaceTextColor"
+            android:strokeColor="?attr/mico_workspaceTextColor"
             android:strokeWidth="1.8"
             android:strokeLineCap="round"
             android:strokeLineJoin="round" />

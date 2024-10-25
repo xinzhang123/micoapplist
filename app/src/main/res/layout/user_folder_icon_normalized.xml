@@ -28,7 +28,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:paddingTop="16dp"
-        launcher:pageIndicator="@+id/folder_page_indicator" />
+        launcher:mico_pageIndicator="@+id/folder_page_indicator" />
 
     <LinearLayout
         android:id="@+id/folder_footer"

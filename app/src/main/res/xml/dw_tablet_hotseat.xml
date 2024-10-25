@@ -17,178 +17,178 @@
     <!-- Hotseat (We use the screen as the position of the item in the hotseat) -->
     <!-- Dialer, Messaging, [All Apps], Browser, Camera -->
     <!--<resolve
-        launcher:container="-101"
-        launcher:screen="0"
-        launcher:x="0"
-        launcher:y="0" >
-        <favorite launcher:uri="#Intent;action=android.intent.action.DIAL;end" />
-        <favorite launcher:uri="tel:123" />
-        <favorite launcher:uri="#Intent;action=android.intent.action.CALL_BUTTON;end" />
+        launcher:mico_container="-101"
+        launcher:mico_screen="0"
+        launcher:mico_x="0"
+        launcher:mico_y="0" >
+        <favorite launcher:mico_uri="#Intent;action=android.intent.action.DIAL;end" />
+        <favorite launcher:mico_uri="tel:123" />
+        <favorite launcher:mico_uri="#Intent;action=android.intent.action.CALL_BUTTON;end" />
     </resolve>-->
 
     <!-- <resolve
-         launcher:container="-101"
-         launcher:screen="0"
-         launcher:x="0"
-         launcher:y="0" >
-         <favorite launcher:uri="#Intent;action=android.intent.action.DIAL;end" />
-         <favorite launcher:uri="tel:123" />
-         <favorite launcher:uri="#Intent;action=android.intent.action.CALL_BUTTON;end" />
+         launcher:mico_container="-101"
+         launcher:mico_screen="0"
+         launcher:mico_x="0"
+         launcher:mico_y="0" >
+         <favorite launcher:mico_uri="#Intent;action=android.intent.action.DIAL;end" />
+         <favorite launcher:mico_uri="tel:123" />
+         <favorite launcher:mico_uri="#Intent;action=android.intent.action.CALL_BUTTON;end" />
      </resolve>-->
 
     <!--<resolve
-        launcher:container="-101"
-        launcher:screen="0"
-        launcher:x="0"
-        launcher:y="0">
-        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_BROWSER;end" />
-        <favorite launcher:uri="http://www.example.com/" />
+        launcher:mico_container="-101"
+        launcher:mico_screen="0"
+        launcher:mico_x="0"
+        launcher:mico_y="0">
+        <favorite launcher:mico_uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_BROWSER;end" />
+        <favorite launcher:mico_uri="http://www.example.com/" />
     </resolve>
 
     <favorite
-        launcher:className="com.android.documentsui.FilesActivity"
-        launcher:container="-101"
-        launcher:packageName="com.android.documentsui"
-        launcher:screen="1"
-        launcher:x="1"
-        launcher:y="1" />
+        launcher:mico_className="com.android.documentsui.FilesActivity"
+        launcher:mico_container="-101"
+        launcher:mico_packageName="com.android.documentsui"
+        launcher:mico_screen="1"
+        launcher:mico_x="1"
+        launcher:mico_y="1" />
     <resolve
-        launcher:container="-101"
-        launcher:screen="2"
-        launcher:x="2"
-        launcher:y="2">
-        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_GALLERY;end" />
-        <favorite launcher:uri="#Intent;type=images/*;end" />
+        launcher:mico_container="-101"
+        launcher:mico_screen="2"
+        launcher:mico_x="2"
+        launcher:mico_y="2">
+        <favorite launcher:mico_uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_GALLERY;end" />
+        <favorite launcher:mico_uri="#Intent;type=images/*;end" />
     </resolve>-->
     <resolve
-        launcher:container="-101"
-        launcher:screen="0"
-        launcher:x="0"
-        launcher:y="0" >
-        <favorite launcher:uri="#Intent;action=android.intent.action.DIAL;end" />
-       <favorite launcher:uri="tel:123" />
-        <favorite launcher:uri="#Intent;action=android.intent.action.CALL_BUTTON;end" />
+        launcher:mico_container="-101"
+        launcher:mico_screen="0"
+        launcher:mico_x="0"
+        launcher:mico_y="0" >
+        <favorite launcher:mico_uri="#Intent;action=android.intent.action.DIAL;end" />
+       <favorite launcher:mico_uri="tel:123" />
+        <favorite launcher:mico_uri="#Intent;action=android.intent.action.CALL_BUTTON;end" />
     </resolve>
     <!--  <favorite
-          launcher:className="com.tencent.mobileqq.activity.SplashActivity"
-          launcher:container="-101"
-          launcher:packageName="com.tencent.mobileqq"
-          launcher:screen="0"
-          launcher:x="0"
-          launcher:y="0" />-->
+          launcher:mico_className="com.tencent.mobileqq.activity.SplashActivity"
+          launcher:mico_container="-101"
+          launcher:mico_packageName="com.tencent.mobileqq"
+          launcher:mico_screen="0"
+          launcher:mico_x="0"
+          launcher:mico_y="0" />-->
     <resolve
-        launcher:container="-101"
-        launcher:screen="1"
-        launcher:x="1"
-        launcher:y="1">
-        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MESSAGING;end" />
+        launcher:mico_container="-101"
+        launcher:mico_screen="1"
+        launcher:mico_x="1"
+        launcher:mico_y="1">
+        <favorite launcher:mico_uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MESSAGING;end" />
     </resolve>
     <resolve
-        launcher:container="-101"
-        launcher:screen="2"
-        launcher:x="2"
-        launcher:y="2">
-        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_CONTACTS;end" />
+        launcher:mico_container="-101"
+        launcher:mico_screen="2"
+        launcher:mico_x="2"
+        launcher:mico_y="2">
+        <favorite launcher:mico_uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_CONTACTS;end" />
     </resolve>
     <resolve
-        launcher:container="-101"
-        launcher:screen="3"
-        launcher:x="3"
-        launcher:y="3">
-        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_GALLERY;end" />
+        launcher:mico_container="-101"
+        launcher:mico_screen="3"
+        launcher:mico_x="3"
+        launcher:mico_y="3">
+        <favorite launcher:mico_uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_GALLERY;end" />
     </resolve>
     <!--
         <favorite
-            launcher:className="com.yijianwan.kaifaban.activity.activity_welcome"
-            launcher:container="-101"
-            launcher:packageName="com.yijianwan.kaifaban"
-            launcher:screen="3"
-            launcher:x="3"
-            launcher:y="3" />
+            launcher:mico_className="com.yijianwan.kaifaban.activity.activity_welcome"
+            launcher:mico_container="-101"
+            launcher:mico_packageName="com.yijianwan.kaifaban"
+            launcher:mico_screen="3"
+            launcher:mico_x="3"
+            launcher:mico_y="3" />
 
     -->
     <!--   <favorite
-           launcher:className="com.tencent.qqpinyin.activity.guide.SplashActivity"
-           launcher:container="-101"
-           launcher:packageName="com.tencent.qqpinyin"
-           launcher:screen="2"
-           launcher:x="2"
-           launcher:y="2" />
+           launcher:mico_className="com.tencent.qqpinyin.activity.guide.SplashActivity"
+           launcher:mico_container="-101"
+           launcher:mico_packageName="com.tencent.qqpinyin"
+           launcher:mico_screen="2"
+           launcher:mico_x="2"
+           launcher:mico_y="2" />
        <favorite
-           launcher:className="com.ucpro.MainActivity"
-           launcher:container="-101"
-           launcher:packageName="com.quark.browser"
-           launcher:screen="3"
-           launcher:x="3"
-           launcher:y="3" />-->
+           launcher:mico_className="com.ucpro.MainActivity"
+           launcher:mico_container="-101"
+           launcher:mico_packageName="com.quark.browser"
+           launcher:mico_screen="3"
+           launcher:mico_x="3"
+           launcher:mico_y="3" />-->
     <!--
         <favorite
-            launcher:className="com.joke.bamenshenqi.mvp.ui.activity.LoadingActivity"
-            launcher:container="-101"
-            launcher:packageName="cn.mc.sq"
-            launcher:screen="4"
-            launcher:x="4"
-            launcher:y="4" />
+            launcher:mico_className="com.joke.bamenshenqi.mvp.ui.activity.LoadingActivity"
+            launcher:mico_container="-101"
+            launcher:mico_packageName="cn.mc.sq"
+            launcher:mico_screen="4"
+            launcher:mico_x="4"
+            launcher:mico_y="4" />
     -->
 
     <!--<resolve
-        launcher:container="-101"
-        launcher:screen="3"
-        launcher:x="3"
-        launcher:y="3">
-        <favorite launcher:uri="#Intent;action=android.settings.SETTINGS;end" />
+        launcher:mico_container="-101"
+        launcher:mico_screen="3"
+        launcher:mico_x="3"
+        launcher:mico_y="3">
+        <favorite launcher:mico_uri="#Intent;action=android.settings.SETTINGS;end" />
     </resolve>
 
 
     <resolve
-        launcher:container="-101"
-        launcher:screen="1"
-        launcher:x="1"
-        launcher:y="1">
-        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MARKET;end" />
-        <favorite launcher:uri="market://details?id=com.android.launcher" />
+        launcher:mico_container="-101"
+        launcher:mico_screen="1"
+        launcher:mico_x="1"
+        launcher:mico_y="1">
+        <favorite launcher:mico_uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MARKET;end" />
+        <favorite launcher:mico_uri="market://details?id=com.android.launcher" />
     </resolve>-->
 
     <!-- <resolve
-         launcher:container="-101"
-         launcher:screen="1"
-         launcher:x="1"
-         launcher:y="0" >
-         <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MESSAGING;end" />
-         <favorite launcher:uri="sms:" />
-         <favorite launcher:uri="smsto:" />
-         <favorite launcher:uri="mms:" />
-         <favorite launcher:uri="mmsto:" />
+         launcher:mico_container="-101"
+         launcher:mico_screen="1"
+         launcher:mico_x="1"
+         launcher:mico_y="0" >
+         <favorite launcher:mico_uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MESSAGING;end" />
+         <favorite launcher:mico_uri="sms:" />
+         <favorite launcher:mico_uri="smsto:" />
+         <favorite launcher:mico_uri="mms:" />
+         <favorite launcher:mico_uri="mmsto:" />
      </resolve>-->
 
     <!--<resolve
-        launcher:screen="2"
-        launcher:container="-101"
-        launcher:x="2"
-        launcher:y="0" >
-        <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MARKET;end" />
-        <favorite launcher:uri="market://details?id=com.android.launcher" />
+        launcher:mico_screen="2"
+        launcher:mico_container="-101"
+        launcher:mico_x="2"
+        launcher:mico_y="0" >
+        <favorite launcher:mico_uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_MARKET;end" />
+        <favorite launcher:mico_uri="market://details?id=com.android.launcher" />
     </resolve>
 
     &lt;!&ndash; All Apps &ndash;&gt;
 
     <resolve
-        launcher:container="-101"
-        launcher:screen="3"
-        launcher:x="3"
-        launcher:y="0" >
+        launcher:mico_container="-101"
+        launcher:mico_screen="3"
+        launcher:mico_x="3"
+        launcher:mico_y="0" >
         <favorite
-            launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_BROWSER;end" />
-        <favorite launcher:uri="http://www.example.com/" />
+            launcher:mico_uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_BROWSER;end" />
+        <favorite launcher:mico_uri="http://www.example.com/" />
     </resolve>
 
     <resolve
-        launcher:container="-101"
-        launcher:screen="4"
-        launcher:x="4"
-        launcher:y="0" >
-        <favorite launcher:uri="#Intent;action=android.media.action.STILL_IMAGE_CAMERA;end" />
-        <favorite launcher:uri="#Intent;action=android.intent.action.CAMERA_BUTTON;end" />
+        launcher:mico_container="-101"
+        launcher:mico_screen="4"
+        launcher:mico_x="4"
+        launcher:mico_y="0" >
+        <favorite launcher:mico_uri="#Intent;action=android.media.action.STILL_IMAGE_CAMERA;end" />
+        <favorite launcher:mico_uri="#Intent;action=android.intent.action.CAMERA_BUTTON;end" />
     </resolve>-->
 
 </favorites>

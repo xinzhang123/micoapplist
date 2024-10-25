@@ -104,7 +104,7 @@ public class AllAppsBackgroundDrawable extends Drawable {
         mHeight = res.getDimensionPixelSize(R.dimen.all_apps_background_canvas_height);
 
         context = new ContextThemeWrapper(context,
-                Themes.getAttrBoolean(context, R.attr.isMainColorDark)
+                Themes.getAttrBoolean(context, R.attr.mico_isMainColorDark)
                         ? R.style.AllAppsEmptySearchBackground_Dark
                         : R.style.AllAppsEmptySearchBackground);
         mHand = new TransformedImageDrawable(context, R.drawable.ic_all_apps_bg_hand,

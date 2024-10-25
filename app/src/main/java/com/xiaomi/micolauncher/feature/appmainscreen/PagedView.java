@@ -167,7 +167,7 @@ public abstract class PagedView<T extends View & PageIndicator> extends ViewGrou
 
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.PagedView, defStyle, 0);
-        mPageIndicatorViewId = a.getResourceId(R.styleable.PagedView_pageIndicator, -1);
+        mPageIndicatorViewId = a.getResourceId(R.styleable.PagedView_mico_pageIndicator, -1);
         a.recycle();
 
         setHapticFeedbackEnabled(false);

@@ -140,7 +140,7 @@ public class RecyclerViewFastScroller extends View {
 
         TypedArray ta =
                 context.obtainStyledAttributes(attrs, R.styleable.RecyclerViewFastScroller, defStyleAttr, 0);
-        mCanThumbDetach = ta.getBoolean(R.styleable.RecyclerViewFastScroller_canThumbDetach, false);
+        mCanThumbDetach = ta.getBoolean(R.styleable.RecyclerViewFastScroller_mico_canThumbDetach, false);
         ta.recycle();
     }
 

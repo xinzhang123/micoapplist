@@ -91,12 +91,12 @@ public class DoubleShadowBubbleTextView extends BubbleTextView {
             TypedArray a = c.obtainStyledAttributes(
                     attrs, R.styleable.ShadowInfo, defStyle, 0);
 
-            ambientShadowBlur = a.getDimension(R.styleable.ShadowInfo_ambientShadowBlur, 0);
-            ambientShadowColor = a.getColor(R.styleable.ShadowInfo_ambientShadowColor, 0);
+            ambientShadowBlur = a.getDimension(R.styleable.ShadowInfo_mico_ambientShadowBlur, 0);
+            ambientShadowColor = a.getColor(R.styleable.ShadowInfo_mico_ambientShadowColor, 0);
 
-            keyShadowBlur = a.getDimension(R.styleable.ShadowInfo_keyShadowBlur, 0);
-            keyShadowOffset = a.getDimension(R.styleable.ShadowInfo_keyShadowOffset, 0);
-            keyShadowColor = a.getColor(R.styleable.ShadowInfo_keyShadowColor, 0);
+            keyShadowBlur = a.getDimension(R.styleable.ShadowInfo_mico_keyShadowBlur, 0);
+            keyShadowOffset = a.getDimension(R.styleable.ShadowInfo_mico_keyShadowOffset, 0);
+            keyShadowColor = a.getColor(R.styleable.ShadowInfo_mico_keyShadowColor, 0);
             a.recycle();
         }
 

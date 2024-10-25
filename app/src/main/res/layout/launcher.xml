@@ -36,7 +36,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:theme="@style/HomeScreenElementTheme"
-            launcher:pageIndicator="@+id/page_indicator" />
+            launcher:mico_pageIndicator="@+id/page_indicator" />
 
         <include
             android:id="@+id/overview_panel_container"

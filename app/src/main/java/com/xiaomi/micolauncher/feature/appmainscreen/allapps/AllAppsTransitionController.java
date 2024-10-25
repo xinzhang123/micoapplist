@@ -75,7 +75,7 @@ public class AllAppsTransitionController implements StateHandler, OnDeviceProfil
         mShiftRange = mLauncher.getDeviceProfile().heightPx;
         mProgress = 1f;
 
-        mIsDarkTheme = Themes.getAttrBoolean(mLauncher, R.attr.isMainColorDark);
+        mIsDarkTheme = Themes.getAttrBoolean(mLauncher, R.attr.mico_isMainColorDark);
         mIsVerticalLayout = mLauncher.getDeviceProfile().isVerticalBarLayout();
         mLauncher.addOnDeviceProfileChangeListener(this);
     }

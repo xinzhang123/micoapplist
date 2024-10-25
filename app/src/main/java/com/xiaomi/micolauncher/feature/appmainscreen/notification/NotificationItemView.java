@@ -120,7 +120,7 @@ public class NotificationItemView {
             if (mNotificationHeaderTextColor == Notification.COLOR_DEFAULT) {
                 mNotificationHeaderTextColor =
                         IconPalette.resolveContrastColor(mContext, iconColor,
-                                Themes.getAttrColor(mContext, R.attr.popupColorPrimary));
+                                Themes.getAttrColor(mContext, R.attr.mico_popupColorPrimary));
             }
             mHeaderText.setTextColor(mNotificationHeaderTextColor);
             mHeaderCount.setTextColor(mNotificationHeaderTextColor);

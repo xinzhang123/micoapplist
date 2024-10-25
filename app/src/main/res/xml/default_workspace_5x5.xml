@@ -16,40 +16,40 @@
 
 <favorites xmlns:launcher="http://schemas.android.com/apk/res-auto">
     <appwidget
-        launcher:className="com.android.alarmclock.DigitalAppWidgetProvider"
-        launcher:packageName="com.android.deskclock"
-        launcher:screen="0"
-        launcher:spanX="4"
-        launcher:spanY="2"
-        launcher:x="0"
-        launcher:y="0" />
+        launcher:mico_className="com.android.alarmclock.DigitalAppWidgetProvider"
+        launcher:mico_packageName="com.android.deskclock"
+        launcher:mico_screen="0"
+        launcher:mico_spanX="4"
+        launcher:mico_spanY="2"
+        launcher:mico_x="0"
+        launcher:mico_y="0" />
     <!-- Hotseat -->
-    <include launcher:workspace="@xml/dw_phone_hotseat" />
+    <include launcher:mico_workspace="@xml/dw_phone_hotseat" />
     <!--<appwidget
-        launcher:screen="0"
-        launcher:x="0"
-        launcher:y="1"
-        launcher:spanX="5"
-        launcher:spanY="2"
-        launcher:packageName="com.android.deskclock"
-        launcher:className="com.android.alarmclock.DigitalAppWidgetProvider" />
+        launcher:mico_screen="0"
+        launcher:mico_x="0"
+        launcher:mico_y="1"
+        launcher:mico_spanX="5"
+        launcher:mico_spanY="2"
+        launcher:mico_packageName="com.android.deskclock"
+        launcher:mico_className="com.android.alarmclock.DigitalAppWidgetProvider" />
 
     &lt;!&ndash; Bottom row &ndash;&gt;
     <resolve
-        launcher:screen="0"
-        launcher:x="0"
-        launcher:y="-1" >
-	    <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_EMAIL;end" />
-	    <favorite launcher:uri="mailto:" />
+        launcher:mico_screen="0"
+        launcher:mico_x="0"
+        launcher:mico_y="-1" >
+	    <favorite launcher:mico_uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_EMAIL;end" />
+	    <favorite launcher:mico_uri="mailto:" />
 
     </resolve>
 
     <resolve
-        launcher:screen="0"
-        launcher:x="4"
-        launcher:y="-1" >
-	    <favorite launcher:uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_GALLERY;end" />
-	    <favorite launcher:uri="#Intent;type=images/*;end" />
+        launcher:mico_screen="0"
+        launcher:mico_x="4"
+        launcher:mico_y="-1" >
+	    <favorite launcher:mico_uri="#Intent;action=android.intent.action.MAIN;category=android.intent.category.APP_GALLERY;end" />
+	    <favorite launcher:mico_uri="#Intent;type=images/*;end" />
 
     </resolve>-->
 

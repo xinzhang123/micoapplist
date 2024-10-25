@@ -110,7 +110,7 @@ public class AllAppsContainerView extends SpringRelativeLayout implements DragSo
         mAH[AdapterHolder.WORK] = new AdapterHolder(true /* isWork */);
 
         mNavBarScrimPaint = new Paint();
-        mNavBarScrimPaint.setColor(Themes.getAttrColor(context, R.attr.allAppsNavBarScrimColor));
+        mNavBarScrimPaint.setColor(Themes.getAttrColor(context, R.attr.mico_allAppsNavBarScrimColor));
 
         mAllAppsStore.addUpdateListener(this::onAppsUpdated);
 

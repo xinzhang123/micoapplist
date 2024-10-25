@@ -152,7 +152,7 @@ public class WorkspaceAndHotseatScrim implements
 
         mHasSysUiScrim = !mWallpaperColorInfo.supportsDarkText();
         if (mHasSysUiScrim) {
-            mTopScrim = Themes.getAttrDrawable(view.getContext(), R.attr.workspaceStatusBarScrim);
+            mTopScrim = Themes.getAttrDrawable(view.getContext(), R.attr.mico_workspaceStatusBarScrim);
             mBottomMask = createDitheredAlphaMask();
         } else {
             mTopScrim = null;

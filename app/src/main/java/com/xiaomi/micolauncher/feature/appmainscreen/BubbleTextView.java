@@ -147,9 +147,9 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver, 
 
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.BubbleTextView, defStyle, 0);
-        mLayoutHorizontal = a.getBoolean(R.styleable.BubbleTextView_layoutHorizontal, false);
+        mLayoutHorizontal = a.getBoolean(R.styleable.BubbleTextView_mico_layoutHorizontal, false);
 
-        int display = a.getInteger(R.styleable.BubbleTextView_iconDisplay, DISPLAY_WORKSPACE);
+        int display = a.getInteger(R.styleable.BubbleTextView_mico_iconDisplay, DISPLAY_WORKSPACE);
         int defaultIconSize = grid.iconSizePx;
         if (display == DISPLAY_WORKSPACE) {
             setTextSize(TypedValue.COMPLEX_UNIT_PX, grid.iconTextSizePx);
@@ -163,9 +163,9 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver, 
             setCompoundDrawablePadding(grid.folderChildDrawablePaddingPx);
             defaultIconSize = grid.folderChildIconSizePx;
         }
-        mCenterVertically = a.getBoolean(R.styleable.BubbleTextView_centerVertically, false);
+        mCenterVertically = a.getBoolean(R.styleable.BubbleTextView_mico_centerVertically, false);
 
-        mIconSize = a.getDimensionPixelSize(R.styleable.BubbleTextView_iconSizeOverride,
+        mIconSize = a.getDimensionPixelSize(R.styleable.BubbleTextView_mico_iconSizeOverride,
                 defaultIconSize);
         a.recycle();
 

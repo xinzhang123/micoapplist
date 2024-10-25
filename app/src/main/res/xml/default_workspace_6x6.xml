@@ -16,14 +16,14 @@
 
 <favorites xmlns:launcher="http://schemas.android.com/apk/res-auto">
     <appwidget
-        launcher:className="com.android.alarmclock.DigitalAppWidgetProvider"
-        launcher:packageName="com.android.deskclock"
-        launcher:screen="0"
-        launcher:spanX="4"
-        launcher:spanY="2"
-        launcher:x="0"
-        launcher:y="0" />
+        launcher:mico_className="com.android.alarmclock.DigitalAppWidgetProvider"
+        launcher:mico_packageName="com.android.deskclock"
+        launcher:mico_screen="0"
+        launcher:mico_spanX="4"
+        launcher:mico_spanY="2"
+        launcher:mico_x="0"
+        launcher:mico_y="0" />
     <!-- Hotseat -->
-    <include launcher:workspace="@xml/dw_phone_hotseat" />
+    <include launcher:mico_workspace="@xml/dw_phone_hotseat" />
 
 </favorites>

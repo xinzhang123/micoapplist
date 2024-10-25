@@ -41,9 +41,9 @@
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="16sp"
         android:textAlignment="viewStart"
-        launcher:iconDisplay="widget_section"
-        launcher:iconSizeOverride="@dimen/widget_section_icon_size"
-        launcher:layoutHorizontal="true" />
+        launcher:mico_iconDisplay="widget_section"
+        launcher:mico_iconSizeOverride="@dimen/widget_section_icon_size"
+        launcher:mico_layoutHorizontal="true" />
 
     <include layout="@layout/widgets_scroll_container" />
 </LinearLayout>

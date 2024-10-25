@@ -109,7 +109,7 @@ public class ShadowDrawable extends Drawable {
 
     @Override
     public void applyTheme(Resources.Theme t) {
-        TypedArray ta = t.obtainStyledAttributes(new int[] {R.attr.isWorkspaceDarkText});
+        TypedArray ta = t.obtainStyledAttributes(new int[] {R.attr.mico_isWorkspaceDarkText});
         boolean isDark = ta.getBoolean(0, false);
         ta.recycle();
         if (mState.mIsDark != isDark) {
@@ -170,7 +170,7 @@ public class ShadowDrawable extends Drawable {
             mState.mShadowSize = a.getDimensionPixelSize(
                     R.styleable.ShadowDrawable_android_elevation, 0);
             mState.mDarkTintColor = a.getColor(
-                    R.styleable.ShadowDrawable_darkTintColor, Color.BLACK);
+                    R.styleable.ShadowDrawable_mico_darkTintColor, Color.BLACK);
 
             mState.mIntrinsicHeight = d.getIntrinsicHeight() + 2 * mState.mShadowSize;
             mState.mIntrinsicWidth = d.getIntrinsicWidth() + 2 * mState.mShadowSize;
