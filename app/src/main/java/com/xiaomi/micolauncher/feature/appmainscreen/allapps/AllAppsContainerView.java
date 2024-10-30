@@ -45,7 +45,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.DropTarget.DragObject;
 import com.xiaomi.micolauncher.feature.appmainscreen.Insettable;
 import com.xiaomi.micolauncher.feature.appmainscreen.InsettableFrameLayout;
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
-import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.config.FeatureFlags;
@@ -66,7 +66,7 @@ public class AllAppsContainerView extends SpringRelativeLayout implements DragSo
     // Starts the springs after at least 55% of the animation has passed.
     private static final float FLING_ANIMATION_THRESHOLD = 0.55f;
 
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
     private final AdapterHolder[] mAH;
     private final ItemInfoMatcher mPersonalMatcher = ItemInfoMatcher.ofUser(Process.myUserHandle());
     private final ItemInfoMatcher mWorkMatcher = ItemInfoMatcher.not(mPersonalMatcher);
@@ -99,7 +99,7 @@ public class AllAppsContainerView extends SpringRelativeLayout implements DragSo
     public AllAppsContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
         mLauncher.addOnDeviceProfileChangeListener(this);
 
         mSearchQueryBuilder = new SpannableStringBuilder();
@@ -497,7 +497,7 @@ public class AllAppsContainerView extends SpringRelativeLayout implements DragSo
         boolean verticalFadingEdge;
 
         AdapterHolder(boolean isWork) {
-            appsList = new AlphabeticalAppsList(mLauncher, mAllAppsStore, isWork);
+            appsList = new AlphabeticalAppsList(mLauncher.getActivity(), mAllAppsStore, isWork);
             adapter = new AllAppsGridAdapter(mLauncher, appsList);
             appsList.setAdapter(adapter);
             layoutManager = adapter.getLayoutManager();

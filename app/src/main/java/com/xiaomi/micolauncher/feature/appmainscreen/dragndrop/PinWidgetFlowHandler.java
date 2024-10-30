@@ -27,6 +27,7 @@ import android.os.Parcelable;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.widget.WidgetAddFlowHandler;
 
 /**
@@ -57,8 +58,8 @@ public class PinWidgetFlowHandler extends WidgetAddFlowHandler implements Parcel
     }
 
     @Override
-    public boolean startConfigActivity(Launcher launcher, int appWidgetId, ItemInfo info,
-            int requestCode) {
+    public boolean startConfigActivity(MainAppListFragment launcher, int appWidgetId, ItemInfo info,
+                                       int requestCode) {
         Bundle extras = new Bundle();
         extras.putInt(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         mRequest.accept(extras);

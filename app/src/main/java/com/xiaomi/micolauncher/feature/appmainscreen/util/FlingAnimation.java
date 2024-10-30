@@ -13,6 +13,7 @@ import android.view.animation.DecelerateInterpolator;
 import com.xiaomi.micolauncher.feature.appmainscreen.ButtonDropTarget;
 import com.xiaomi.micolauncher.feature.appmainscreen.DropTarget.DragObject;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragLayer;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragView;
 
@@ -25,7 +26,7 @@ public class FlingAnimation implements AnimatorUpdateListener, Runnable {
     private static final int DRAG_END_DELAY = 300;
 
     private final ButtonDropTarget mDropTarget;
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
 
     protected final DragObject mDragObject;
     protected final DragLayer mDragLayer;
@@ -39,7 +40,7 @@ public class FlingAnimation implements AnimatorUpdateListener, Runnable {
 
     protected float mAX, mAY;
 
-    public FlingAnimation(DragObject d, PointF vel, ButtonDropTarget dropTarget, Launcher launcher) {
+    public FlingAnimation(DragObject d, PointF vel, ButtonDropTarget dropTarget, MainAppListFragment launcher) {
         mDropTarget = dropTarget;
         mLauncher = launcher;
         mDragObject = d;

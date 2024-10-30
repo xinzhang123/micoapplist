@@ -57,6 +57,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppState;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherModel;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherSettings;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.anim.Interpolators;
@@ -96,7 +97,7 @@ public class DragView extends View {
 
     private Point mDragVisualizeOffset = null;
     private Rect mDragRegion = null;
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
     private final DragLayer mDragLayer;
     @Thunk final DragController mDragController;
     private boolean mHasDrawn = false;
@@ -133,9 +134,9 @@ public class DragView extends View {
      * @param registrationX The x coordinate of the registration point.
      * @param registrationY The y coordinate of the registration point.
      */
-    public DragView(Launcher launcher, Bitmap bitmap, int registrationX, int registrationY,
+    public DragView(MainAppListFragment launcher, Bitmap bitmap, int registrationX, int registrationY,
                     final float initialScale, final float scaleOnDrop, final float finalScaleDps) {
-        super(launcher);
+        super(launcher.getActivity());
         mLauncher = launcher;
         mDragLayer = launcher.getDragLayer();
         mDragController = launcher.getDragController();
@@ -215,7 +216,7 @@ public class DragView extends View {
         new Handler(workerLooper).postAtFrontOfQueue(new Runnable() {
             @Override
             public void run() {
-                LauncherAppState appState = LauncherAppState.getInstance(mLauncher);
+                LauncherAppState appState = LauncherAppState.getInstance(mLauncher.getActivity());
                 Object[] outObj = new Object[1];
                 final Drawable dr = getFullDrawable(info, appState, outObj);
 
@@ -233,7 +234,7 @@ public class DragView extends View {
                     mBadge = getBadge(info, appState, outObj[0]);
                     mBadge.setBounds(badgeBounds);
 
-                    LauncherIcons li = LauncherIcons.obtain(mLauncher);
+                    LauncherIcons li = LauncherIcons.obtain(mLauncher.getActivity());
                     Utilities.scaleRectAboutCenter(bounds,
                             li.getNormalizer().getScale(dr, null, null, null));
                     li.recycle();
@@ -326,7 +327,7 @@ public class DragView extends View {
      */
     private Drawable getFullDrawable(ItemInfo info, LauncherAppState appState, Object[] outObj) {
         if (info.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPLICATION) {
-            LauncherActivityInfo activityInfo = LauncherAppsCompat.getInstance(mLauncher)
+            LauncherActivityInfo activityInfo = LauncherAppsCompat.getInstance(mLauncher.getActivity())
                     .resolveActivity(info.getIntent(), info.user);
             outObj[0] = activityInfo;
             return (activityInfo != null) ? appState.getIconCache()
@@ -339,7 +340,7 @@ public class DragView extends View {
                 return activityInfo.getFullResIcon(appState.getIconCache());
             }
             ShortcutKey key = ShortcutKey.fromItemInfo(info);
-            DeepShortcutManager sm = DeepShortcutManager.getInstance(mLauncher);
+            DeepShortcutManager sm = DeepShortcutManager.getInstance(mLauncher.getActivity());
             List<ShortcutInfoCompat> si = sm.queryForFullDetails(
                     key.componentName.getPackageName(), Arrays.asList(key.getId()), key.user);
             if (si.isEmpty()) {
@@ -391,7 +392,7 @@ public class DragView extends View {
         } else if (info.itemType == LauncherSettings.Favorites.ITEM_TYPE_FOLDER) {
             return ((FolderAdaptiveIcon) obj).getBadge();
         } else {
-            return mLauncher.getPackageManager()
+            return mLauncher.getActivity().getPackageManager()
                     .getUserBadgedIcon(new FixedSizeEmptyDrawable(iconSize), info.user);
         }
     }

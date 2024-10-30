@@ -26,6 +26,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.AbstractFloatingView;
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherSettings;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.notification.NotificationMainView;
@@ -41,7 +42,7 @@ public class ShortcutMenuAccessibilityDelegate extends LauncherAccessibilityDele
 
     private static final int DISMISS_NOTIFICATION = R.id.action_dismiss_notification;
 
-    public ShortcutMenuAccessibilityDelegate(Launcher launcher) {
+    public ShortcutMenuAccessibilityDelegate(MainAppListFragment launcher) {
         super(launcher);
         mActions.put(DISMISS_NOTIFICATION, new AccessibilityAction(DISMISS_NOTIFICATION,
                 launcher.getText(R.string.action_dismiss_notification)));

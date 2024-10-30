@@ -37,6 +37,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.CellLayout;
 import com.xiaomi.micolauncher.feature.appmainscreen.DeviceProfile;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 
 /**
  * This object represents a FolderIcon preview background. It stores drawing / measurement
@@ -126,7 +127,7 @@ public class PreviewBackground {
                 }
             };
 
-    public void setup(Launcher launcher, View invalidateDelegate,
+    public void setup(MainAppListFragment launcher, View invalidateDelegate,
                       int availableSpaceX, int topPadding) {
         mInvalidateDelegate = invalidateDelegate;
         //oh21 修改previewBackground背景颜色

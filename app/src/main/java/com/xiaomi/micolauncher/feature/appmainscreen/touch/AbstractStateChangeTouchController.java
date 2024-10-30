@@ -38,6 +38,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.LauncherState;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherStateManager.AnimationComponents;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherStateManager.AnimationConfig;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherStateManager.StateHandler;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.anim.AnimationSuccessListener;
 import com.xiaomi.micolauncher.feature.appmainscreen.anim.AnimatorPlaybackController;
@@ -63,7 +64,7 @@ public abstract class AbstractStateChangeTouchController
     public static final float ATOMIC_OVERVIEW_ANIM_THRESHOLD = 0.5f;
     protected static final long ATOMIC_DURATION = 200;
 
-    protected final Launcher mLauncher;
+    protected final MainAppListFragment mLauncher;
     protected final SwipeDetector mDetector;
 
     private boolean mNoIntercept;
@@ -92,9 +93,9 @@ public abstract class AbstractStateChangeTouchController
     private AnimatorPlaybackController mAtomicComponentsController;
     private float mAtomicComponentsStartProgress;
 
-    public AbstractStateChangeTouchController(Launcher l, SwipeDetector.Direction dir) {
+    public AbstractStateChangeTouchController(MainAppListFragment l, SwipeDetector.Direction dir) {
         mLauncher = l;
-        mDetector = new SwipeDetector(l, this, dir);
+        mDetector = new SwipeDetector(l.getActivity(), this, dir);
     }
 
     protected abstract boolean canInterceptTouch(MotionEvent ev);

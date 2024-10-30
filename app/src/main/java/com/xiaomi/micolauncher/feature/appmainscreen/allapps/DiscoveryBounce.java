@@ -28,6 +28,7 @@ import android.view.MotionEvent;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.AbstractFloatingView;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.compat.UserManagerCompat;
 import com.xiaomi.micolauncher.feature.appmainscreen.states.InternalStateHandler;
@@ -42,16 +43,16 @@ public class DiscoveryBounce extends AbstractFloatingView {
     public static final String HOME_BOUNCE_SEEN = "launcher.apps_view_shown";
     public static final String SHELF_BOUNCE_SEEN = "launcher.shelf_bounce_seen";
 
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
     private final Animator mDiscoBounceAnimation;
 
-    public DiscoveryBounce(Launcher launcher, float delta) {
-        super(launcher, null);
+    public DiscoveryBounce(MainAppListFragment launcher, float delta) {
+        super(launcher.getActivity(), null);
         mLauncher = launcher;
         AllAppsTransitionController controller = mLauncher.getAllAppsController();
 
         mDiscoBounceAnimation =
-                AnimatorInflater.loadAnimator(launcher, R.animator.discovery_bounce);
+                AnimatorInflater.loadAnimator(launcher.getActivity(), R.animator.discovery_bounce);
         mDiscoBounceAnimation.setTarget(new VerticalProgressWrapper(controller, delta));
         mDiscoBounceAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -116,15 +117,15 @@ public class DiscoveryBounce extends AbstractFloatingView {
         mLauncher.getDragLayer().addView(this);
     }
 
-    public static void showForHomeIfNeeded(Launcher launcher) {
+    public static void showForHomeIfNeeded(MainAppListFragment launcher) {
         showForHomeIfNeeded(launcher, true);
     }
 
-    private static void showForHomeIfNeeded(Launcher launcher, boolean withDelay) {
+    private static void showForHomeIfNeeded(MainAppListFragment launcher, boolean withDelay) {
         if (!launcher.isInState(NORMAL)
                 || launcher.getSharedPrefs().getBoolean(HOME_BOUNCE_SEEN, false)
                 || AbstractFloatingView.getTopOpenView(launcher) != null
-                || UserManagerCompat.getInstance(launcher).isDemoUser()
+                || UserManagerCompat.getInstance(launcher.getActivity()).isDemoUser()
                 || ActivityManager.isRunningInTestHarness()) {
             return;
         }
@@ -137,17 +138,17 @@ public class DiscoveryBounce extends AbstractFloatingView {
         new DiscoveryBounce(launcher, 0).show(0);
     }
 
-    public static void showForOverviewIfNeeded(Launcher launcher) {
+    public static void showForOverviewIfNeeded(MainAppListFragment launcher) {
         showForOverviewIfNeeded(launcher, true);
     }
 
-    private static void showForOverviewIfNeeded(Launcher launcher, boolean withDelay) {
+    private static void showForOverviewIfNeeded(MainAppListFragment launcher, boolean withDelay) {
         if (!launcher.isInState(OVERVIEW)
                 || !launcher.hasBeenResumed()
                 || launcher.isForceInvisible()
                 || launcher.getDeviceProfile().isVerticalBarLayout()
                 || launcher.getSharedPrefs().getBoolean(SHELF_BOUNCE_SEEN, false)
-                || UserManagerCompat.getInstance(launcher).isDemoUser()
+                || UserManagerCompat.getInstance(launcher.getActivity()).isDemoUser()
                 || ActivityManager.isRunningInTestHarness()) {
             return;
         }

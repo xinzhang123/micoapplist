@@ -20,9 +20,9 @@ import static com.xiaomi.micolauncher.feature.appmainscreen.ItemInfoWithIcon.FLA
 import static com.xiaomi.micolauncher.feature.appmainscreen.ItemInfoWithIcon.FLAG_DISABLED_QUIET_USER;
 import static com.xiaomi.micolauncher.feature.appmainscreen.ItemInfoWithIcon.FLAG_DISABLED_SAFEMODE;
 import static com.xiaomi.micolauncher.feature.appmainscreen.ItemInfoWithIcon.FLAG_DISABLED_SUSPENDED;
-import static com.xiaomi.micolauncher.feature.appmainscreen.Launcher.REQUEST_BIND_PENDING_APPWIDGET;
-import static com.xiaomi.micolauncher.feature.appmainscreen.Launcher.REQUEST_RECONFIGURE_APPWIDGET;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.OPEN_FOLDER;
+import static com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment.REQUEST_BIND_PENDING_APPWIDGET;
+import static com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment.REQUEST_RECONFIGURE_APPWIDGET;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -39,6 +39,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppWidgetInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppWidgetProviderInfo;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.PromiseAppInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutInfo;
@@ -66,7 +67,7 @@ public class ItemClickHandler {
             return;
         }
 
-        Launcher launcher = Launcher.getLauncher(v.getContext());
+        MainAppListFragment launcher = MainAppListFragment.getLauncher(v.getContext());
         if (!launcher.getWorkspace().isFinishedSwitchingState()) {
             return;
         }
@@ -104,16 +105,16 @@ public class ItemClickHandler {
     /**
      * Event handler for the app widget view which has not fully restored.
      */
-    private static void onClickPendingWidget(PendingAppWidgetHostView v, Launcher launcher) {
-        if (launcher.getPackageManager().isSafeMode()) {
-            Toast.makeText(launcher, R.string.safemode_widget_error, Toast.LENGTH_SHORT).show();
+    private static void onClickPendingWidget(PendingAppWidgetHostView v, MainAppListFragment launcher) {
+        if (launcher.getActivity().getPackageManager().isSafeMode()) {
+            Toast.makeText(launcher.getActivity(), R.string.safemode_widget_error, Toast.LENGTH_SHORT).show();
             return;
         }
 
         final LauncherAppWidgetInfo info = (LauncherAppWidgetInfo) v.getTag();
         if (v.isReadyForClickSetup()) {
             LauncherAppWidgetProviderInfo appWidgetInfo = AppWidgetManagerCompat
-                    .getInstance(launcher).findProvider(info.providerName, info.user);
+                    .getInstance(launcher.getActivity()).findProvider(info.providerName, info.user);
             if (appWidgetInfo == null) {
                 return;
             }
@@ -135,14 +136,14 @@ public class ItemClickHandler {
         }
     }
 
-    private static void onClickPendingAppItem(View v, Launcher launcher, String packageName,
+    private static void onClickPendingAppItem(View v, MainAppListFragment launcher, String packageName,
             boolean downloadStarted) {
         if (downloadStarted) {
             // If the download has started, simply direct to the market app.
             startMarketIntentForPackage(v, launcher, packageName);
             return;
         }
-        new AlertDialog.Builder(launcher)
+        new AlertDialog.Builder(launcher.getActivity())
                 .setTitle(R.string.abandoned_promises_title)
                 .setMessage(R.string.abandoned_promise_explanation)
                 .setPositiveButton(R.string.abandoned_search,
@@ -153,9 +154,9 @@ public class ItemClickHandler {
                 .create().show();
     }
 
-    private static void startMarketIntentForPackage(View v, Launcher launcher, String packageName) {
+    private static void startMarketIntentForPackage(View v, MainAppListFragment launcher, String packageName) {
         ItemInfo item = (ItemInfo) v.getTag();
-        Intent intent = new PackageManagerHelper(launcher).getMarketIntent(packageName);
+        Intent intent = new PackageManagerHelper(launcher.getActivity()).getMarketIntent(packageName);
         launcher.startActivitySafely(v, intent, item);
     }
 
@@ -164,7 +165,7 @@ public class ItemClickHandler {
      *
      * @param v The view that was clicked. Must be a tagged with a {@link ShortcutInfo}.
      */
-    private static void onClickAppShortcut(View v, ShortcutInfo shortcut, Launcher launcher) {
+    private static void onClickAppShortcut(View v, ShortcutInfo shortcut, MainAppListFragment launcher) {
         if (shortcut.isDisabled()) {
             final int disabledFlags = shortcut.runtimeStatusFlags & ShortcutInfo.FLAG_DISABLED_MASK;
             if ((disabledFlags &
@@ -175,7 +176,7 @@ public class ItemClickHandler {
             } else {
                 if (!TextUtils.isEmpty(shortcut.disabledMessage)) {
                     // Use a message specific to this shortcut, if it has one.
-                    Toast.makeText(launcher, shortcut.disabledMessage, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(launcher.getActivity(), shortcut.disabledMessage, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 // Otherwise just use a generic error message.
@@ -186,7 +187,7 @@ public class ItemClickHandler {
                         (shortcut.runtimeStatusFlags & FLAG_DISABLED_LOCKED_USER) != 0) {
                     error = R.string.shortcut_not_available;
                 }
-                Toast.makeText(launcher, error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(launcher.getActivity(), error, Toast.LENGTH_SHORT).show();
                 return;
             }
         }
@@ -206,11 +207,11 @@ public class ItemClickHandler {
         startAppShortcutOrInfoActivity(v, shortcut, launcher);
     }
 
-    private static void startAppShortcutOrInfoActivity(View v, ItemInfo item, Launcher launcher) {
+    private static void startAppShortcutOrInfoActivity(View v, ItemInfo item, MainAppListFragment launcher) {
         Intent intent;
         if (item instanceof PromiseAppInfo) {
             PromiseAppInfo promiseAppInfo = (PromiseAppInfo) item;
-            intent = promiseAppInfo.getMarketIntent(launcher);
+            intent = promiseAppInfo.getMarketIntent(launcher.getActivity());
         } else {
             intent = item.getIntent();
         }

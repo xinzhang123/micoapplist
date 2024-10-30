@@ -35,6 +35,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.InvariantDeviceProfile;
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppState;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.PagedView;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutAndWidgetContainer;
@@ -254,7 +255,7 @@ public class FolderPagedView extends PagedView<PageIndicatorDots> {
     }
 
     private CellLayout createAndAddNewPage() {
-        DeviceProfile grid = Launcher.getLauncher(getContext()).getDeviceProfile();
+        DeviceProfile grid = MainAppListFragment.getLauncher(getContext()).getDeviceProfile();
         CellLayout page = (CellLayout) mInflater.inflate(R.layout.folder_page, this, false);
         page.setCellDimensions(grid.folderCellWidthPx, grid.folderCellHeightPx);//oh21 文件夹设置这个方法就会让celllayout的大小变成文件夹的大小
         page.getShortcutsAndWidgets().setMotionEventSplittingEnabled(false);
@@ -321,7 +322,7 @@ public class FolderPagedView extends PagedView<PageIndicatorDots> {
         int newX, newY, rank;
 
         FolderIconPreviewVerifier verifier = new FolderIconPreviewVerifier(
-                Launcher.getLauncher(getContext()).getDeviceProfile().inv);
+                MainAppListFragment.getLauncher(getContext()).getDeviceProfile().inv);
         rank = 0;
         for (int i = 0; i < itemCount; i++) {
             View v = list.size() > i ? list.get(i) : null;

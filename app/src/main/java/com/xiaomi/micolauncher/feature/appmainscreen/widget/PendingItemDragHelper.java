@@ -29,6 +29,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.DeviceProfile;
 import com.xiaomi.micolauncher.feature.appmainscreen.DragSource;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppState;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.PendingAddItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragOptions;
@@ -69,8 +70,8 @@ public class PendingItemDragHelper extends DragPreviewProvider {
      */
     public void startDrag(Rect previewBounds, int previewBitmapWidth, int previewViewWidth,
             Point screenPos, DragSource source, DragOptions options) {
-        final Launcher launcher = Launcher.getLauncher(mView.getContext());
-        LauncherAppState app = LauncherAppState.getInstance(launcher);
+        final MainAppListFragment launcher = MainAppListFragment.getLauncher(mView.getContext());
+        LauncherAppState app = LauncherAppState.getInstance(launcher.getActivity());
 
         Bitmap preview = null;
         final float scale;
@@ -113,7 +114,7 @@ public class PendingItemDragHelper extends DragPreviewProvider {
         } else {
             PendingAddShortcutInfo createShortcutInfo = (PendingAddShortcutInfo) mAddInfo;
             Drawable icon = createShortcutInfo.activityInfo.getFullResIcon(app.getIconCache());
-            LauncherIcons li = LauncherIcons.obtain(launcher);
+            LauncherIcons li = LauncherIcons.obtain(launcher.getActivity());
             preview = li.createScaledBitmapWithoutShadow(icon, 0);
             li.recycle();
             scale = ((float) launcher.getDeviceProfile().iconSizePx) / preview.getWidth();

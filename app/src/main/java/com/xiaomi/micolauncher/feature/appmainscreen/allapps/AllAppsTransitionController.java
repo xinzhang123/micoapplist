@@ -19,6 +19,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherState;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherStateManager.AnimationConfig;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherStateManager.StateHandler;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.anim.AnimationSuccessListener;
 import com.xiaomi.micolauncher.feature.appmainscreen.anim.AnimatorSetBuilder;
@@ -55,7 +56,7 @@ public class AllAppsTransitionController implements StateHandler, OnDeviceProfil
     private AllAppsContainerView mAppsView;
     private ScrimView mScrimView;
 
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
     private final boolean mIsDarkTheme;
     private boolean mIsVerticalLayout;
 
@@ -70,12 +71,12 @@ public class AllAppsTransitionController implements StateHandler, OnDeviceProfil
 
     private float mScrollRangeDelta = 0;
 
-    public AllAppsTransitionController(Launcher l) {
+    public AllAppsTransitionController(MainAppListFragment l) {
         mLauncher = l;
         mShiftRange = mLauncher.getDeviceProfile().heightPx;
         mProgress = 1f;
 
-        mIsDarkTheme = Themes.getAttrBoolean(mLauncher, R.attr.mico_isMainColorDark);
+        mIsDarkTheme = Themes.getAttrBoolean(mLauncher.getActivity(), R.attr.mico_isMainColorDark);
         mIsVerticalLayout = mLauncher.getDeviceProfile().isVerticalBarLayout();
         mLauncher.addOnDeviceProfileChangeListener(this);
     }

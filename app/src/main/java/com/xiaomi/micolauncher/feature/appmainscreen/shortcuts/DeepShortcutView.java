@@ -26,6 +26,7 @@ import android.widget.FrameLayout;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.BubbleTextView;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
@@ -133,7 +134,7 @@ public class DeepShortcutView extends FrameLayout {
         final ShortcutInfo badged = new ShortcutInfo(mInfo);
         // Queue an update task on the worker thread. This ensures that the badged
         // shortcut eventually gets its icon updated.
-        Launcher.getLauncher(getContext()).getModel()
+        MainAppListFragment.getLauncher(getContext()).getModel()
                 .updateAndBindShortcutInfo(badged, mDetail);
         return badged;
     }

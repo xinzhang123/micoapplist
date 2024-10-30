@@ -121,7 +121,7 @@ abstract class BaseWidgetSheet extends AbstractSlideInView
     }
 
     protected void setupNavBarColor() {
-        boolean isSheetDark = Themes.getAttrBoolean(mLauncher, R.attr.mico_isMainColorDark);
+        boolean isSheetDark = Themes.getAttrBoolean(mLauncher.getActivity(), R.attr.mico_isMainColorDark);
         mLauncher.getSystemUiController().updateUiState(
                 SystemUiController.UI_STATE_WIDGET_BOTTOM_SHEET,
                 isSheetDark ? SystemUiController.FLAG_DARK_NAV : SystemUiController.FLAG_LIGHT_NAV);

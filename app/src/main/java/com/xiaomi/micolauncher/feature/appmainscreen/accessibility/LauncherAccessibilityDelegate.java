@@ -27,6 +27,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppWidgetInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherSettings.Favorites;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.PendingAddItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutInfo;
@@ -70,11 +71,11 @@ public class LauncherAccessibilityDelegate extends AccessibilityDelegate impleme
     }
 
     protected final SparseArray<AccessibilityAction> mActions = new SparseArray<>();
-    @Thunk final Launcher mLauncher;
+    @Thunk final MainAppListFragment mLauncher;
 
     private DragInfo mDragInfo = null;
 
-    public LauncherAccessibilityDelegate(Launcher launcher) {
+    public LauncherAccessibilityDelegate(MainAppListFragment launcher) {
         mLauncher = launcher;
 
         mActions.put(REMOVE, new AccessibilityAction(REMOVE,
@@ -215,7 +216,7 @@ public class LauncherAccessibilityDelegate extends AccessibilityDelegate impleme
                 labels[i] = mLauncher.getText(actions.get(i));
             }
 
-            new AlertDialog.Builder(mLauncher)
+            new AlertDialog.Builder(mLauncher.getActivity())
                 .setTitle(R.string.action_resize)
                 .setItems(labels, new DialogInterface.OnClickListener() {
 
@@ -305,7 +306,7 @@ public class LauncherAccessibilityDelegate extends AccessibilityDelegate impleme
 
         layout.markCellsAsOccupiedForView(host);
         Rect sizeRange = new Rect();
-        AppWidgetResizeFrame.getWidgetSizeRanges(mLauncher, info.spanX, info.spanY, sizeRange);
+        AppWidgetResizeFrame.getWidgetSizeRanges(mLauncher.getActivity(), info.spanX, info.spanY, sizeRange);
         ((LauncherAppWidgetHostView) host).updateAppWidgetSize(null,
                 sizeRange.left, sizeRange.top, sizeRange.right, sizeRange.bottom);
         host.requestLayout();

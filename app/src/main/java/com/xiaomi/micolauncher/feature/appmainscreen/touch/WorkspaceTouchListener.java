@@ -33,6 +33,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.AbstractFloatingView;
 import com.xiaomi.micolauncher.feature.appmainscreen.CellLayout;
 import com.xiaomi.micolauncher.feature.appmainscreen.DeviceProfile;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.Workspace;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragLayer;
 import com.xiaomi.micolauncher.feature.appmainscreen.views.OptionsPopupView;
@@ -54,13 +55,13 @@ public class WorkspaceTouchListener implements OnTouchListener, Runnable {
     private static final int STATE_COMPLETED = 3;
 
     private final Rect mTempRect = new Rect();
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
     private final Workspace mWorkspace;
     private final PointF mTouchDownPoint = new PointF();
 
     private int mLongPressState = STATE_CANCELLED;
 
-    public WorkspaceTouchListener(Launcher launcher, Workspace workspace) {
+    public WorkspaceTouchListener(MainAppListFragment launcher, Workspace workspace) {
         mLauncher = launcher;
         mWorkspace = workspace;
     }

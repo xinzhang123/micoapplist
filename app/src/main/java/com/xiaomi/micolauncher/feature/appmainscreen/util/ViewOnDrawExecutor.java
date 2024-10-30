@@ -23,6 +23,7 @@ import android.view.ViewTreeObserver.OnDrawListener;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherModel;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
@@ -35,18 +36,18 @@ public class ViewOnDrawExecutor implements Executor, OnDrawListener, Runnable,
 
     private final ArrayList<Runnable> mTasks = new ArrayList<>();
 
-    private Launcher mLauncher;
+    private MainAppListFragment mLauncher;
     private View mAttachedView;
     private boolean mCompleted;
 
     private boolean mLoadAnimationCompleted;
     private boolean mFirstDrawCompleted;
 
-    public void attachTo(Launcher launcher) {
+    public void attachTo(MainAppListFragment launcher) {
         attachTo(launcher, launcher.getWorkspace(), true /* waitForLoadAnimation */);
     }
 
-    public void attachTo(Launcher launcher, View attachedView, boolean waitForLoadAnimation) {
+    public void attachTo(MainAppListFragment launcher, View attachedView, boolean waitForLoadAnimation) {
         mLauncher = launcher;
         mAttachedView = attachedView;
         mAttachedView.addOnAttachStateChangeListener(this);

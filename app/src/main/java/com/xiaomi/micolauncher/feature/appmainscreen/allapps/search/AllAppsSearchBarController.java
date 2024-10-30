@@ -25,6 +25,7 @@ import android.widget.TextView.OnEditorActionListener;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.ExtendedEditText;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.ComponentKey;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.PackageManagerHelper;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 public class AllAppsSearchBarController
         implements TextWatcher, OnEditorActionListener, ExtendedEditText.OnBackKeyListener {
 
-    protected Launcher mLauncher;
+    protected MainAppListFragment mLauncher;
     protected Callbacks mCb;
     protected ExtendedEditText mInput;
     protected String mQuery;
@@ -52,7 +53,7 @@ public class AllAppsSearchBarController
      */
     public final void initialize(
             SearchAlgorithm searchAlgorithm, ExtendedEditText input,
-            Launcher launcher, Callbacks cb) {
+            MainAppListFragment launcher, Callbacks cb) {
         mCb = cb;
         mLauncher = launcher;
 
@@ -107,7 +108,7 @@ public class AllAppsSearchBarController
             return false;
         }
         return mLauncher.startActivitySafely(v,
-                PackageManagerHelper.getMarketSearchIntent(mLauncher, query), null);
+                PackageManagerHelper.getMarketSearchIntent(mLauncher.getActivity(), query), null);
     }
 
     @Override

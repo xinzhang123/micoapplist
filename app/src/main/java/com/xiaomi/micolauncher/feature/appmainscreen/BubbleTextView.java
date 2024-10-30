@@ -43,7 +43,6 @@ import androidx.core.graphics.ColorUtils;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.IconCache.IconLoadRequest;
 import com.xiaomi.micolauncher.feature.appmainscreen.IconCache.ItemInfoUpdateReceiver;
-import com.xiaomi.micolauncher.feature.appmainscreen.Launcher.OnResumeCallback;
 import com.xiaomi.micolauncher.feature.appmainscreen.badge.BadgeInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.badge.BadgeRenderer;
 import com.xiaomi.micolauncher.feature.appmainscreen.folder.FolderIcon;
@@ -59,7 +58,7 @@ import java.text.NumberFormat;
  * because we want to make the bubble taller than the text and TextView's clip is
  * too aggressive.
  */
-public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver, OnResumeCallback {
+public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver, MainAppListFragment.OnResumeCallback {
 
     private static final String TAG = "BubbleTextView";
     private static final int DISPLAY_WORKSPACE = 0;
@@ -96,7 +95,7 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver, 
         }
     };
 
-    private final BaseDraggingActivity mActivity;
+    private final BaseDraggingFragment2 mActivity;
     private Drawable mIcon;
     private final boolean mCenterVertically;
 
@@ -141,7 +140,7 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver, 
 
     public BubbleTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mActivity = BaseDraggingActivity.fromContext(context);
+        mActivity = BaseDraggingFragment2.fromContext(context);
         DeviceProfile grid = mActivity.getDeviceProfile();
         mSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
 

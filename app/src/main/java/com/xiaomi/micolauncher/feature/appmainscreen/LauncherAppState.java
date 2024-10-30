@@ -87,7 +87,7 @@ public class LauncherAppState {
             throw new RuntimeException(
                     "Initializing LauncherAppState in the absence of LauncherProvider");
         }
-        Log.v(Launcher.TAG, "LauncherAppState initiated");
+        Log.v(MainAppListFragment.TAG, "LauncherAppState initiated");
         Preconditions.assertUIThread();
         mContext = context;
 
@@ -149,7 +149,7 @@ public class LauncherAppState {
         }
     }
 
-    LauncherModel setLauncher(Launcher launcher) {
+    LauncherModel setLauncher(MainAppListFragment launcher) {
         getLocalProvider(mContext).setLauncherProviderChangeListener(launcher);
         mModel.initialize(launcher);
         return mModel;

@@ -11,8 +11,10 @@ import android.view.View;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.AbstractFloatingView;
 import com.xiaomi.micolauncher.feature.appmainscreen.BaseDraggingActivity;
+import com.xiaomi.micolauncher.feature.appmainscreen.BaseDraggingFragment2;
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
@@ -30,7 +32,7 @@ import java.util.List;
  *
  * Example system shortcuts, defined as inner classes, include Widgets and AppInfo.
  */
-public abstract class SystemShortcut<T extends BaseDraggingActivity> extends ItemInfo {
+public abstract class SystemShortcut<T extends BaseDraggingFragment2> extends ItemInfo {
     public final int iconResId;
     public final int labelResId;
 
@@ -41,14 +43,14 @@ public abstract class SystemShortcut<T extends BaseDraggingActivity> extends Ite
 
     public abstract View.OnClickListener getOnClickListener(T activity, ItemInfo itemInfo);
 
-    public static class Widgets extends SystemShortcut<Launcher> {
+    public static class Widgets extends SystemShortcut<MainAppListFragment> {
 
         public Widgets() {
             super(R.drawable.ic_widget, R.string.widget_button_text);
         }
 
         @Override
-        public View.OnClickListener getOnClickListener(final Launcher launcher,
+        public View.OnClickListener getOnClickListener(final MainAppListFragment launcher,
                 final ItemInfo itemInfo) {
             final List<WidgetItem> widgets =
                     launcher.getPopupDataProvider().getWidgetsForPackageUser(new PackageUserKey(
@@ -73,11 +75,11 @@ public abstract class SystemShortcut<T extends BaseDraggingActivity> extends Ite
 
         @Override
         public View.OnClickListener getOnClickListener(
-                BaseDraggingActivity activity, ItemInfo itemInfo) {
+                BaseDraggingFragment2 activity, ItemInfo itemInfo) {
             return (view) -> {
                 Rect sourceBounds = activity.getViewBounds(view);
                 Bundle opts = activity.getActivityLaunchOptionsAsBundle(view);
-                new PackageManagerHelper(activity).startDetailsActivityForInfo(
+                new PackageManagerHelper(activity.getActivity()).startDetailsActivityForInfo(
                         itemInfo, sourceBounds, opts);
             };
         }
@@ -90,13 +92,13 @@ public abstract class SystemShortcut<T extends BaseDraggingActivity> extends Ite
 
         @Override
         public View.OnClickListener getOnClickListener(
-                BaseDraggingActivity activity, ItemInfo itemInfo) {
+                BaseDraggingFragment2 activity, ItemInfo itemInfo) {
             boolean supportsWebUI = (itemInfo instanceof ShortcutInfo) &&
                     ((ShortcutInfo) itemInfo).hasStatusFlag(ShortcutInfo.FLAG_SUPPORTS_WEB_UI);
             boolean isInstantApp = false;
             if (itemInfo instanceof com.xiaomi.micolauncher.feature.appmainscreen.AppInfo) {
                 com.xiaomi.micolauncher.feature.appmainscreen.AppInfo appInfo = (com.xiaomi.micolauncher.feature.appmainscreen.AppInfo) itemInfo;
-                isInstantApp = InstantAppResolver.newInstance(activity).isInstantApp(appInfo);
+                isInstantApp = InstantAppResolver.newInstance(activity.getActivity()).isInstantApp(appInfo);
             }
             boolean enabled = supportsWebUI || isInstantApp;
             if (!enabled) {
@@ -106,7 +108,7 @@ public abstract class SystemShortcut<T extends BaseDraggingActivity> extends Ite
         }
 
         public View.OnClickListener createOnClickListener(
-                BaseDraggingActivity activity, ItemInfo itemInfo) {
+                BaseDraggingFragment2 activity, ItemInfo itemInfo) {
             return view -> {
                 Intent intent = new PackageManagerHelper(view.getContext()).getMarketIntent(
                         itemInfo.getTargetComponent().getPackageName());
@@ -123,18 +125,18 @@ public abstract class SystemShortcut<T extends BaseDraggingActivity> extends Ite
 
         @Override
         public View.OnClickListener getOnClickListener(
-                BaseDraggingActivity activity, ItemInfo itemInfo) {
+                BaseDraggingFragment2 activity, ItemInfo itemInfo) {
             ComponentName targetComponent = itemInfo.getTargetComponent();
             if( null == itemInfo || null == targetComponent || TextUtils.isEmpty(targetComponent.getPackageName()))
                 return  null;
             String packageName = targetComponent.getPackageName();
-            if(!Utilities.isAppInstalled(activity, packageName) || Utilities.isSystemApp(activity,itemInfo.getIntent()))
+            if(!Utilities.isAppInstalled(activity.getActivity(), packageName) || Utilities.isSystemApp(activity.getActivity(),itemInfo.getIntent()))
                 return null;
             return createOnClickListener(activity, itemInfo);
         }
 
         public View.OnClickListener createOnClickListener(
-                BaseDraggingActivity activity, ItemInfo itemInfo) {
+                BaseDraggingFragment2 activity, ItemInfo itemInfo) {
             return view -> {
                 ComponentName cn = itemInfo.getTargetComponent();
                 Intent intent = null;

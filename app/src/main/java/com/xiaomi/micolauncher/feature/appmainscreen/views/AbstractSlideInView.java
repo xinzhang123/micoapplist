@@ -31,6 +31,7 @@ import android.view.animation.Interpolator;
 import com.xiaomi.micolauncher.feature.appmainscreen.AbstractFloatingView;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.anim.Interpolators;
 import com.xiaomi.micolauncher.feature.appmainscreen.touch.SwipeDetector;
@@ -57,7 +58,7 @@ public abstract class AbstractSlideInView extends AbstractFloatingView
     protected static final float TRANSLATION_SHIFT_CLOSED = 1f;
     protected static final float TRANSLATION_SHIFT_OPENED = 0f;
 
-    protected final Launcher mLauncher;
+    protected final MainAppListFragment mLauncher;
     protected final SwipeDetector mSwipeDetector;
     protected final ObjectAnimator mOpenCloseAnimator;
 
@@ -71,7 +72,7 @@ public abstract class AbstractSlideInView extends AbstractFloatingView
 
     public AbstractSlideInView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
 
         mScrollInterpolator = Interpolators.SCROLL_CUBIC;
         mSwipeDetector = new SwipeDetector(context, this, SwipeDetector.VERTICAL);

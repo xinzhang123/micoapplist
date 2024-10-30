@@ -240,8 +240,8 @@ public class AddItemActivity extends BaseActivity implements OnLongClickListener
         }
 
         // request bind widget
-        mAppWidgetHost.startBindFlow(this, mPendingBindWidgetId,
-                mRequest.getAppWidgetProviderInfo(this), REQUEST_BIND_APPWIDGET);
+//        mAppWidgetHost.startBindFlow(this, mPendingBindWidgetId,
+//                mRequest.getAppWidgetProviderInfo(this), REQUEST_BIND_APPWIDGET);
     }
 
     private void acceptWidget(int widgetId) {

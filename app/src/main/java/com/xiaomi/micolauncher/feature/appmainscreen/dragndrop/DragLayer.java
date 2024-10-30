@@ -41,6 +41,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.AbstractFloatingView;
 import com.xiaomi.micolauncher.feature.appmainscreen.CellLayout;
 import com.xiaomi.micolauncher.feature.appmainscreen.DropTargetBar;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutAndWidgetContainer;
 import com.xiaomi.micolauncher.feature.appmainscreen.Workspace;
@@ -59,7 +60,7 @@ import java.util.ArrayList;
 /**
  * A ViewGroup that coordinates dragging across its descendants
  */
-public class DragLayer extends BaseDragLayer<Launcher> {
+public class DragLayer extends BaseDragLayer<MainAppListFragment> {
 
     public static final int ALPHA_INDEX_OVERLAY = 0;
     public static final int ALPHA_INDEX_LAUNCHER_LOAD = 1;

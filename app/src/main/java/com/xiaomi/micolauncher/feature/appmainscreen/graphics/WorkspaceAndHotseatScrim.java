@@ -42,6 +42,7 @@ import androidx.core.graphics.ColorUtils;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.CellLayout;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.Workspace;
@@ -115,7 +116,7 @@ public class WorkspaceAndHotseatScrim implements
     private static final int ALPHA_MASK_WIDTH_DP = 2;
 
     private final Rect mHighlightRect = new Rect();
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
     private final WallpaperColorInfo mWallpaperColorInfo;
     private final View mRoot;
 
@@ -144,8 +145,8 @@ public class WorkspaceAndHotseatScrim implements
 
     public WorkspaceAndHotseatScrim(View view) {
         mRoot = view;
-        mLauncher = Launcher.getLauncher(view.getContext());
-        mWallpaperColorInfo = WallpaperColorInfo.getInstance(mLauncher);
+        mLauncher = MainAppListFragment.getLauncher(view.getContext());
+        mWallpaperColorInfo = WallpaperColorInfo.getInstance(mLauncher.getActivity());
 
         mMaskHeight = Utilities.pxFromDp(ALPHA_MASK_BITMAP_DP,
                 view.getResources().getDisplayMetrics());
@@ -198,7 +199,7 @@ public class WorkspaceAndHotseatScrim implements
                 ObjectAnimator anim = ObjectAnimator.ofFloat(this, SYSUI_ANIM_MULTIPLIER, 1);
                 anim.setAutoCancel(true);
                 anim.setDuration(600);
-                anim.setStartDelay(mLauncher.getWindow().getTransitionBackgroundFadeDuration());
+                anim.setStartDelay(mLauncher.getActivity().getWindow().getTransitionBackgroundFadeDuration());
                 anim.start();
                 mAnimateScrimOnNextDraw = false;
             }

@@ -35,6 +35,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.AbstractFloatingView;
 import com.xiaomi.micolauncher.feature.appmainscreen.DragSource;
 import com.xiaomi.micolauncher.feature.appmainscreen.DropTarget.DragObject;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.states.InternalStateHandler;
 import com.xiaomi.micolauncher.feature.appmainscreen.widget.PendingItemDragHelper;
@@ -61,7 +62,7 @@ public abstract class BaseItemDragListener extends InternalStateHandler implemen
     // Randomly generated id used to verify the drag event.
     private final String mId;
 
-    protected Launcher mLauncher;
+    protected MainAppListFragment mLauncher;
     private DragController mDragController;
     private long mDragStartTime;
 
@@ -77,7 +78,7 @@ public abstract class BaseItemDragListener extends InternalStateHandler implemen
     }
 
     @Override
-    public boolean init(Launcher launcher, boolean alreadyOnHome) {
+    public boolean init(MainAppListFragment launcher, boolean alreadyOnHome) {
         AbstractFloatingView.closeAllOpenViews(launcher, alreadyOnHome);
         launcher.getStateManager().goToState(NORMAL, alreadyOnHome /* animated */);
         launcher.getDragLayer().setOnDragListener(this);
@@ -164,9 +165,9 @@ public abstract class BaseItemDragListener extends InternalStateHandler implemen
         clearReference();
         if (mLauncher != null) {
             // Remove any drag params from the launcher intent since the drag operation is complete.
-            Intent newIntent = new Intent(mLauncher.getIntent());
+            Intent newIntent = new Intent(mLauncher.getActivity().getIntent());
             newIntent.removeExtra(EXTRA_PIN_ITEM_DRAG_LISTENER);
-            mLauncher.setIntent(newIntent);
+            mLauncher.getActivity().setIntent(newIntent);
         }
 
         new Handler(Looper.getMainLooper()).post(this::removeListener);

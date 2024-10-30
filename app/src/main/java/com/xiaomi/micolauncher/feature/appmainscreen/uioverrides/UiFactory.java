@@ -20,46 +20,49 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.CancellationSignal;
 
+import androidx.fragment.app.Fragment;
+
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherStateManager.StateHandler;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.TouchController;
 
 import java.io.PrintWriter;
 
 public class UiFactory {
 
-    public static TouchController[] createTouchControllers(Launcher launcher) {
+    public static TouchController[] createTouchControllers(MainAppListFragment launcher) {
         return new TouchController[] {
                 launcher.getDragController(), new AllAppsSwipeController(launcher)};
     }
 
     public static void setOnTouchControllersChangedListener(Context context, Runnable listener) { }
 
-    public static StateHandler[] getStateHandler(Launcher launcher) {
+    public static StateHandler[] getStateHandler(MainAppListFragment launcher) {
         return new StateHandler[] {
                 launcher.getAllAppsController(), launcher.getWorkspace() };
     }
 
-    public static void resetOverview(Launcher launcher) { }
+    public static void resetOverview(MainAppListFragment launcher) { }
 
-    public static void onLauncherStateOrFocusChanged(Launcher launcher) { }
+    public static void onLauncherStateOrFocusChanged(MainAppListFragment launcher) { }
 
-    public static void onCreate(Launcher launcher) { }
+    public static void onCreate(MainAppListFragment launcher) { }
 
-    public static void onStart(Launcher launcher) { }
+    public static void onStart(MainAppListFragment launcher) { }
 
-    public static void onLauncherStateOrResumeChanged(Launcher launcher) { }
+    public static void onLauncherStateOrResumeChanged(MainAppListFragment launcher) { }
 
-    public static void onTrimMemory(Launcher launcher, int level) { }
+    public static void onTrimMemory(MainAppListFragment launcher, int level) { }
 
-    public static void useFadeOutAnimationForLauncherStart(Launcher launcher,
+    public static void useFadeOutAnimationForLauncherStart(MainAppListFragment launcher,
             CancellationSignal cancellationSignal) { }
 
-    public static boolean dumpActivity(Activity activity, PrintWriter writer) {
+    public static boolean dumpActivity(Fragment activity, PrintWriter writer) {
         return false;
     }
 
-    public static void prepareToShowOverview(Launcher launcher) { }
+    public static void prepareToShowOverview(MainAppListFragment launcher) { }
 
-    public static void setBackButtonAlpha(Launcher launcher, float alpha, boolean animate) { }
+    public static void setBackButtonAlpha(MainAppListFragment launcher, float alpha, boolean animate) { }
 }

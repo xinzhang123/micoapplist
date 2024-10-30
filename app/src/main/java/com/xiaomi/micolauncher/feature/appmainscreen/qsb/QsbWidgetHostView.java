@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.RemoteViews;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 
 /**
@@ -79,7 +80,7 @@ public class QsbWidgetHostView extends AppWidgetHostView {
         v.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Launcher.getLauncher(getContext()).startSearch("", false, null, true);
+//                MainAppListFragment.getLauncher(getContext()).startSearch("", false, null, true);
             }
         });
         return v;
@@ -91,7 +92,7 @@ public class QsbWidgetHostView extends AppWidgetHostView {
         v.findViewById(R.id.btn_qsb_search).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Launcher.getLauncher(view.getContext()).startSearch("", false, null, true);
+//                MainAppListFragment.getLauncher(view.getContext()).startSearch("", false, null, true);
             }
         });
         return v;

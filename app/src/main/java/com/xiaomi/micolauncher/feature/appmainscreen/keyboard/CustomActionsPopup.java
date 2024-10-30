@@ -26,6 +26,7 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.accessibility.LauncherAccessibilityDelegate;
 import com.xiaomi.micolauncher.feature.appmainscreen.popup.PopupContainerWithArrow;
 
@@ -39,11 +40,11 @@ import java.util.List;
  */
 public class CustomActionsPopup implements OnMenuItemClickListener {
 
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
     private final LauncherAccessibilityDelegate mDelegate;
     private final View mIcon;
 
-    public CustomActionsPopup(Launcher launcher, View icon) {
+    public CustomActionsPopup(MainAppListFragment launcher, View icon) {
         mLauncher = launcher;
         mIcon = icon;
         PopupContainerWithArrow container = PopupContainerWithArrow.getOpen(launcher);
@@ -76,7 +77,7 @@ public class CustomActionsPopup implements OnMenuItemClickListener {
             return false;
         }
 
-        PopupMenu popup = new PopupMenu(mLauncher, mIcon);
+        PopupMenu popup = new PopupMenu(mLauncher.getActivity(), mIcon);
         popup.setOnMenuItemClickListener(this);
         Menu menu = popup.getMenu();
         for (AccessibilityAction action : actions) {

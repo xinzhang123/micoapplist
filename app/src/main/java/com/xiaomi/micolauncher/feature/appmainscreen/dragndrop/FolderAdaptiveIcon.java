@@ -32,6 +32,7 @@ import android.os.Build;
 import android.util.Log;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.MainThreadExecutor;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.folder.FolderIcon;
@@ -65,7 +66,7 @@ public class FolderAdaptiveIcon extends AdaptiveIconDrawable {
     }
 
     public static FolderAdaptiveIcon createFolderAdaptiveIcon(
-            Launcher launcher, long folderId, Point dragViewSize) {
+            MainAppListFragment launcher, long folderId, Point dragViewSize) {
         Preconditions.assertNonUiThread();
         int margin = launcher.getResources()
                 .getDimensionPixelSize(R.dimen.blur_size_medium_outline);

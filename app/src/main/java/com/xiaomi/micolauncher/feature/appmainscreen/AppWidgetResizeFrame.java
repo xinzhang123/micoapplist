@@ -37,7 +37,7 @@ public class AppWidgetResizeFrame extends AbstractFloatingView implements View.O
     private static final int INDEX_RIGHT = 2;
     private static final int INDEX_BOTTOM = 3;
 
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
     private final DragViewStateAnnouncer mStateAnnouncer;
 
     private final View[] mDragHandles = new View[HANDLE_COUNT];
@@ -95,7 +95,7 @@ public class AppWidgetResizeFrame extends AbstractFloatingView implements View.O
     public AppWidgetResizeFrame(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
         mStateAnnouncer = DragViewStateAnnouncer.createFor(this);
 
         mBackgroundPadding = getResources()
@@ -114,7 +114,7 @@ public class AppWidgetResizeFrame extends AbstractFloatingView implements View.O
     }
 
     public static void showForWidget(LauncherAppWidgetHostView widget, CellLayout cellLayout) {
-        Launcher launcher = Launcher.getLauncher(cellLayout.getContext());
+        MainAppListFragment launcher = MainAppListFragment.getLauncher(cellLayout.getContext());
         AbstractFloatingView.closeAllOpenViews(launcher);
 
         DragLayer dl = launcher.getDragLayer();
@@ -318,9 +318,9 @@ public class AppWidgetResizeFrame extends AbstractFloatingView implements View.O
         mWidgetView.requestLayout();
     }
 
-    static void updateWidgetSizeRanges(AppWidgetHostView widgetView, Launcher launcher,
+    static void updateWidgetSizeRanges(AppWidgetHostView widgetView, MainAppListFragment launcher,
             int spanX, int spanY) {
-        getWidgetSizeRanges(launcher, spanX, spanY, sTmpRect);
+        getWidgetSizeRanges(launcher.getActivity(), spanX, spanY, sTmpRect);
         widgetView.updateAppWidgetSize(null, sTmpRect.left, sTmpRect.top,
                 sTmpRect.right, sTmpRect.bottom);
     }

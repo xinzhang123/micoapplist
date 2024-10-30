@@ -28,6 +28,7 @@ import android.view.accessibility.AccessibilityEvent;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.Insettable;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.anim.Interpolators;
 
@@ -116,12 +117,12 @@ public class BottomUserEducationView extends AbstractSlideInView implements Inse
         }
     }
 
-    public static void showIfNeeded(Launcher launcher) {
+    public static void showIfNeeded(MainAppListFragment launcher) {
         if (launcher.getSharedPrefs().getBoolean(KEY_SHOWED_BOTTOM_USER_EDUCATION, false)) {
             return;
         }
 
-        LayoutInflater layoutInflater = LayoutInflater.from(launcher);
+        LayoutInflater layoutInflater = LayoutInflater.from(launcher.getActivity());
         BottomUserEducationView bottomUserEducationView =
                 (BottomUserEducationView) layoutInflater.inflate(
                         R.layout.work_tab_bottom_user_education_view, launcher.getDragLayer(),

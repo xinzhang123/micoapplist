@@ -30,6 +30,7 @@ import android.view.View;
 import com.xiaomi.micolauncher.feature.appmainscreen.AbstractFloatingView;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppState;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.graphics.IconPalette;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.PackageUserKey;
 
@@ -96,7 +97,7 @@ public class NotificationInfo implements View.OnClickListener {
         if (intent == null) {
             return;
         }
-        final Launcher launcher = Launcher.getLauncher(view.getContext());
+        final MainAppListFragment launcher = MainAppListFragment.getLauncher(view.getContext());
         Bundle activityOptions = ActivityOptions.makeClipRevealAnimation(
                 view, 0, 0, view.getWidth(), view.getHeight()).toBundle();
         try {

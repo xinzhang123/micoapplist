@@ -37,7 +37,7 @@ public abstract class OverviewButtonClickListener implements View.OnClickListene
     }
 
     private boolean shouldPerformClick(View view) {
-        return !Launcher.getLauncher(view.getContext()).getWorkspace().isSwitchingState();
+        return !MainAppListFragment.getLauncher(view.getContext()).getWorkspace().isSwitchingState();
     }
 
     private void handleViewClick(View view, int action) {

@@ -55,7 +55,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
-import com.xiaomi.micolauncher.feature.appmainscreen.Launcher.LauncherOverlay;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppWidgetHost.ProviderChangedListener;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherStateManager.AnimationConfig;
 import com.xiaomi.micolauncher.feature.appmainscreen.accessibility.AccessibleDragListenerAdapter;
@@ -166,7 +165,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
      */
     private CellLayout mDropToLayout = null;
 
-    @Thunk final Launcher mLauncher;
+    @Thunk final MainAppListFragment mLauncher;
     @Thunk DragController mDragController;
 
     private final int[] mTempXY = new int[2];
@@ -228,7 +227,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
     private float mTransitionProgress;
 
     // State related to Launcher Overlay
-    LauncherOverlay mLauncherOverlay;
+    MainAppListFragment.LauncherOverlay mLauncherOverlay;
     boolean mScrollInteractionBegan;
     boolean mStartedSendingScrollEvents;
     float mLastOverlayScroll = 0;
@@ -263,7 +262,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
     public Workspace(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
         mStateTransitionAnimation = new WorkspaceStateTransitionAnimation(mLauncher, this);
         mWallpaperManager = WallpaperManager.getInstance(context);
 
@@ -678,7 +677,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
             mScreenOrder.add(EXTRA_EMPTY_SCREEN_ID);
 
             // Update the model if we have changed any screens
-            LauncherModel.updateWorkspaceScreenOrder(mLauncher, mScreenOrder);
+            LauncherModel.updateWorkspaceScreenOrder(mLauncher.getActivity(), mScreenOrder);
         }
     }
 
@@ -789,7 +788,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
         mScreenOrder.add(newId);
 
         // Update the model for the new screen
-        LauncherModel.updateWorkspaceScreenOrder(mLauncher, mScreenOrder);
+        LauncherModel.updateWorkspaceScreenOrder(mLauncher.getActivity(), mScreenOrder);
 
         return newId;
     }
@@ -878,7 +877,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
 
         if (!removeScreens.isEmpty()) {
             // Update the model if we have changed any screens
-            LauncherModel.updateWorkspaceScreenOrder(mLauncher, mScreenOrder);
+            LauncherModel.updateWorkspaceScreenOrder(mLauncher.getActivity(), mScreenOrder);
         }
 
         if (pageShift >= 0) {
@@ -1106,7 +1105,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
         }
     }
 
-    public void setLauncherOverlay(LauncherOverlay overlay) {
+    public void setLauncherOverlay(MainAppListFragment.LauncherOverlay overlay) {
         mLauncherOverlay = overlay;
         // A new overlay has been set. Reset event tracking
         mStartedSendingScrollEvents = false;
@@ -2100,7 +2099,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
 
     private void showOutOfSpaceMessage(boolean isHotseatLayout) {
         int strId = (isHotseatLayout ? R.string.hotseat_out_of_space : R.string.out_of_space);
-        Toast.makeText(mLauncher, mLauncher.getString(strId), Toast.LENGTH_SHORT).show();
+        Toast.makeText(mLauncher.getActivity(), mLauncher.getString(strId), Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -3367,9 +3366,9 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
             final AppWidgetProviderInfo widgetInfo;
             if (item.hasRestoreFlag(LauncherAppWidgetInfo.FLAG_ID_NOT_VALID)) {
                 widgetInfo = AppWidgetManagerCompat
-                        .getInstance(mLauncher).findProvider(item.providerName, item.user);
+                        .getInstance(mLauncher.getActivity()).findProvider(item.providerName, item.user);
             } else {
-                widgetInfo = AppWidgetManagerCompat.getInstance(mLauncher)
+                widgetInfo = AppWidgetManagerCompat.getInstance(mLauncher.getActivity())
                         .getLauncherAppWidgetInfo(item.appWidgetId);
             }
 

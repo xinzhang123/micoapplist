@@ -22,6 +22,7 @@ import static com.xiaomi.micolauncher.feature.appmainscreen.anim.Interpolators.D
 import com.xiaomi.micolauncher.feature.appmainscreen.AbstractFloatingView;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherState;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 
 /**
@@ -45,7 +46,7 @@ public class AllAppsState extends LauncherState {
     }
 
     @Override
-    public void onStateEnabled(Launcher launcher) {
+    public void onStateEnabled(MainAppListFragment launcher) {
         if (!launcher.getSharedPrefs().getBoolean(HOME_BOUNCE_SEEN, false)) {
             launcher.getSharedPrefs().edit().putBoolean(HOME_BOUNCE_SEEN, true).apply();
         }
@@ -55,28 +56,28 @@ public class AllAppsState extends LauncherState {
     }
 
     @Override
-    public String getDescription(Launcher launcher) {
+    public String getDescription(MainAppListFragment launcher) {
         return launcher.getString(R.string.all_apps_button_label);
     }
 
     @Override
-    public int getVisibleElements(Launcher launcher) {
+    public int getVisibleElements(MainAppListFragment launcher) {
         return ALL_APPS_HEADER | ALL_APPS_CONTENT;
     }
 
     @Override
-    public float[] getWorkspaceScaleAndTranslation(Launcher launcher) {
+    public float[] getWorkspaceScaleAndTranslation(MainAppListFragment launcher) {
         return new float[] { 1f, 0,
                 -launcher.getAllAppsController().getShiftRange() * PARALLAX_COEFFICIENT};
     }
 
     @Override
-    public PageAlphaProvider getWorkspacePageAlphaProvider(Launcher launcher) {
+    public PageAlphaProvider getWorkspacePageAlphaProvider(MainAppListFragment launcher) {
         return PAGE_ALPHA_PROVIDER;
     }
 
     @Override
-    public float getVerticalProgress(Launcher launcher) {
+    public float getVerticalProgress(MainAppListFragment launcher) {
         return 0f;
     }
 }

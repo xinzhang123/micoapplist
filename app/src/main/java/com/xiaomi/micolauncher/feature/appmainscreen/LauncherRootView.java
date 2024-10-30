@@ -11,12 +11,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewDebug;
 
 public class LauncherRootView extends InsettableFrameLayout {
+    private static final String TAG = "LauncherRootView";
 
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
 
     private final Paint mOpaquePaint;
 
@@ -33,7 +35,7 @@ public class LauncherRootView extends InsettableFrameLayout {
         mOpaquePaint.setColor(Color.BLACK);
         mOpaquePaint.setStyle(Paint.Style.FILL);
 
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
     }
 
     @Override
@@ -49,6 +51,7 @@ public class LauncherRootView extends InsettableFrameLayout {
     @TargetApi(23)
     @Override
     protected boolean fitSystemWindows(Rect insets) {
+        Log.d(TAG, "fitSystemWindows: ");
         mConsumedInsets.setEmpty();
         boolean drawInsetBar = false;
         if (mLauncher.isInMultiWindowModeCompat()
@@ -58,7 +61,7 @@ public class LauncherRootView extends InsettableFrameLayout {
             mConsumedInsets.bottom = insets.bottom;
             insets = new Rect(0, insets.top, 0, 0);
             drawInsetBar = true;
-        } else  if ((insets.right > 0 || insets.left > 0) &&
+        } else if ((insets.right > 0 || insets.left > 0) &&
                 (!Utilities.ATLEAST_MARSHMALLOW ||
                         getContext().getSystemService(ActivityManager.class).isLowRamDevice())) {
             mConsumedInsets.left = insets.left;

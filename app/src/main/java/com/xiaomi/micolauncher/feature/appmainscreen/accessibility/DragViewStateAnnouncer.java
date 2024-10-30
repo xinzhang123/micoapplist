@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 
 /**
  * Periodically sends accessibility events to announce ongoing state changed. Based on the
@@ -54,7 +55,7 @@ public class DragViewStateAnnouncer implements Runnable {
 
     public void completeAction(int announceResId) {
         cancel();
-        Launcher launcher = Launcher.getLauncher(mTargetView.getContext());
+        MainAppListFragment launcher = MainAppListFragment.getLauncher(mTargetView.getContext());
         launcher.getDragLayer().announceForAccessibility(launcher.getText(announceResId));
     }
 

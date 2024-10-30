@@ -38,13 +38,13 @@ import com.xiaomi.micolauncher.feature.appmainscreen.anim.PropertySetter;
  */
 public class WorkspaceStateTransitionAnimation {
 
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
     private final Workspace mWorkspace;
 
     private float mNewScale;
     private float mNewAlpha;
 
-    public WorkspaceStateTransitionAnimation(Launcher launcher, Workspace workspace) {
+    public WorkspaceStateTransitionAnimation(MainAppListFragment launcher, Workspace workspace) {
         mLauncher = launcher;
         mWorkspace = workspace;
     }

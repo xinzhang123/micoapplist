@@ -41,12 +41,15 @@
         android:sharedUserId="android.uid.system"
         android:theme="@style/LauncherTheme">
         <activity
-            android:name=".Launcher"
+            android:name=".Launcher2"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+<!--                <category android:name="android.intent.category.HOME" />-->
+                <category android:name="android.intent.category.DEFAULT" />
+<!--                <category android:name="android.intent.category.LAUNCHER_APP" />-->
             </intent-filter>
         </activity>
 

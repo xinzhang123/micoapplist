@@ -24,6 +24,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppWidgetInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppWidgetProviderInfo;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.PendingRequestArgs;
 
 /**
@@ -51,7 +52,7 @@ public class WidgetAddFlowHandler implements Parcelable {
         mProviderInfo.writeToParcel(parcel, i);
     }
 
-    public void startBindFlow(Launcher launcher, int appWidgetId, ItemInfo info, int requestCode) {
+    public void startBindFlow(MainAppListFragment launcher, int appWidgetId, ItemInfo info, int requestCode) {
         launcher.setWaitingForResult(PendingRequestArgs.forWidgetInfo(appWidgetId, this, info));
         launcher.getAppWidgetHost()
                 .startBindFlow(launcher, appWidgetId, mProviderInfo, requestCode);
@@ -60,8 +61,8 @@ public class WidgetAddFlowHandler implements Parcelable {
     /**
      * @see #startConfigActivity(Launcher, int, ItemInfo, int)
      */
-    public boolean startConfigActivity(Launcher launcher, LauncherAppWidgetInfo info,
-            int requestCode) {
+    public boolean startConfigActivity(MainAppListFragment launcher, LauncherAppWidgetInfo info,
+                                       int requestCode) {
         return startConfigActivity(launcher, info.appWidgetId, info, requestCode);
     }
 
@@ -69,7 +70,7 @@ public class WidgetAddFlowHandler implements Parcelable {
      * Starts the widget configuration flow if needed.
      * @return true if the configuration flow was started, false otherwise.
      */
-    public boolean startConfigActivity(Launcher launcher, int appWidgetId, ItemInfo info,
+    public boolean startConfigActivity(MainAppListFragment launcher, int appWidgetId, ItemInfo info,
             int requestCode) {
         if (!needsConfigure()) {
             return false;

@@ -9,6 +9,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.AbstractFloatingView;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherState;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherStateManager.AnimationComponents;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.touch.AbstractStateChangeTouchController;
 import com.xiaomi.micolauncher.feature.appmainscreen.touch.SwipeDetector;
 
@@ -20,7 +21,7 @@ public class AllAppsSwipeController extends AbstractStateChangeTouchController {
 
     private MotionEvent mTouchDownEvent;
 
-    public AllAppsSwipeController(Launcher l) {
+    public AllAppsSwipeController(MainAppListFragment l) {
         super(l, SwipeDetector.VERTICAL);
     }
 

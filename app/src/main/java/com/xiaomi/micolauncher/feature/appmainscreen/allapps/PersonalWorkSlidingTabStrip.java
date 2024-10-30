@@ -28,6 +28,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.pageindicators.PageIndicator;
@@ -73,7 +74,7 @@ public class PersonalWorkSlidingTabStrip extends LinearLayout implements PageInd
         mDividerPaint.setStrokeWidth(
                 getResources().getDimensionPixelSize(R.dimen.all_apps_divider_height));
 
-        mSharedPreferences = Launcher.getLauncher(getContext()).getSharedPrefs();
+        mSharedPreferences = MainAppListFragment.getLauncher(getContext()).getSharedPrefs();
         mIsRtl = Utilities.isRtl(getResources());
     }
 

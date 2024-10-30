@@ -45,6 +45,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.FolderInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfoWithIcon;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.accessibility.LauncherAccessibilityDelegate;
 import com.xiaomi.micolauncher.feature.appmainscreen.accessibility.ShortcutMenuAccessibilityDelegate;
@@ -160,7 +161,7 @@ public class PopupContainerWithArrow extends ArrowPopup implements DragSource,
      * @return the container if shown or null.
      */
     public static PopupContainerWithArrow showForIcon(BubbleTextView icon) {
-        Launcher launcher = Launcher.getLauncher(icon.getContext());
+        MainAppListFragment launcher = MainAppListFragment.getLauncher(icon.getContext());
         if (getOpen(launcher) != null) {
             // There is already an items container open, so don't open this one.
             icon.clearFocus();
@@ -189,7 +190,7 @@ public class PopupContainerWithArrow extends ArrowPopup implements DragSource,
     }
 
     public static PopupContainerWithArrow showForFolderIcon(FolderIcon folderIcon) {
-        Launcher launcher = Launcher.getLauncher(folderIcon.getContext());
+        MainAppListFragment launcher = MainAppListFragment.getLauncher(folderIcon.getContext());
         if (getOpen(launcher) != null) {
             // There is already an items container open, so don't open this one.
             folderIcon.clearFocus();
@@ -585,7 +586,7 @@ public class PopupContainerWithArrow extends ArrowPopup implements DragSource,
     /**
      * Returns a PopupContainerWithArrow which is already open or null
      */
-    public static PopupContainerWithArrow getOpen(Launcher launcher) {
+    public static PopupContainerWithArrow getOpen(MainAppListFragment launcher) {
         return getOpenView(launcher, TYPE_ACTION_POPUP);
     }
 }

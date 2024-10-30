@@ -30,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.BaseActivity;
+import com.xiaomi.micolauncher.feature.appmainscreen.BaseFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.DeviceProfile;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.SimpleOnStylusPressListener;
@@ -78,7 +79,7 @@ public class WidgetCell extends LinearLayout implements OnLayoutChangeListener {
     private boolean mApplyBitmapDeferred = false;
     private Bitmap mDeferredBitmap;
 
-    protected final BaseActivity mActivity;
+    protected final BaseFragment mActivity;
 
     public WidgetCell(Context context) {
         this(context, null);
@@ -91,7 +92,7 @@ public class WidgetCell extends LinearLayout implements OnLayoutChangeListener {
     public WidgetCell(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        mActivity = BaseActivity.fromContext(context);
+        mActivity = BaseFragment.fromContext(context);
         mStylusEventHelper = new StylusEventHelper(new SimpleOnStylusPressListener(this), this);
 
         setContainerWidth();

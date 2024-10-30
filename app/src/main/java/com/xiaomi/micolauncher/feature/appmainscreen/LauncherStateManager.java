@@ -113,7 +113,7 @@ public class LauncherStateManager {
 
     private final AnimationConfig mConfig = new AnimationConfig();
     private final Handler mUiHandler;
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
     private final ArrayList<StateListener> mListeners = new ArrayList<>();
 
     private StateHandler[] mStateHandlers;
@@ -124,7 +124,7 @@ public class LauncherStateManager {
 
     private LauncherState mRestState;
 
-    public LauncherStateManager(Launcher l) {
+    public LauncherStateManager(MainAppListFragment l) {
         mUiHandler = new Handler(Looper.getMainLooper());
         mLauncher = l;
     }

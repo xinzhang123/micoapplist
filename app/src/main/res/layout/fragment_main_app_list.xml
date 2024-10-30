@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xiaomi.micolauncher.feature.appmainscreen.LauncherRootView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:launcher="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/launcher"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragLayer
+        android:id="@+id/drag_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:importantForAccessibility="no">
+
+        <!-- The workspace contains 5 screens of cells -->
+        <!-- DO NOT CHANGE THE ID -->
+        <com.xiaomi.micolauncher.feature.appmainscreen.Workspace
+            android:id="@+id/workspace"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:theme="@style/HomeScreenElementTheme"
+            launcher:mico_pageIndicator="@+id/page_indicator" />
+
+        <include
+            android:id="@+id/overview_panel_container"
+            layout="@layout/overview_panel"
+            android:visibility="gone" />
+
+        <!-- Keep these behind the workspace so that they are not visible when
+         we go into AllApps -->
+        <com.xiaomi.micolauncher.feature.appmainscreen.pageindicators.WorkspacePageIndicator
+            android:id="@+id/page_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:theme="@style/HomeScreenElementTheme" />
+
+        <include
+            android:id="@+id/drop_target_bar"
+            layout="@layout/drop_target_bar" />
+
+        <include android:id="@+id/scrim_view"
+            layout="@layout/scrim_view" />
+
+        <include
+            android:id="@+id/apps_view"
+            layout="@layout/all_apps"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible" />
+
+        <!-- DO NOT CHANGE THE ID -->
+        <include
+            android:id="@+id/hotseat"
+            layout="@layout/hotseat"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragLayer>
+
+</com.xiaomi.micolauncher.feature.appmainscreen.LauncherRootView>

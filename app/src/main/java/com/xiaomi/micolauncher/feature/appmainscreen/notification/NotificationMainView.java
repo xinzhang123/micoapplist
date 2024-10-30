@@ -36,6 +36,7 @@ import android.widget.TextView;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.anim.AnimationSuccessListener;
 import com.xiaomi.micolauncher.feature.appmainscreen.touch.OverScroll;
@@ -159,7 +160,7 @@ public class NotificationMainView extends FrameLayout implements SwipeDetector.L
     }
 
     public void onChildDismissed() {
-        Launcher launcher = Launcher.getLauncher(getContext());
+        MainAppListFragment launcher = MainAppListFragment.getLauncher(getContext());
         launcher.getPopupDataProvider().cancelNotification(
                 mNotificationInfo.notificationKey);
     }

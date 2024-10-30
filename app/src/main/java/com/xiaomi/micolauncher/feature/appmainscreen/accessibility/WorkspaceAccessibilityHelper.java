@@ -28,6 +28,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.CellLayout;
 import com.xiaomi.micolauncher.feature.appmainscreen.FolderInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.accessibility.LauncherAccessibilityDelegate.DragType;
@@ -142,7 +143,7 @@ public class WorkspaceAccessibilityHelper extends DragAndDropAccessibilityDelega
 
         // ExploreByTouchHelper does not currently handle view scale.
         // Update BoundsInScreen to appropriate value.
-        DragLayer dragLayer = Launcher.getLauncher(mView.getContext()).getDragLayer();
+        DragLayer dragLayer = MainAppListFragment.getLauncher(mView.getContext()).getDragLayer();
         mTempCords[0] = mTempCords[1] = 0;
         float scale = dragLayer.getDescendantCoordRelativeToSelf(mView, mTempCords);
 

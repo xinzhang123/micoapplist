@@ -26,6 +26,7 @@ import androidx.annotation.VisibleForTesting;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.graphics.LauncherIcons;
 import com.xiaomi.micolauncher.feature.appmainscreen.notification.NotificationInfo;
@@ -123,10 +124,10 @@ public class PopupPopulator {
         return filteredShortcuts;
     }
 
-    public static Runnable createUpdateRunnable(final Launcher launcher, final ItemInfo originalInfo,
-            final Handler uiHandler, final PopupContainerWithArrow container,
-            final List<String> shortcutIds, final List<DeepShortcutView> shortcutViews,
-            final List<NotificationKeyData> notificationKeys) {
+    public static Runnable createUpdateRunnable(final MainAppListFragment launcher, final ItemInfo originalInfo,
+                                                final Handler uiHandler, final PopupContainerWithArrow container,
+                                                final List<String> shortcutIds, final List<DeepShortcutView> shortcutViews,
+                                                final List<NotificationKeyData> notificationKeys) {
         final ComponentName activity = originalInfo.getTargetComponent();
         final UserHandle user = originalInfo.user;
         return () -> {
@@ -136,21 +137,21 @@ public class PopupPopulator {
                 List<NotificationInfo> infos = new ArrayList<>(notifications.size());
                 for (int i = 0; i < notifications.size(); i++) {
                     StatusBarNotification notification = notifications.get(i);
-                    infos.add(new NotificationInfo(launcher, notification));
+                    infos.add(new NotificationInfo(launcher.getActivity(), notification));
                 }
                 uiHandler.post(() -> container.applyNotificationInfos(infos));
             }
 
-            List<ShortcutInfoCompat> shortcuts = DeepShortcutManager.getInstance(launcher)
+            List<ShortcutInfoCompat> shortcuts = DeepShortcutManager.getInstance(launcher.getActivity())
                     .queryForShortcutsContainer(activity, shortcutIds, user);
             String shortcutIdToDeDupe = notificationKeys.isEmpty() ? null
                     : notificationKeys.get(0).shortcutId;
             shortcuts = PopupPopulator.sortAndFilterShortcuts(shortcuts, shortcutIdToDeDupe);
             for (int i = 0; i < shortcuts.size() && i < shortcutViews.size(); i++) {
                 final ShortcutInfoCompat shortcut = shortcuts.get(i);
-                final ShortcutInfo si = new ShortcutInfo(shortcut, launcher);
+                final ShortcutInfo si = new ShortcutInfo(shortcut, launcher.getActivity());
                 // Use unbadged icon for the menu.
-                LauncherIcons li = LauncherIcons.obtain(launcher);
+                LauncherIcons li = LauncherIcons.obtain(launcher.getActivity());
                 li.createShortcutIcon(shortcut, false /* badged */).applyTo(si);
                 li.recycle();
                 si.rank = i;

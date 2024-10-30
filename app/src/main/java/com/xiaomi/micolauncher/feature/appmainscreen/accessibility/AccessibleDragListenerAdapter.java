@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import com.xiaomi.micolauncher.feature.appmainscreen.CellLayout;
 import com.xiaomi.micolauncher.feature.appmainscreen.DropTarget.DragObject;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragController.DragListener;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragOptions;
 
@@ -51,7 +52,7 @@ public class AccessibleDragListenerAdapter implements DragListener {
     @Override
     public void onDragEnd() {
         enableAccessibleDrag(false);
-        Launcher.getLauncher(mViewGroup.getContext()).getDragController().removeDragListener(this);
+        MainAppListFragment.getLauncher(mViewGroup.getContext()).getDragController().removeDragListener(this);
     }
 
     protected void enableAccessibleDrag(boolean enable) {

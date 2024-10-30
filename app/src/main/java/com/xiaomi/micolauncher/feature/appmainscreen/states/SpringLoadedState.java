@@ -25,6 +25,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.DeviceProfile;
 import com.xiaomi.micolauncher.feature.appmainscreen.InstallShortcutReceiver;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherState;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.Workspace;
 
 /**
@@ -41,7 +42,7 @@ public class SpringLoadedState extends LauncherState {
     }
 
     @Override
-    public float[] getWorkspaceScaleAndTranslation(Launcher launcher) {
+    public float[] getWorkspaceScaleAndTranslation(MainAppListFragment launcher) {
         DeviceProfile grid = launcher.getDeviceProfile();
         Workspace ws = launcher.getWorkspace();
         if (ws.getChildCount() == 0) {
@@ -74,7 +75,7 @@ public class SpringLoadedState extends LauncherState {
     }
 
     @Override
-    public void onStateEnabled(Launcher launcher) {
+    public void onStateEnabled(MainAppListFragment launcher) {
         Workspace ws = launcher.getWorkspace();
         ws.showPageIndicatorAtCurrentScroll();
         ws.getPageIndicator().setShouldAutoHide(false);
@@ -86,16 +87,16 @@ public class SpringLoadedState extends LauncherState {
     }
 
     @Override
-    public float getWorkspaceScrimAlpha(Launcher launcher) {
+    public float getWorkspaceScrimAlpha(MainAppListFragment launcher) {
         return 0.3f;
     }
 
     @Override
-    public void onStateDisabled(final Launcher launcher) {
+    public void onStateDisabled(final MainAppListFragment launcher) {
         launcher.getWorkspace().getPageIndicator().setShouldAutoHide(true);
 
         // Re-enable any Un/InstallShortcutReceiver and now process any queued items
         InstallShortcutReceiver.disableAndFlushInstallQueue(
-                InstallShortcutReceiver.FLAG_DRAG_AND_DROP, launcher);
+                InstallShortcutReceiver.FLAG_DRAG_AND_DROP, launcher.getActivity());
     }
 }

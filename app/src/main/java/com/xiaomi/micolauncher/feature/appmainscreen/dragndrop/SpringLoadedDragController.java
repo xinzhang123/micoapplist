@@ -19,6 +19,7 @@ package com.xiaomi.micolauncher.feature.appmainscreen.dragndrop;
 import com.xiaomi.micolauncher.feature.appmainscreen.Alarm;
 import com.xiaomi.micolauncher.feature.appmainscreen.CellLayout;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.OnAlarmListener;
 import com.xiaomi.micolauncher.feature.appmainscreen.Workspace;
 
@@ -31,9 +32,9 @@ public class SpringLoadedDragController implements OnAlarmListener {
 
     // the screen the user is currently hovering over, if any
     private CellLayout mScreen;
-    private Launcher mLauncher;
+    private MainAppListFragment mLauncher;
 
-    public SpringLoadedDragController(Launcher launcher) {
+    public SpringLoadedDragController(MainAppListFragment launcher) {
         mLauncher = launcher;
         mAlarm = new Alarm();
         mAlarm.setOnAlarmListener(this);

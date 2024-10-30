@@ -207,7 +207,7 @@ public class FocusHelper {
             return consume;
         }
 
-        final Launcher launcher = Launcher.getLauncher(v.getContext());
+        final MainAppListFragment launcher = MainAppListFragment.getLauncher(v.getContext());
         final DeviceProfile profile = launcher.getDeviceProfile();
 
         if (DEBUG) {
@@ -322,7 +322,7 @@ public class FocusHelper {
             return consume;
         }
 
-        Launcher launcher = Launcher.getLauncher(v.getContext());
+        MainAppListFragment launcher = MainAppListFragment.getLauncher(v.getContext());
         DeviceProfile profile = launcher.getDeviceProfile();
 
         if (DEBUG) {

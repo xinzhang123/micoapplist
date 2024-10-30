@@ -145,7 +145,7 @@ public abstract class AbstractFloatingView extends LinearLayout implements Touch
         if (mIsOpen) {
             sendAccessibilityEvent(TYPE_VIEW_FOCUSED);
         }
-        BaseDraggingActivity.fromContext(getContext()).getDragLayer()
+        BaseDraggingFragment2.fromContext(getContext()).getDragLayer()
                 .sendAccessibilityEvent(TYPE_WINDOW_CONTENT_CHANGED);
     }
 
@@ -154,7 +154,7 @@ public abstract class AbstractFloatingView extends LinearLayout implements Touch
     }
 
     protected static <T extends AbstractFloatingView> T getOpenView(
-            BaseDraggingActivity activity, @FloatingViewType int type) {
+            BaseDraggingFragment2 activity, @FloatingViewType int type) {
         BaseDragLayer dragLayer = activity.getDragLayer();
         // Iterate in reverse order. AbstractFloatingView is added later to the dragLayer,
         // and will be one of the last views.
@@ -170,7 +170,7 @@ public abstract class AbstractFloatingView extends LinearLayout implements Touch
         return null;
     }
 
-    public static void closeOpenContainer(BaseDraggingActivity activity,
+    public static void closeOpenContainer(BaseDraggingFragment2 activity,
             @FloatingViewType int type) {
         AbstractFloatingView view = getOpenView(activity, type);
         if (view != null) {
@@ -178,7 +178,7 @@ public abstract class AbstractFloatingView extends LinearLayout implements Touch
         }
     }
 
-    public static void closeOpenViews(BaseDraggingActivity activity, boolean animate,
+    public static void closeOpenViews(BaseDraggingFragment2 activity, boolean animate,
             @FloatingViewType int type) {
         BaseDragLayer dragLayer = activity.getDragLayer();
         // Iterate in reverse order. AbstractFloatingView is added later to the dragLayer,
@@ -194,20 +194,20 @@ public abstract class AbstractFloatingView extends LinearLayout implements Touch
         }
     }
 
-    public static void closeAllOpenViews(BaseDraggingActivity activity, boolean animate) {
+    public static void closeAllOpenViews(BaseDraggingFragment2 activity, boolean animate) {
         closeOpenViews(activity, animate, TYPE_ALL);
         activity.finishAutoCancelActionMode();
     }
 
-    public static void closeAllOpenViews(BaseDraggingActivity activity) {
+    public static void closeAllOpenViews(BaseDraggingFragment2 activity) {
         closeAllOpenViews(activity, true);
     }
 
-    public static AbstractFloatingView getTopOpenView(BaseDraggingActivity activity) {
+    public static AbstractFloatingView getTopOpenView(BaseDraggingFragment2 activity) {
         return getTopOpenViewWithType(activity, TYPE_ALL);
     }
 
-    public static AbstractFloatingView getTopOpenViewWithType(BaseDraggingActivity activity,
+    public static AbstractFloatingView getTopOpenViewWithType(BaseDraggingFragment2 activity,
             @FloatingViewType int type) {
         return getOpenView(activity, type);
     }

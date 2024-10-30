@@ -28,5 +28,5 @@ public interface LauncherExterns {
 
     SharedPreferences getSharedPrefs();
 
-    void setLauncherOverlay(Launcher.LauncherOverlay overlay);
+    void setLauncherOverlay(MainAppListFragment.LauncherOverlay overlay);
 }

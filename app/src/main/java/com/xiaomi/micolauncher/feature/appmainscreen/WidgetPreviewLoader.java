@@ -287,7 +287,7 @@ public class WidgetPreviewLoader {
         return null;
     }
 
-    private Bitmap generatePreview(BaseActivity launcher, WidgetItem item, Bitmap recycle,
+    private Bitmap generatePreview(BaseFragment launcher, WidgetItem item, Bitmap recycle,
             int previewWidth, int previewHeight) {
         if (item.widgetInfo != null) {
             return generateWidgetPreview(launcher, item.widgetInfo,
@@ -309,7 +309,7 @@ public class WidgetPreviewLoader {
      * @param preScaledWidthOut           return the width of the returned bitmap
      * @return
      */
-    public Bitmap generateWidgetPreview(BaseActivity launcher, LauncherAppWidgetProviderInfo info,
+    public Bitmap generateWidgetPreview(BaseFragment launcher, LauncherAppWidgetProviderInfo info,
             int maxPreviewWidth, Bitmap preview, int[] preScaledWidthOut) {
         // Load the preview image if possible
         if (maxPreviewWidth < 0) maxPreviewWidth = Integer.MAX_VALUE;
@@ -446,7 +446,7 @@ public class WidgetPreviewLoader {
         return builder.bounds;
     }
 
-    private Bitmap generateShortcutPreview(BaseActivity launcher, ShortcutConfigActivityInfo info,
+    private Bitmap generateShortcutPreview(BaseFragment launcher, ShortcutConfigActivityInfo info,
             int maxWidth, int maxHeight, Bitmap preview) {
         int iconSize = launcher.getDeviceProfile().iconSizePx;
         int padding = launcher.getResources()
@@ -531,7 +531,7 @@ public class WidgetPreviewLoader {
         private final int mPreviewHeight;
         private final int mPreviewWidth;
         private final WidgetCell mCaller;
-        private final BaseActivity mActivity;
+        private final BaseFragment mActivity;
         @Thunk long[] mVersions;
         @Thunk Bitmap mBitmapToRecycle;
 
@@ -542,7 +542,7 @@ public class WidgetPreviewLoader {
             mPreviewHeight = previewHeight;
             mPreviewWidth = previewWidth;
             mCaller = caller;
-            mActivity = BaseActivity.fromContext(mCaller.getContext());
+            mActivity = BaseFragment.fromContext(mCaller.getContext());
             if (DEBUG) {
                 Log.d(TAG, String.format("%s, %s, %d, %d",
                         mKey, mInfo, mPreviewHeight, mPreviewWidth));

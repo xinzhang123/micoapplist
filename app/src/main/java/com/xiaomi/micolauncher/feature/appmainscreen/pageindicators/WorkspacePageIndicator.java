@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 import com.xiaomi.micolauncher.feature.appmainscreen.DeviceProfile;
 import com.xiaomi.micolauncher.feature.appmainscreen.Insettable;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.uioverrides.WallpaperColorInfo;
@@ -46,7 +47,7 @@ public class WorkspacePageIndicator extends View implements Insettable, PageIndi
     private ValueAnimator[] mAnimators = new ValueAnimator[ANIMATOR_COUNT];
 
     private final Handler mDelayedLineFadeHandler = new Handler(Looper.getMainLooper());
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
 
     private boolean mShouldAutoHide = true;
 
@@ -120,7 +121,7 @@ public class WorkspacePageIndicator extends View implements Insettable, PageIndi
         mLinePaint = new Paint();
         mLinePaint.setAlpha(0);
 
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
         mLineHeight = res.getDimensionPixelSize(R.dimen.dynamic_grid_page_indicator_line_height);
 
         boolean darkText = WallpaperColorInfo.getInstance(context).supportsDarkText();

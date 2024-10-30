@@ -26,7 +26,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.xiaomi.micolauncher.feature.appmainscreen.Launcher.OnResumeCallback;
 import com.xiaomi.micolauncher.feature.appmainscreen.compat.LauncherAppsCompat;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragOptions;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.Themes;
@@ -144,7 +143,7 @@ public class SecondaryDropTarget extends ButtonDropTarget implements OnAlarmList
             user = item.user;
         }
         if (intent != null) {
-            LauncherActivityInfo info = LauncherAppsCompat.getInstance(mLauncher)
+            LauncherActivityInfo info = LauncherAppsCompat.getInstance(mLauncher.getActivity())
                     .resolveActivity(intent, user);
             if (info != null
                     && (info.getApplicationInfo().flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
@@ -221,7 +220,7 @@ public class SecondaryDropTarget extends ButtonDropTarget implements OnAlarmList
         if (cn == null) {
             // System applications cannot be installed. For now, show a toast explaining that.
             // We may give them the option of disabling apps this way.
-            Toast.makeText(mLauncher, R.string.uninstall_system_app_text, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mLauncher.getActivity(), R.string.uninstall_system_app_text, Toast.LENGTH_SHORT).show();
             return null;
         }
         try {
@@ -245,7 +244,7 @@ public class SecondaryDropTarget extends ButtonDropTarget implements OnAlarmList
      * A wrapper around {@link DragSource} which delays the {@link #onDropCompleted} action until
      * {@link #onLauncherResume}
      */
-    private class DeferredOnComplete implements DragSource, OnResumeCallback {
+    private class DeferredOnComplete implements DragSource, MainAppListFragment.OnResumeCallback {
 
         private final DragSource mOriginal;
         private final Context mContext;

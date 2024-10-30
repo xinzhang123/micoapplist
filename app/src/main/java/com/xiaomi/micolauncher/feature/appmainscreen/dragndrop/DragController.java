@@ -38,6 +38,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.DropTarget;
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherSettings;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.accessibility.DragViewStateAnnouncer;
@@ -55,7 +56,7 @@ public class DragController implements DragDriver.EventListener, TouchController
     private static final boolean PROFILE_DRAWING_DURING_DRAG = false;
 
     @Thunk
-    Launcher mLauncher;
+    MainAppListFragment mLauncher;
     private FlingToDeleteHelper mFlingToDeleteHelper;
 
     // temporaries to avoid gc thrash
@@ -133,7 +134,7 @@ public class DragController implements DragDriver.EventListener, TouchController
     /**
      * Used to create a new DragLayer from XML.
      */
-    public DragController(Launcher launcher) {
+    public DragController(MainAppListFragment launcher) {
         mLauncher = launcher;
         mFlingToDeleteHelper = new FlingToDeleteHelper(launcher);
     }
@@ -161,7 +162,7 @@ public class DragController implements DragDriver.EventListener, TouchController
         }
 
         // Hide soft keyboard, if visible
-        UiThreadHelper.hideKeyboardAsync(mLauncher, mWindowToken);
+        UiThreadHelper.hideKeyboardAsync(mLauncher.getActivity(), mWindowToken);
 
         mOptions = options;
         if (mOptions.systemDndStartPoint != null) {
@@ -205,7 +206,7 @@ public class DragController implements DragDriver.EventListener, TouchController
             Log.d("DragController", "startDrag: mDragObject.xOffset === " + mDragObject.xOffset + " mDragObject.yOffset === " + mDragObject.yOffset);
             mDragObject.stateAnnouncer = DragViewStateAnnouncer.createFor(dragView);
 
-            mDragDriver = DragDriver.create(mLauncher, this, mDragObject, mOptions);
+            mDragDriver = DragDriver.create(mLauncher.getActivity(), this, mDragObject, mOptions);
         }
 
         mDragObject.dragSource = source;

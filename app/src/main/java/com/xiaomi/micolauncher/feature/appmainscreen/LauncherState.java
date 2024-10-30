@@ -175,7 +175,7 @@ public class LauncherState {
         return Arrays.copyOf(sAllStates, sAllStates.length);
     }
 
-    public float[] getWorkspaceScaleAndTranslation(Launcher launcher) {
+    public float[] getWorkspaceScaleAndTranslation(MainAppListFragment launcher) {
         return new float[] {1, 1, 0};
     }
 
@@ -184,17 +184,17 @@ public class LauncherState {
      *   scale for the current and adjacent pages
      *   translationY factor where 0 is top aligned and 0.5 is centered vertically
      */
-    public float[] getOverviewScaleAndTranslationYFactor(Launcher launcher) {
+    public float[] getOverviewScaleAndTranslationYFactor(MainAppListFragment launcher) {
         return new float[] {1.1f, 0f};
     }
 
-    public void onStateEnabled(Launcher launcher) {
+    public void onStateEnabled(MainAppListFragment launcher) {
         dispatchWindowStateChanged(launcher);
     }
 
-    public void onStateDisabled(Launcher launcher) { }
+    public void onStateDisabled(MainAppListFragment launcher) { }
 
-    public int getVisibleElements(Launcher launcher) {
+    public int getVisibleElements(MainAppListFragment launcher) {
         if (launcher.getDeviceProfile().isVerticalBarLayout()) {
             return HOTSEAT_ICONS | VERTICAL_SWIPE_INDICATOR;
         }
@@ -206,19 +206,19 @@ public class LauncherState {
      *
      * @see com.xiaomi.micolauncher.feature.appmainscreen.allapps.AllAppsTransitionController
      */
-    public float getVerticalProgress(Launcher launcher) {
+    public float getVerticalProgress(MainAppListFragment launcher) {
         return 1f;
     }
 
-    public float getWorkspaceScrimAlpha(Launcher launcher) {
+    public float getWorkspaceScrimAlpha(MainAppListFragment launcher) {
         return 0;
     }
 
-    public String getDescription(Launcher launcher) {
+    public String getDescription(MainAppListFragment launcher) {
         return launcher.getWorkspace().getCurrentPageDescription();
     }
 
-    public PageAlphaProvider getWorkspacePageAlphaProvider(Launcher launcher) {
+    public PageAlphaProvider getWorkspacePageAlphaProvider(MainAppListFragment launcher) {
         Log.d("LauncherState", "getWorkspacePageAlphaProvider: " + this);
         if (this != NORMAL || !launcher.getDeviceProfile().shouldFadeAdjacentWorkspaceScreens()) {
             return DEFAULT_ALPHA_PROVIDER;
@@ -240,7 +240,7 @@ public class LauncherState {
     /**
      * Called when the start transition ends and the user settles on this particular state.
      */
-    public void onStateTransitionEnd(Launcher launcher) {
+    public void onStateTransitionEnd(MainAppListFragment launcher) {
         if (this == NORMAL) {
             UiFactory.resetOverview(launcher);
             // Clear any rotation locks when going to normal state
@@ -248,8 +248,8 @@ public class LauncherState {
         }
     }
 
-    protected static void dispatchWindowStateChanged(Launcher launcher) {
-        launcher.getWindow().getDecorView().sendAccessibilityEvent(TYPE_WINDOW_STATE_CHANGED);
+    protected static void dispatchWindowStateChanged(MainAppListFragment launcher) {
+        launcher.getActivity().getWindow().getDecorView().sendAccessibilityEvent(TYPE_WINDOW_STATE_CHANGED);
     }
 
     public static abstract class PageAlphaProvider {

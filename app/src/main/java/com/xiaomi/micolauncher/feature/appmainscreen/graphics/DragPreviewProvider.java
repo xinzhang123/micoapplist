@@ -31,6 +31,7 @@ import android.view.View;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.BubbleTextView;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.config.FeatureFlags;
 import com.xiaomi.micolauncher.feature.appmainscreen.folder.FolderIcon;
@@ -173,7 +174,7 @@ public class DragPreviewProvider {
     }
 
     public float getScaleAndPosition(Bitmap preview, int[] outPos) {
-        float scale = Launcher.getLauncher(mView.getContext())
+        float scale = MainAppListFragment.getLauncher(mView.getContext())
                 .getDragLayer().getLocationInDragLayer(mView, outPos);
         if (mView instanceof LauncherAppWidgetHostView) {
             // App widgets are technically scaled, but are drawn at their expected size -- so the

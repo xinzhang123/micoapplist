@@ -60,7 +60,7 @@ public abstract class ButtonDropTarget extends TextView
     public static final int TOOLTIP_LEFT = 1;
     public static final int TOOLTIP_RIGHT = 2;
 
-    protected final Launcher mLauncher;
+    protected final MainAppListFragment mLauncher;
 
     private int mBottomDragPadding;
     protected DropTargetBar mDropTargetBar;
@@ -92,7 +92,7 @@ public abstract class ButtonDropTarget extends TextView
 
     public ButtonDropTarget(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
 
         Resources resources = getResources();
         mBottomDragPadding = resources.getDimensionPixelSize(R.dimen.drop_target_drag_padding);
@@ -341,7 +341,7 @@ public abstract class ButtonDropTarget extends TextView
 
     @Override
     public void onClick(View v) {
-        mLauncher.getAccessibilityDelegate().handleAccessibleDrop(this, null, null);
+//        mLauncher.getAccessibilityDelegate().handleAccessibleDrop(this, null, null);
     }
 
     public int getTextColor() {

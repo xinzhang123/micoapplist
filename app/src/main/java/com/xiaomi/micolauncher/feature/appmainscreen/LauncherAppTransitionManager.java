@@ -33,7 +33,7 @@ public class LauncherAppTransitionManager {
                 context, R.string.app_transition_manager_class);
     }
 
-    public ActivityOptions getActivityLaunchOptions(Launcher launcher, View v) {
+    public ActivityOptions getActivityLaunchOptions(MainAppListFragment launcher, View v) {
         if (Utilities.ATLEAST_MARSHMALLOW) {
             int left = 0, top = 0;
             int width = v.getMeasuredWidth(), height = v.getMeasuredHeight();
@@ -53,7 +53,7 @@ public class LauncherAppTransitionManager {
             // On L devices, we use the device default slide-up transition.
             // On L MR1 devices, we use a custom version of the slide-up transition which
             // doesn't have the delay present in the device default.
-            return ActivityOptions.makeCustomAnimation(launcher, R.anim.task_open_enter,
+            return ActivityOptions.makeCustomAnimation(launcher.getActivity(), R.anim.task_open_enter,
                     R.anim.no_anim);
         }
         return null;

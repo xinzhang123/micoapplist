@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.graphics.DragPreviewProvider;
 
@@ -43,7 +44,7 @@ public class ShortcutDragPreviewProvider extends DragPreviewProvider {
         Drawable d = mView.getBackground();
         Rect bounds = getDrawableBounds(d);
 
-        int size = Launcher.getLauncher(mView.getContext()).getDeviceProfile().iconSizePx;
+        int size = MainAppListFragment.getLauncher(mView.getContext()).getDeviceProfile().iconSizePx;
         final Bitmap b = Bitmap.createBitmap(
                 size + blurSizeOutline,
                 size + blurSizeOutline,
@@ -59,7 +60,7 @@ public class ShortcutDragPreviewProvider extends DragPreviewProvider {
 
     @Override
     public float getScaleAndPosition(Bitmap preview, int[] outPos) {
-        Launcher launcher = Launcher.getLauncher(mView.getContext());
+        MainAppListFragment launcher = MainAppListFragment.getLauncher(mView.getContext());
         int iconSize = getDrawableBounds(mView.getBackground()).width();
         float scale = launcher.getDragLayer().getLocationInDragLayer(mView, outPos);
 

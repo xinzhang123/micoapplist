@@ -31,6 +31,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.DragSource;
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppWidgetProviderInfo;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.PendingAddItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.uioverrides.UiFactory;
 import com.xiaomi.micolauncher.feature.appmainscreen.widget.PendingAddShortcutInfo;
@@ -64,7 +65,7 @@ public class PinItemDragListener extends BaseItemDragListener {
     }
 
     @Override
-    public boolean init(Launcher launcher, boolean alreadyOnHome) {
+    public boolean init(MainAppListFragment launcher, boolean alreadyOnHome) {
         super.init(launcher, alreadyOnHome);
         if (!alreadyOnHome) {
             UiFactory.useFadeOutAnimationForLauncherStart(launcher, mCancelSignal);
@@ -77,12 +78,12 @@ public class PinItemDragListener extends BaseItemDragListener {
         final PendingAddItemInfo item;
         if (mRequest.getRequestType() == PinItemRequest.REQUEST_TYPE_SHORTCUT) {
             item = new PendingAddShortcutInfo(
-                    new PinShortcutRequestActivityInfo(mRequest, mLauncher));
+                    new PinShortcutRequestActivityInfo(mRequest, mLauncher.getActivity()));
         } else {
             // mRequest.getRequestType() == PinItemRequestCompat.REQUEST_TYPE_APPWIDGET
             LauncherAppWidgetProviderInfo providerInfo =
                     LauncherAppWidgetProviderInfo.fromProviderInfo(
-                            mLauncher, mRequest.getAppWidgetProviderInfo(mLauncher));
+                            mLauncher.getActivity(), mRequest.getAppWidgetProviderInfo(mLauncher.getActivity()));
             final PinWidgetFlowHandler flowHandler =
                     new PinWidgetFlowHandler(providerInfo, mRequest);
             item = new PendingAddWidgetInfo(providerInfo) {
@@ -92,7 +93,7 @@ public class PinItemDragListener extends BaseItemDragListener {
                 }
             };
         }
-        View view = new View(mLauncher);
+        View view = new View(mLauncher.getActivity());
         view.setTag(item);
 
         PendingItemDragHelper dragHelper = new PendingItemDragHelper(view);

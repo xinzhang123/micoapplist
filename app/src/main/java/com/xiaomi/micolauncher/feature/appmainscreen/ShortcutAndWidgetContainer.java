@@ -44,12 +44,12 @@ public class ShortcutAndWidgetContainer extends ViewGroup {
 
     private int mCountX;
 
-    private Launcher mLauncher;
+    private MainAppListFragment mLauncher;
     private boolean mInvertIfRtl = false;
 
     public ShortcutAndWidgetContainer(Context context, @ContainerType int containerType) {
         super(context);
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
         mWallpaperManager = WallpaperManager.getInstance(context);
         mContainerType = containerType;
     }

@@ -39,6 +39,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.BubbleTextView;
 import com.xiaomi.micolauncher.feature.appmainscreen.CellLayout;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutAndWidgetContainer;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
@@ -66,7 +67,7 @@ public class FolderAnimationManager {
     private PreviewBackground mPreviewBackground;
 
     private Context mContext;
-    private Launcher mLauncher;
+    private MainAppListFragment mLauncher;
 
     private final boolean mIsOpening;
 

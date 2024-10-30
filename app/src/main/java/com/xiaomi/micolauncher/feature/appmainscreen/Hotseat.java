@@ -35,7 +35,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.config.FeatureFlags;
 
 public class Hotseat extends FrameLayout implements Insettable {
 
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
     private CellLayout mContent;
 
     @ViewDebug.ExportedProperty(category = "launcher")
@@ -51,7 +51,7 @@ public class Hotseat extends FrameLayout implements Insettable {
 
     public Hotseat(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
     }
 
     public CellLayout getLayout() {

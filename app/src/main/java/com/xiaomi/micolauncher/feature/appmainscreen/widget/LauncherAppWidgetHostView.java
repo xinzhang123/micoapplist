@@ -42,6 +42,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppWidgetInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppWidgetProviderInfo;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.SimpleOnStylusPressListener;
 import com.xiaomi.micolauncher.feature.appmainscreen.StylusEventHelper;
@@ -68,7 +69,7 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView
 
     private final CheckLongPressHelper mLongPressHelper;
     private final StylusEventHelper mStylusEventHelper;
-    protected final Launcher mLauncher;
+    protected final MainAppListFragment mLauncher;
 
     @ViewDebug.ExportedProperty(category = "launcher")
     private boolean mReinflateOnConfigChange;
@@ -95,7 +96,7 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView
 
     public LauncherAppWidgetHostView(Context context) {
         super(context);
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
         mLongPressHelper = new CheckLongPressHelper(this, this);
         mStylusEventHelper = new StylusEventHelper(new SimpleOnStylusPressListener(this), this);
         mInflater = LayoutInflater.from(context);
@@ -110,7 +111,7 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView
     @Override
     public boolean onLongClick(View view) {
         if (mIsScrollable) {
-            DragLayer dragLayer = Launcher.getLauncher(getContext()).getDragLayer();
+            DragLayer dragLayer = MainAppListFragment.getLauncher(getContext()).getDragLayer();
             dragLayer.requestDisallowInterceptTouchEvent(false);
         }
         view.performLongClick();
@@ -179,7 +180,7 @@ public class LauncherAppWidgetHostView extends AppWidgetHostView
 
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN: {
-                DragLayer dragLayer = Launcher.getLauncher(getContext()).getDragLayer();
+                DragLayer dragLayer = MainAppListFragment.getLauncher(getContext()).getDragLayer();
 
                 if (mIsScrollable) {
                      dragLayer.requestDisallowInterceptTouchEvent(true);

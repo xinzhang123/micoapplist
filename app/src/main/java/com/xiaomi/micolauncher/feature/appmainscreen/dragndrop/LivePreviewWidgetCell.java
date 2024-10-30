@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.RemoteViews;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.BaseActivity;
+import com.xiaomi.micolauncher.feature.appmainscreen.BaseFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.DeviceProfile;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppWidgetProviderInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.widget.WidgetCell;
@@ -55,8 +56,8 @@ public class LivePreviewWidgetCell extends WidgetCell {
      *
      * TODO: Consider moving this to the background thread.
      */
-    public static Bitmap generateFromRemoteViews(BaseActivity activity, RemoteViews views,
-            LauncherAppWidgetProviderInfo info, int previewSize, int[] preScaledWidthOut) {
+    public static Bitmap generateFromRemoteViews(BaseFragment activity, RemoteViews views,
+                                                 LauncherAppWidgetProviderInfo info, int previewSize, int[] preScaledWidthOut) {
 
         DeviceProfile dp = activity.getDeviceProfile();
         int viewWidth = dp.cellWidthPx * info.spanX;
@@ -64,7 +65,7 @@ public class LivePreviewWidgetCell extends WidgetCell {
 
         final View v;
         try {
-            v = views.apply(activity, new FrameLayout(activity));
+            v = views.apply(activity.getActivity(), new FrameLayout(activity.getActivity()));
             v.measure(MeasureSpec.makeMeasureSpec(viewWidth, MeasureSpec.EXACTLY),
                     MeasureSpec.makeMeasureSpec(viewHeight, MeasureSpec.EXACTLY));
 

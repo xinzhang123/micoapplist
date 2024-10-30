@@ -27,7 +27,7 @@ import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
 import androidx.customview.widget.ExploreByTouchHelper;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.CellLayout;
-import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 
 import java.util.List;
@@ -51,7 +51,7 @@ public abstract class DragAndDropAccessibilityDelegate extends ExploreByTouchHel
         super(forView);
         mView = forView;
         mContext = mView.getContext();
-        mDelegate = Launcher.getLauncher(mContext).getAccessibilityDelegate();
+        mDelegate = MainAppListFragment.getLauncher(mContext).getAccessibilityDelegate();
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.AppWidgetResizeFrame;
 import com.xiaomi.micolauncher.feature.appmainscreen.DropTarget;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppWidgetProviderInfo;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.compat.AppWidgetManagerCompat;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragController;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragLayer;
@@ -28,7 +29,7 @@ public class WidgetHostViewLoader implements DragController.DragListener {
     private Runnable mBindWidgetRunnable = null;
 
     // TODO: technically, this class should not have to know the existence of the launcher.
-    @Thunk Launcher mLauncher;
+    @Thunk MainAppListFragment mLauncher;
     @Thunk Handler mHandler;
     @Thunk final View mView;
     @Thunk final PendingAddWidgetInfo mInfo;
@@ -38,7 +39,7 @@ public class WidgetHostViewLoader implements DragController.DragListener {
     // to be set back to -1.
     @Thunk int mWidgetLoadingId = -1;
 
-    public WidgetHostViewLoader(Launcher launcher, View view) {
+    public WidgetHostViewLoader(MainAppListFragment launcher, View view) {
         mLauncher = launcher;
         mHandler = new Handler();
         mView = view;
@@ -88,7 +89,7 @@ public class WidgetHostViewLoader implements DragController.DragListener {
         if (pInfo.isCustomWidget()) {
             return false;
         }
-        final Bundle options = getDefaultOptionsForWidget(mLauncher, mInfo);
+        final Bundle options = getDefaultOptionsForWidget(mLauncher.getActivity(), mInfo);
 
         // If there is a configuration activity, do not follow thru bound and inflate.
         if (mInfo.getHandler().needsConfigure()) {
@@ -103,7 +104,7 @@ public class WidgetHostViewLoader implements DragController.DragListener {
                 if (LOGD) {
                     Log.d(TAG, "Binding widget, id: " + mWidgetLoadingId);
                 }
-                if(AppWidgetManagerCompat.getInstance(mLauncher).bindAppWidgetIdIfAllowed(
+                if(AppWidgetManagerCompat.getInstance(mLauncher.getActivity()).bindAppWidgetIdIfAllowed(
                         mWidgetLoadingId, pInfo, options)) {
 
                     // Widget id bound. Inflate the widget.
@@ -122,7 +123,7 @@ public class WidgetHostViewLoader implements DragController.DragListener {
                     return;
                 }
                 AppWidgetHostView hostView = mLauncher.getAppWidgetHost().createView(
-                        (Context) mLauncher, mWidgetLoadingId, pInfo);
+                        (Context) mLauncher.getActivity(), mWidgetLoadingId, pInfo);
                 mInfo.boundWidget = hostView;
 
                 // We used up the widget Id in binding the above view.

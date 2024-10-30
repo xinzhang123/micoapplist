@@ -20,6 +20,7 @@ import android.content.pm.PackageManager;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.AppInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.compat.AlphabeticIndexCompat;
 import com.xiaomi.micolauncher.feature.appmainscreen.shortcuts.DeepShortcutManager;
@@ -127,7 +128,7 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
         }
     }
 
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
 
     // The set of apps from the system
     private final List<AppInfo> mApps = new ArrayList<>();
@@ -154,7 +155,7 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
 
     public AlphabeticalAppsList(Context context, AllAppsStore appsStore, boolean isWork) {
         mAllAppsStore = appsStore;
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
         mIndexer = new AlphabeticIndexCompat(context);
         mAppNameComparator = new AppInfoComparator(context);
         mIsWork = isWork;
@@ -409,8 +410,8 @@ public class AlphabeticalAppsList implements AllAppsStore.OnUpdateListener {
 
     private boolean shouldShowWorkFooter() {
         return mIsWork && Utilities.ATLEAST_P &&
-                (DeepShortcutManager.getInstance(mLauncher).hasHostPermission()
-                        || mLauncher.checkSelfPermission("android.permission.MODIFY_QUIET_MODE")
+                (DeepShortcutManager.getInstance(mLauncher.getActivity()).hasHostPermission()
+                        || mLauncher.getActivity().checkSelfPermission("android.permission.MODIFY_QUIET_MODE")
                         == PackageManager.PERMISSION_GRANTED);
     }
 

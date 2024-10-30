@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.xiaomi.micolauncher.feature.appmainscreen.AppInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.BubbleTextView;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.allapps.AlphabeticalAppsList.AdapterItem;
 import com.xiaomi.micolauncher.feature.appmainscreen.compat.UserManagerCompat;
@@ -174,7 +175,7 @@ public class AllAppsGridAdapter extends RecyclerView.Adapter<AllAppsGridAdapter.
         }
     }
 
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
     private final LayoutInflater mLayoutInflater;
     private final AlphabeticalAppsList mApps;
     private final GridLayoutManager mGridLayoutMgr;
@@ -190,15 +191,15 @@ public class AllAppsGridAdapter extends RecyclerView.Adapter<AllAppsGridAdapter.
     // The intent to send off to the market app, updated each time the search query changes.
     private Intent mMarketSearchIntent;
 
-    public AllAppsGridAdapter(Launcher launcher, AlphabeticalAppsList apps) {
+    public AllAppsGridAdapter(MainAppListFragment launcher, AlphabeticalAppsList apps) {
         Resources res = launcher.getResources();
         mLauncher = launcher;
         mApps = apps;
         mEmptySearchMessage = res.getString(R.string.all_apps_loading_message);
         mGridSizer = new GridSpanSizer();
-        mGridLayoutMgr = new AppsGridLayoutManager(launcher);
+        mGridLayoutMgr = new AppsGridLayoutManager(launcher.getActivity());
         mGridLayoutMgr.setSpanSizeLookup(mGridSizer);
-        mLayoutInflater = LayoutInflater.from(launcher);
+        mLayoutInflater = LayoutInflater.from(launcher.getActivity());
 
         mAppsPerRow = mLauncher.getDeviceProfile().inv.getNumColumns();
         mGridLayoutMgr.setSpanCount(mAppsPerRow);
@@ -227,7 +228,7 @@ public class AllAppsGridAdapter extends RecyclerView.Adapter<AllAppsGridAdapter.
     public void setLastSearchQuery(String query) {
         Resources res = mLauncher.getResources();
         mEmptySearchMessage = res.getString(R.string.all_apps_no_search_results, query);
-        mMarketSearchIntent = PackageManagerHelper.getMarketSearchIntent(mLauncher, query);
+        mMarketSearchIntent = PackageManagerHelper.getMarketSearchIntent(mLauncher.getActivity(), query);
     }
 
     /**

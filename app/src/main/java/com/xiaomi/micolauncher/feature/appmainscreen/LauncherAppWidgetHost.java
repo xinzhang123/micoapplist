@@ -240,11 +240,11 @@ public class LauncherAppWidgetHost extends AppWidgetHost {
         mViews.clear();
     }
 
-    public void startBindFlow(BaseActivity activity,
+    public void startBindFlow(BaseFragment activity,
             int appWidgetId, AppWidgetProviderInfo info, int requestCode) {
 
         if (FeatureFlags.GO_DISABLE_WIDGETS) {
-            sendActionCancelled(activity, requestCode);
+//            sendActionCancelled(activity, requestCode);
             return;
         }
 
@@ -258,21 +258,21 @@ public class LauncherAppWidgetHost extends AppWidgetHost {
     }
 
 
-    public void startConfigActivity(BaseActivity activity, int widgetId, int requestCode) {
+    public void startConfigActivity(MainAppListFragment activity, int widgetId, int requestCode) {
         if (FeatureFlags.GO_DISABLE_WIDGETS) {
             sendActionCancelled(activity, requestCode);
             return;
         }
 
         try {
-            startAppWidgetConfigureActivityForResult(activity, widgetId, 0, requestCode, null);
+            startAppWidgetConfigureActivityForResult(activity.getActivity(), widgetId, 0, requestCode, null);
         } catch (ActivityNotFoundException | SecurityException e) {
-            Toast.makeText(activity, R.string.activity_not_found, Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity.getActivity(), R.string.activity_not_found, Toast.LENGTH_SHORT).show();
             sendActionCancelled(activity, requestCode);
         }
     }
 
-    private void sendActionCancelled(final BaseActivity activity, final int requestCode) {
+    private void sendActionCancelled(final MainAppListFragment activity, final int requestCode) {
         new Handler().post(() -> activity.onActivityResult(requestCode, RESULT_CANCELED, null));
     }
 

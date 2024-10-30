@@ -58,6 +58,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherState;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherStateManager;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherStateManager.StateListener;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.uioverrides.WallpaperColorInfo;
@@ -92,7 +93,7 @@ public class ScrimView extends View implements Insettable, OnChangeListener,
     private final Rect mTempRect = new Rect();
     private final int[] mTempPos = new int[2];
 
-    protected final Launcher mLauncher;
+    protected final MainAppListFragment mLauncher;
     private final WallpaperColorInfo mWallpaperColorInfo;
     private final AccessibilityManager mAM;
     protected final int mEndScrim;
@@ -118,7 +119,7 @@ public class ScrimView extends View implements Insettable, OnChangeListener,
 
     public ScrimView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
         mWallpaperColorInfo = WallpaperColorInfo.getInstance(context);
         mEndScrim = Themes.getAttrColor(context, R.attr.mico_allAppsScrimColor);
 
@@ -314,7 +315,7 @@ public class ScrimView extends View implements Insettable, OnChangeListener,
         if (visible != wasVisible) {
             if (visible) {
                 mDragHandle = recycle != null ? recycle :
-                        mLauncher.getDrawable(R.drawable.drag_handle_indicator);
+                        mLauncher.getActivity().getDrawable(R.drawable.drag_handle_indicator);
                 mDragHandle.setBounds(mDragHandleBounds);
 
                 updateDragHandleAlpha();

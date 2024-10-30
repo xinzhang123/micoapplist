@@ -59,6 +59,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.FolderInfo.FolderListener;
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherSettings;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.OnAlarmListener;
 import com.xiaomi.micolauncher.feature.appmainscreen.PagedView;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
@@ -132,7 +133,7 @@ public class Folder extends AbstractFloatingView implements DragSource,
 
     private AnimatorSet mCurrentAnimator;
 
-    protected final Launcher mLauncher;
+    protected final MainAppListFragment mLauncher;
     protected DragController mDragController;
     public FolderInfo mInfo;
 
@@ -195,7 +196,7 @@ public class Folder extends AbstractFloatingView implements DragSource,
         if (sHintText == null) {
             sHintText = res.getString(R.string.folder_hint_text);
         }
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
         // We need this view to be focusable in touch mode so that when text editing of the folder
         // name is complete, we have something to focus on, thus hiding the cursor and giving
         // reliable behavior when clicking the text field (since it will always gain focus on click).
@@ -443,7 +444,7 @@ public class Folder extends AbstractFloatingView implements DragSource,
      * @return A new UserFolder.
      */
     @SuppressLint("InflateParams")
-    static Folder fromXml(Launcher launcher) {
+    static Folder fromXml(MainAppListFragment launcher) {
         return (Folder) launcher.getLayoutInflater()
                 .inflate(R.layout.user_folder_icon_normalized, null);
     }
@@ -545,7 +546,7 @@ public class Folder extends AbstractFloatingView implements DragSource,
                     mFolderName.animate().setDuration(FOLDER_NAME_ANIMATION_DURATION)
                         .translationX(0)
                         .setInterpolator(AnimationUtils.loadInterpolator(
-                                mLauncher, android.R.interpolator.fast_out_slow_in));
+                                mLauncher.getActivity(), android.R.interpolator.fast_out_slow_in));
                     mPageIndicator.playEntryAnimation();
 
                     if (updateAnimationFlag) {
@@ -1448,7 +1449,7 @@ public class Folder extends AbstractFloatingView implements DragSource,
     /**
      * Returns a folder which is already open or null
      */
-    public static Folder getOpen(Launcher launcher) {
+    public static Folder getOpen(MainAppListFragment launcher) {
         return getOpenView(launcher, TYPE_FOLDER);
     }
 

@@ -90,7 +90,7 @@ public class WidgetsBottomSheet extends BaseWidgetSheet implements Insettable {
 
         for (int i = 0; i < widgets.size(); i++) {
             WidgetCell widget = addItemCell(widgetCells);
-            widget.applyFromCellItem(widgets.get(i), LauncherAppState.getInstance(mLauncher)
+            widget.applyFromCellItem(widgets.get(i), LauncherAppState.getInstance(mLauncher.getActivity())
                     .getWidgetCache());
             widget.ensurePreview();
             widget.setVisibility(View.VISIBLE);

@@ -32,6 +32,7 @@ import android.view.View.OnLongClickListener;
 import android.widget.Toast;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.popup.ArrowPopup;
@@ -107,7 +108,7 @@ public class OptionsPopupView extends ArrowPopup
         mTargetRect.roundOut(outPos);
     }
 
-    public static void show(Launcher launcher, RectF targetRect, List<OptionItem> items) {
+    public static void show(MainAppListFragment launcher, RectF targetRect, List<OptionItem> items) {
         OptionsPopupView popup = (OptionsPopupView) launcher.getLayoutInflater()
                 .inflate(R.layout.longpress_options_menu, launcher.getDragLayer(), false);
         popup.mTargetRect = targetRect;
@@ -124,7 +125,7 @@ public class OptionsPopupView extends ArrowPopup
         popup.reorderAndShow(popup.getChildCount());
     }
 
-    public static void showDefaultOptions(Launcher launcher, float x, float y) {
+    public static void showDefaultOptions(MainAppListFragment launcher, float x, float y) {
         float halfSize = launcher.getResources().getDimension(R.dimen.options_menu_thumb_size) / 2;
         if (x < 0 || y < 0) {
             x = launcher.getDragLayer().getWidth() / 2;
@@ -144,9 +145,9 @@ public class OptionsPopupView extends ArrowPopup
     }
 
     public static boolean onWidgetsClicked(View view) {
-        Launcher launcher = Launcher.getLauncher(view.getContext());
-        if (launcher.getPackageManager().isSafeMode()) {
-            Toast.makeText(launcher, R.string.safemode_widget_error, Toast.LENGTH_SHORT).show();
+        MainAppListFragment launcher = MainAppListFragment.getLauncher(view.getContext());
+        if (launcher.getActivity().getPackageManager().isSafeMode()) {
+            Toast.makeText(launcher.getActivity(), R.string.safemode_widget_error, Toast.LENGTH_SHORT).show();
             return false;
         } else {
             WidgetsFullSheet.show(launcher, true /* animated */);
@@ -155,9 +156,9 @@ public class OptionsPopupView extends ArrowPopup
     }
 
     public static boolean startSettings(View view) {
-        Launcher launcher = Launcher.getLauncher(view.getContext());
+        MainAppListFragment launcher = MainAppListFragment.getLauncher(view.getContext());
         launcher.startActivity(new Intent(Intent.ACTION_APPLICATION_PREFERENCES)
-                .setPackage(launcher.getPackageName())
+                .setPackage(launcher.getActivity().getPackageName())
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         return true;
     }
@@ -167,9 +168,9 @@ public class OptionsPopupView extends ArrowPopup
      * on the home screen.
      */
     public static boolean startWallpaperPicker(View v) {
-        Launcher launcher = Launcher.getLauncher(v.getContext());
-        if (!Utilities.isWallpaperAllowed(launcher)) {
-            Toast.makeText(launcher, R.string.msg_disabled_by_admin, Toast.LENGTH_SHORT).show();
+        MainAppListFragment launcher = MainAppListFragment.getLauncher(v.getContext());
+        if (!Utilities.isWallpaperAllowed(launcher.getActivity())) {
+            Toast.makeText(launcher.getActivity(), R.string.msg_disabled_by_admin, Toast.LENGTH_SHORT).show();
             return false;
         }
         Intent intent = new Intent(Intent.ACTION_SET_WALLPAPER)

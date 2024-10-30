@@ -26,6 +26,7 @@ import android.view.ViewConfiguration;
 import com.xiaomi.micolauncher.feature.appmainscreen.ButtonDropTarget;
 import com.xiaomi.micolauncher.feature.appmainscreen.DropTarget;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.FlingAnimation;
 
@@ -36,13 +37,13 @@ public class FlingToDeleteHelper {
 
     private static final float MAX_FLING_DEGREES = 35f;
 
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
     private final int mFlingToDeleteThresholdVelocity;
 
     private ButtonDropTarget mDropTarget;
     private VelocityTracker mVelocityTracker;
 
-    public FlingToDeleteHelper(Launcher launcher) {
+    public FlingToDeleteHelper(MainAppListFragment launcher) {
         mLauncher = launcher;
         mFlingToDeleteThresholdVelocity = launcher.getResources()
                 .getDimensionPixelSize(R.dimen.drag_flingToDeleteMinVelocity);
@@ -109,7 +110,7 @@ public class FlingToDeleteHelper {
             mDropTarget = (ButtonDropTarget) mLauncher.findViewById(R.id.delete_target_text);
         }
         if (mDropTarget == null || !mDropTarget.isDropEnabled()) return null;
-        ViewConfiguration config = ViewConfiguration.get(mLauncher);
+        ViewConfiguration config = ViewConfiguration.get(mLauncher.getActivity());
         mVelocityTracker.computeCurrentVelocity(1000, config.getScaledMaximumFlingVelocity());
         PointF vel = new PointF(mVelocityTracker.getXVelocity(), mVelocityTracker.getYVelocity());
         float theta = MAX_FLING_DEGREES + 1;

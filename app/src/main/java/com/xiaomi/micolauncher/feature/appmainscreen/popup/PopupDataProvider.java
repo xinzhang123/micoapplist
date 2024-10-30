@@ -24,6 +24,7 @@ import androidx.annotation.NonNull;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.badge.BadgeInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.model.WidgetItem;
@@ -57,7 +58,7 @@ public class PopupDataProvider implements NotificationListener.NotificationsChan
             new SystemShortcut.UnInstall()
     };
 
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
 
     /** Maps launcher activity components to their list of shortcut ids. */
     private MultiHashMap<ComponentKey, String> mDeepShortcutMap = new MultiHashMap<>();
@@ -66,7 +67,7 @@ public class PopupDataProvider implements NotificationListener.NotificationsChan
     /** Maps packages to their Widgets */
     private ArrayList<WidgetListRowEntry> mAllWidgets = new ArrayList<>();
 
-    public PopupDataProvider(Launcher launcher) {
+    public PopupDataProvider(MainAppListFragment launcher) {
         mLauncher = launcher;
     }
 

@@ -40,6 +40,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import com.xiaomi.micolauncher.feature.appmainscreen.AbstractFloatingView;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.anim.RevealOutlineAnimation;
@@ -60,7 +61,7 @@ public abstract class ArrowPopup extends AbstractFloatingView {
 
     protected final LayoutInflater mInflater;
     private final float mOutlineRadius;
-    protected final Launcher mLauncher;
+    protected final MainAppListFragment mLauncher;
     protected final boolean mIsRtl;
 
     private final int mArrayOffset;
@@ -79,7 +80,7 @@ public abstract class ArrowPopup extends AbstractFloatingView {
         super(context, attrs, defStyleAttr);
         mInflater = LayoutInflater.from(context);
         mOutlineRadius = getResources().getDimension(R.dimen.bg_round_rect_radius);
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
         mIsRtl = Utilities.isRtl(getResources());
 
         setClipToOutline(true);
@@ -179,7 +180,7 @@ public abstract class ArrowPopup extends AbstractFloatingView {
             ShapeDrawable arrowDrawable = new ShapeDrawable(TriangleShape.create(
                     arrowLp.width, arrowLp.height, !mIsAboveIcon));
             Paint arrowPaint = arrowDrawable.getPaint();
-            arrowPaint.setColor(Themes.getAttrColor(mLauncher, R.attr.mico_popupColorPrimary));
+            arrowPaint.setColor(Themes.getAttrColor(mLauncher.getActivity(), R.attr.mico_popupColorPrimary));
             // The corner path effect won't be reflected in the shadow, but shouldn't be noticeable.
             int radius = getResources().getDimensionPixelSize(R.dimen.popup_arrow_corner_radius);
             arrowPaint.setPathEffect(new CornerPathEffect(radius));

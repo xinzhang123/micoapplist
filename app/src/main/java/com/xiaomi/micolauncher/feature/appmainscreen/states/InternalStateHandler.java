@@ -23,6 +23,7 @@ import android.os.IBinder;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppState;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherModel.Callbacks;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.MainThreadExecutor;
 
 import java.lang.ref.WeakReference;
@@ -43,7 +44,7 @@ public abstract class InternalStateHandler extends Binder {
      * Initializes the handler when the launcher is ready.
      * @return true if the handler wants to stay alive.
      */
-    protected abstract boolean init(Launcher launcher, boolean alreadyOnHome);
+    protected abstract boolean init(MainAppListFragment launcher, boolean alreadyOnHome);
 
     public final Intent addToIntent(Intent intent) {
         Bundle extras = new Bundle();
@@ -64,16 +65,16 @@ public abstract class InternalStateHandler extends Binder {
         return sScheduler.hasPending();
     }
 
-    public static boolean handleCreate(Launcher launcher, Intent intent) {
+    public static boolean handleCreate(MainAppListFragment launcher, Intent intent) {
         return handleIntent(launcher, intent, false, false);
     }
 
-    public static boolean handleNewIntent(Launcher launcher, Intent intent, boolean alreadyOnHome) {
+    public static boolean handleNewIntent(MainAppListFragment launcher, Intent intent, boolean alreadyOnHome) {
         return handleIntent(launcher, intent, alreadyOnHome, true);
     }
 
     private static boolean handleIntent(
-            Launcher launcher, Intent intent, boolean alreadyOnHome, boolean explicitIntent) {
+            MainAppListFragment launcher, Intent intent, boolean alreadyOnHome, boolean explicitIntent) {
         boolean result = false;
         if (intent != null && intent.getExtras() != null) {
             IBinder stateBinder = intent.getExtras().getBinder(EXTRA_STATE_HANDLER);
@@ -111,14 +112,14 @@ public abstract class InternalStateHandler extends Binder {
                 return;
             }
             Callbacks cb = app.getModel().getCallback();
-            if (!(cb instanceof Launcher)) {
+            if (!(cb instanceof MainAppListFragment)) {
                 return;
             }
-            Launcher launcher = (Launcher) cb;
+            MainAppListFragment launcher = (MainAppListFragment) cb;
             initIfPending(launcher, launcher.isStarted());
         }
 
-        public synchronized boolean initIfPending(Launcher launcher, boolean alreadyOnHome) {
+        public synchronized boolean initIfPending(MainAppListFragment launcher, boolean alreadyOnHome) {
             InternalStateHandler pendingHandler = mPendingHandler.get();
             if (pendingHandler != null) {
                 if (!pendingHandler.init(launcher, alreadyOnHome)) {

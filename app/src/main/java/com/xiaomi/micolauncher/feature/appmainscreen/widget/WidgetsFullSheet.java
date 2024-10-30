@@ -31,6 +31,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.Insettable;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppState;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAppWidgetHost.ProviderChangedListener;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.views.RecyclerViewFastScroller;
 import com.xiaomi.micolauncher.feature.appmainscreen.views.TopRoundedCornerView;
@@ -215,7 +216,7 @@ public class WidgetsFullSheet extends BaseWidgetSheet
         return super.onControllerInterceptTouchEvent(ev);
     }
 
-    public static WidgetsFullSheet show(Launcher launcher, boolean animate) {
+    public static WidgetsFullSheet show(MainAppListFragment launcher, boolean animate) {
         WidgetsFullSheet sheet = (WidgetsFullSheet) launcher.getLayoutInflater()
                 .inflate(R.layout.widgets_full_sheet, launcher.getDragLayer(), false);
         sheet.mIsOpen = true;

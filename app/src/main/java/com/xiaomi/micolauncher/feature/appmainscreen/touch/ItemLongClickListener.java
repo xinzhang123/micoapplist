@@ -30,6 +30,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.DeviceProfile;
 import com.xiaomi.micolauncher.feature.appmainscreen.DropTarget;
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragController;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragOptions;
 import com.xiaomi.micolauncher.feature.appmainscreen.folder.Folder;
@@ -47,7 +48,7 @@ public class ItemLongClickListener {
 
     private static boolean onWorkspaceItemLongClick(View v) {
         Log.d("123", "onWorkspaceItemLongClick: ");
-        Launcher launcher = Launcher.getLauncher(v.getContext());
+        MainAppListFragment launcher = MainAppListFragment.getLauncher(v.getContext());
         if (!canStartDrag(launcher)) return false;
         if (!launcher.isInState(NORMAL) && !launcher.isInState(OVERVIEW)) return false;
         if (!(v.getTag() instanceof ItemInfo)) return false;
@@ -57,8 +58,8 @@ public class ItemLongClickListener {
         return true;
     }
 
-    public static void beginDrag(View v, Launcher launcher, ItemInfo info,
-            DragOptions dragOptions) {
+    public static void beginDrag(View v, MainAppListFragment launcher, ItemInfo info,
+                                 DragOptions dragOptions) {
         if (info.container >= 0) {
             Folder folder = Folder.getOpen(launcher);
             if (folder != null) {
@@ -76,7 +77,7 @@ public class ItemLongClickListener {
     }
 
     private static boolean onAllAppsItemLongClick(View v) {
-        Launcher launcher = Launcher.getLauncher(v.getContext());
+        MainAppListFragment launcher = MainAppListFragment.getLauncher(v.getContext());
         if (!canStartDrag(launcher)) return false;
         // When we have exited all apps or are in transition, disregard long clicks
         if (!launcher.isInState(ALL_APPS) && !launcher.isInState(OVERVIEW)) return false;
@@ -104,7 +105,7 @@ public class ItemLongClickListener {
         return false;
     }
 
-    public static boolean canStartDrag(Launcher launcher) {
+    public static boolean canStartDrag(MainAppListFragment launcher) {
         if (launcher == null) {
             return false;
         }

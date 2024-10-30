@@ -50,6 +50,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.FolderInfo.FolderListener;
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherSettings;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.OnAlarmListener;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutInfo;
@@ -74,7 +75,7 @@ import java.util.List;
  * An icon that can appear on in the workspace representing an {@link Folder}.
  */
 public class FolderIcon extends FrameLayout implements FolderListener {
-    @Thunk Launcher mLauncher;
+    @Thunk MainAppListFragment mLauncher;
     @Thunk Folder mFolder;
     private FolderInfo mInfo;
     @Thunk static boolean sStaticValuesDirty = true;
@@ -145,8 +146,8 @@ public class FolderIcon extends FrameLayout implements FolderListener {
         mPreviewItemManager = new PreviewItemManager(this);
     }
 
-    public static FolderIcon fromXml(int resId, Launcher launcher, ViewGroup group,
-            FolderInfo folderInfo) {
+    public static FolderIcon fromXml(int resId, MainAppListFragment launcher, ViewGroup group,
+                                     FolderInfo folderInfo) {
         @SuppressWarnings("all") // suppress dead code warning
         final boolean error = INITIAL_ITEM_ANIMATION_DURATION >= DROP_IN_ANIMATION_DURATION;
         if (error) {

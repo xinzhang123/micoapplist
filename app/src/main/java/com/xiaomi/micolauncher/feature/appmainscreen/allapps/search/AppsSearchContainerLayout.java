@@ -36,6 +36,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.DeviceProfile;
 import com.xiaomi.micolauncher.feature.appmainscreen.ExtendedEditText;
 import com.xiaomi.micolauncher.feature.appmainscreen.Insettable;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
+import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.allapps.AllAppsContainerView;
 import com.xiaomi.micolauncher.feature.appmainscreen.allapps.AllAppsStore;
@@ -54,7 +55,7 @@ public class AppsSearchContainerLayout extends ExtendedEditText
         AllAppsStore.OnUpdateListener, Insettable {
 
 
-    private final Launcher mLauncher;
+    private final MainAppListFragment mLauncher;
     private final AllAppsSearchBarController mSearchBarController;
     private final SpannableStringBuilder mSearchQueryBuilder;
 
@@ -76,7 +77,7 @@ public class AppsSearchContainerLayout extends ExtendedEditText
     public AppsSearchContainerLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        mLauncher = Launcher.getLauncher(context);
+        mLauncher = MainAppListFragment.getLauncher(context);
         mSearchBarController = new AllAppsSearchBarController();
 
         mSearchQueryBuilder = new SpannableStringBuilder();

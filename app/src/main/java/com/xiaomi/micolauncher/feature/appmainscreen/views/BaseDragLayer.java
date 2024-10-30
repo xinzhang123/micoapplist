@@ -30,6 +30,8 @@ import android.widget.FrameLayout;
 import com.xiaomi.micolauncher.feature.appmainscreen.AbstractFloatingView;
 import com.xiaomi.micolauncher.feature.appmainscreen.BaseActivity;
 import com.xiaomi.micolauncher.feature.appmainscreen.BaseDraggingActivity;
+import com.xiaomi.micolauncher.feature.appmainscreen.BaseDraggingFragment2;
+import com.xiaomi.micolauncher.feature.appmainscreen.BaseFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.InsettableFrameLayout;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.MultiValueAlpha;
@@ -41,7 +43,7 @@ import java.util.ArrayList;
 /**
  * A viewgroup with utility methods for drag-n-drop and touch interception
  */
-public abstract class BaseDragLayer<T extends BaseDraggingActivity> extends InsettableFrameLayout {
+public abstract class BaseDragLayer<T extends BaseDraggingFragment2> extends InsettableFrameLayout {
 
     protected final int[] mTmpXY = new int[2];
     protected final Rect mHitRect = new Rect();
@@ -55,7 +57,7 @@ public abstract class BaseDragLayer<T extends BaseDraggingActivity> extends Inse
 
     public BaseDragLayer(Context context, AttributeSet attrs, int alphaChannelCount) {
         super(context, attrs);
-        mActivity = (T) BaseActivity.fromContext(context);
+        mActivity = (T) BaseFragment.fromContext(context);
         mMultiValueAlpha = new MultiValueAlpha(this, alphaChannelCount);
     }
 
