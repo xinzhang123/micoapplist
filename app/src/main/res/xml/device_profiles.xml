@@ -165,8 +165,8 @@
         launcher:mico_numColumns="6"
         launcher:mico_numFolderRows="6"
         launcher:mico_numFolderColumns="6"
-        launcher:mico_iconSize="100"
-        launcher:mico_iconTextSize="20.0"
+        launcher:mico_iconSize="96"
+        launcher:mico_iconTextSize="24"
         launcher:mico_numHotseatIcons="7"
         launcher:mico_defaultLayoutId="@xml/default_workspace_5x6"
         />

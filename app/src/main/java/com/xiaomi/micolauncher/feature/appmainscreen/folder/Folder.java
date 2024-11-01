@@ -772,13 +772,13 @@ public class Folder extends AbstractFloatingView implements DragSource,
 
     public void completeDragExit() {
         if (mIsOpen) {
-            if (getItemCount() == 0) {
-                close(false);
-                removeFolderWithFinalItem(); //oh21 fixme bug 这里需要解决文件夹最后一个元素拖拽出来后插入数据库失败问题
-            } else {
+//            if (getItemCount() == 0) {
+//                close(false);
+//                removeFolderWithFinalItem(); //oh21 fixme bug 这里需要解决文件夹最后一个元素拖拽出来后插入数据库失败问题
+//            } else {
                 close(true);
                 mRearrangeOnClose = true;
-            }
+//            }
         } else if (mState == STATE_ANIMATING) {
             mRearrangeOnClose = true;
         } else {
@@ -1043,50 +1043,50 @@ public class Folder extends AbstractFloatingView implements DragSource,
     @Thunk void replaceFolderWithFinalItem() {
         //oh21 folder 去掉文件夹中只有一个item的情况
         // Add the last remaining child to the workspace in place of the folder
-//        Runnable onCompleteRunnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.d(TAG, "replaceFolderWithFinalItem onCompleteRunnable run: ");
-//                int itemCount = mInfo.contents.size();
-//                if (itemCount <= 1) {
-//                    View newIcon = null;
-//
-//                    if (itemCount == 1) {
-//                        // Move the item from the folder to the workspace, in the position of the
-//                        // folder
-//                        CellLayout cellLayout = mLauncher.getCellLayout(mInfo.container,
-//                                mInfo.screenId);
-//                        ShortcutInfo finalItem = mInfo.contents.remove(0);
-//                        newIcon = mLauncher.createShortcut(cellLayout, finalItem);
-//                        mLauncher.getModelWriter().addOrMoveItemInDatabase(finalItem,
-//                                mInfo.container, mInfo.screenId, mInfo.cellX, mInfo.cellY);
-//                    }
-//
-//                    // Remove the folder
-//                    mLauncher.removeItem(mFolderIcon, mInfo, true /* deleteFromDb */);
-//                    if (mFolderIcon instanceof DropTarget) {
-//                        mDragController.removeDropTarget((DropTarget) mFolderIcon);
-//                    }
-//
-//                    if (newIcon != null) {
-//                        // We add the child after removing the folder to prevent both from existing
-//                        // at the same time in the CellLayout.  We need to add the new item with
-//                        // addInScreenFromBind() to ensure that hotseat items are placed correctly.
-//                        mLauncher.getWorkspace().addInScreenFromBind(newIcon, mInfo);
-//
-//                        // Focus the newly created child
-//                        newIcon.requestFocus();
-//                    }
-//                }
-//            }
-//        };
-//        View finalChild = mContent.getLastItem();
-//        if (finalChild != null) {
-//            mFolderIcon.performDestroyAnimation(onCompleteRunnable);
-//        } else {
-//            onCompleteRunnable.run();
-//        }
-//        mDestroyed = true;
+        Runnable onCompleteRunnable = new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "replaceFolderWithFinalItem onCompleteRunnable run: ");
+                int itemCount = mInfo.contents.size();
+                if (itemCount <= 1) {
+                    View newIcon = null;
+
+                    if (itemCount == 1) {
+                        // Move the item from the folder to the workspace, in the position of the
+                        // folder
+                        CellLayout cellLayout = mLauncher.getCellLayout(mInfo.container,
+                                mInfo.screenId);
+                        ShortcutInfo finalItem = mInfo.contents.remove(0);
+                        newIcon = mLauncher.createShortcut(cellLayout, finalItem);
+                        mLauncher.getModelWriter().addOrMoveItemInDatabase(finalItem,
+                                mInfo.container, mInfo.screenId, mInfo.cellX, mInfo.cellY);
+                    }
+
+                    // Remove the folder
+                    mLauncher.removeItem(mFolderIcon, mInfo, true /* deleteFromDb */);
+                    if (mFolderIcon instanceof DropTarget) {
+                        mDragController.removeDropTarget((DropTarget) mFolderIcon);
+                    }
+
+                    if (newIcon != null) {
+                        // We add the child after removing the folder to prevent both from existing
+                        // at the same time in the CellLayout.  We need to add the new item with
+                        // addInScreenFromBind() to ensure that hotseat items are placed correctly.
+                        mLauncher.getWorkspace().addInScreenFromBind(newIcon, mInfo);
+
+                        // Focus the newly created child
+                        newIcon.requestFocus();
+                    }
+                }
+            }
+        };
+        View finalChild = mContent.getLastItem();
+        if (finalChild != null) {
+            mFolderIcon.performDestroyAnimation(onCompleteRunnable);
+        } else {
+            onCompleteRunnable.run();
+        }
+        mDestroyed = true;
     }
 
     @Thunk void removeFolderWithFinalItem() {

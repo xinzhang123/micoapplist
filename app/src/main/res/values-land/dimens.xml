@@ -25,10 +25,10 @@
     <dimen name="fastscroll_popup_text_size">24dp</dimen>
 
     <!-- Dynamic grid -->
-    <dimen name="dynamic_grid_icon_drawable_padding">4dp</dimen>
+    <dimen name="dynamic_grid_icon_drawable_padding">@dimen/dp_7</dimen>
 
-    <dimen name="dynamic_grid_cell_layout_padding">147dp</dimen> <!--oh21 cellayout paddingleft dimens值修改 -->
-    <dimen name="dynamic_grid_cell_layout_bottom_padding">110dp</dimen> <!--oh21 cellayout paddingtop dimens值修改 -->
+    <dimen name="dynamic_grid_cell_layout_padding">@dimen/dp_147</dimen> <!--oh21 cellayout paddingleft dimens值修改 -->
+    <dimen name="dynamic_grid_cell_layout_bottom_padding">@dimen/dp_70</dimen> <!--oh21 cellayout paddingtop dimens值修改 -->
 
     <!-- Hotseat -->
     <!-- Will be set to equal the hotseat icon size. -->
