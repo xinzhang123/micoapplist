@@ -472,15 +472,15 @@ public class DragView extends View {
 //        canvas.drawText("测试", getMeasuredWidth() / 2, getMeasuredHeight(), mPaint);
 
         //oh21 dragview 去掉了图标缩放效果
-//        if (mScaledMaskPath != null) {
-//            int cnt = canvas.save();
-//            canvas.clipPath(mScaledMaskPath);
-//            mBgSpringDrawable.draw(canvas);
-//            canvas.translate(mTranslateX.mValue, mTranslateY.mValue);
-//            mFgSpringDrawable.draw(canvas);
-//            canvas.restoreToCount(cnt);
-//            mBadge.draw(canvas);
-//        }
+        if (mScaledMaskPath != null) {
+            int cnt = canvas.save();
+            canvas.clipPath(mScaledMaskPath);
+            mBgSpringDrawable.draw(canvas);
+            canvas.translate(mTranslateX.mValue, mTranslateY.mValue);
+            mFgSpringDrawable.draw(canvas);
+            canvas.restoreToCount(cnt);
+            mBadge.draw(canvas);
+        }
     }
 
     public void setCrossFadeBitmap(Bitmap crossFadeBitmap) {
@@ -502,6 +502,7 @@ public class DragView extends View {
     }
 
     public void setColor(int color) {
+        Log.d("DragView", "setColor: ");
         if (mPaint == null) {
             mPaint = new Paint(Paint.FILTER_BITMAP_FLAG);
         }
@@ -604,6 +605,7 @@ public class DragView extends View {
         applyTranslation();
     }
 
+    //oh21 drop到缩放之前的位置
     public void animateTo(int toTouchX, int toTouchY, Runnable onCompleteRunnable, int duration) {
         mTempLoc[0] = toTouchX - mRegistrationX;
         mTempLoc[1] = toTouchY - mRegistrationY;

@@ -23,8 +23,10 @@ import static com.xiaomi.micolauncher.feature.appmainscreen.anim.AlphaUpdateList
 
 import android.animation.TimeInterpolator;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewDebug;
@@ -42,7 +44,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragOptions;
 public class DropTargetBar extends FrameLayout
         implements DragListener, Insettable {
 
-    protected static final int DEFAULT_DRAG_FADE_DURATION = 175;
+    protected static final int DEFAULT_DRAG_FADE_DURATION = 200;
     protected static final TimeInterpolator DEFAULT_INTERPOLATOR = Interpolators.ACCEL;
 
     private final Runnable mFadeAnimationEndRunnable =
@@ -58,6 +60,7 @@ public class DropTargetBar extends FrameLayout
     private ViewPropertyAnimator mCurrentAnimation;
 
     private boolean mIsVertical = true;
+    private int mMarginPx;
 
     public DropTargetBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -75,6 +78,7 @@ public class DropTargetBar extends FrameLayout
             mDropTargets[i] = (ButtonDropTarget) getChildAt(i);
             mDropTargets[i].setDropTargetBar(this);
         }
+//        setBackgroundColor(Color.parseColor("#000000"));
     }
 
     @Override
@@ -82,40 +86,16 @@ public class DropTargetBar extends FrameLayout
         LayoutParams lp = (LayoutParams) getLayoutParams();
         DeviceProfile grid = MainAppListFragment.getLauncher(getContext()).getDeviceProfile();
         mIsVertical = grid.isVerticalBarLayout();
-
+        Log.d("DropTargetBar", "setInsets: " + mIsVertical);
         lp.leftMargin = insets.left;
         lp.topMargin = insets.top;
         lp.bottomMargin = insets.bottom;
         lp.rightMargin = insets.right;
-        int tooltipLocation = TOOLTIP_DEFAULT;
 
-        if (grid.isVerticalBarLayout()) {
-            lp.width = grid.dropTargetBarSizePx;
-            lp.height = grid.availableHeightPx - 2 * grid.edgeMarginPx;
-            lp.gravity = grid.isSeascape() ? Gravity.RIGHT : Gravity.LEFT;
-            tooltipLocation = grid.isSeascape() ? TOOLTIP_LEFT : TOOLTIP_RIGHT;
-        } else {
-            int gap;
-            if (grid.isTablet) {
-                // XXX: If the icon size changes across orientations, we will have to take
-                //      that into account here too.
-                gap = ((grid.widthPx - 2 * grid.edgeMarginPx
-                        - (grid.inv.getNumColumns() * grid.cellWidthPx))
-                        / (2 * (grid.inv.getNumColumns() + 1)))
-                        + grid.edgeMarginPx;
-            } else {
-                gap = grid.desiredWorkspaceLeftRightMarginPx - grid.defaultWidgetPadding.right;
-            }
-            lp.width = grid.availableWidthPx - 2 * gap;
-
-            lp.topMargin += grid.edgeMarginPx;
-            lp.height = grid.dropTargetBarSizePx;
-            lp.gravity = Gravity.CENTER_HORIZONTAL | Gravity.TOP;
-        }
-        setLayoutParams(lp);
-        for (ButtonDropTarget button : mDropTargets) {
-            button.setToolTipLocation(tooltipLocation);
-        }
+        lp.width = grid.dropTargetBarWidthPx;
+        lp.height = grid.dropTargetBarSizePx;
+        lp.gravity = Gravity.CENTER_HORIZONTAL;
+        mMarginPx = grid.dropTargetBarMarginPx;
     }
 
     public void setup(DragController dragController) {
@@ -131,33 +111,13 @@ public class DropTargetBar extends FrameLayout
         int width = MeasureSpec.getSize(widthMeasureSpec);
         int height = MeasureSpec.getSize(heightMeasureSpec);
 
-        if (mIsVertical) {
-            int widthSpec = MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY);
-            int heightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.AT_MOST);
+        int widthSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+        int heightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
 
-            for (ButtonDropTarget button : mDropTargets) {
-                if (button.getVisibility() != GONE) {
-                    button.setTextVisible(false);
-                    button.measure(widthSpec, heightSpec);
-                }
-            }
-        } else {
-            int visibleCount = getVisibleButtonsCount();
-            int availableWidth = width / visibleCount;
-            boolean textVisible = true;
-            for (ButtonDropTarget buttons : mDropTargets) {
-                if (buttons.getVisibility() != GONE) {
-                    textVisible = textVisible && !buttons.isTextTruncated(availableWidth);
-                }
-            }
-
-            int widthSpec = MeasureSpec.makeMeasureSpec(availableWidth, MeasureSpec.AT_MOST);
-            int heightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
-            for (ButtonDropTarget button : mDropTargets) {
-                if (button.getVisibility() != GONE) {
-                    button.setTextVisible(textVisible);
-                    button.measure(widthSpec, heightSpec);
-                }
+        for (ButtonDropTarget button : mDropTargets) {
+            if (button.getVisibility() != GONE) {
+                button.setTextVisible(false);
+                button.measure(widthSpec, heightSpec);
             }
         }
         setMeasuredDimension(width, height);
@@ -165,31 +125,14 @@ public class DropTargetBar extends FrameLayout
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        if (mIsVertical) {
-            int gap = getResources().getDimensionPixelSize(R.dimen.drop_target_vertical_gap);
-            int start = gap;
-            int end;
+        int start = 0;
+        int end;
 
-            for (ButtonDropTarget button : mDropTargets) {
-                if (button.getVisibility() != GONE) {
-                    end = start + button.getMeasuredHeight();
-                    button.layout(0, start, button.getMeasuredWidth(), end);
-                    start = end + gap;
-                }
-            }
-        } else {
-            int visibleCount = getVisibleButtonsCount();
-            int frameSize = (right - left) / visibleCount;
-
-            int start = frameSize / 2;
-            int halfWidth;
-            for (ButtonDropTarget button : mDropTargets) {
-                if (button.getVisibility() != GONE) {
-                    halfWidth = button.getMeasuredWidth() / 2;
-                    button.layout(start - halfWidth, 0,
-                            start + halfWidth, button.getMeasuredHeight());
-                    start = start + frameSize;
-                }
+        for (ButtonDropTarget button : mDropTargets) {
+            if (button.getVisibility() != GONE) {
+                end = start + button.getMeasuredWidth();
+                button.layout(start, 0, end, button.getMeasuredHeight());
+                start = end + mMarginPx;
             }
         }
     }

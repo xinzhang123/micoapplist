@@ -17,6 +17,7 @@
 package com.xiaomi.micolauncher.feature.appmainscreen;
 
 import android.graphics.Rect;
+import android.util.Log;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.accessibility.DragViewStateAnnouncer;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragOptions;
@@ -85,7 +86,8 @@ public interface DropTarget {
             // R.dimen.dragViewOffsetY.
             int left = x - xOffset;
             int top = y - yOffset;
-
+            Log.d("onDragOver", "getVisualCenter: x = " + x + " y = " + y);
+            Log.d("onDragOver", "getVisualCenter: DragRegion width / 2 = " + dragView.getDragRegion().width() / 2 + " DragRegion height / 2 = " + dragView.getDragRegion().height() / 2);
             // In order to find the visual center, we shift by half the dragRect
             res[0] = left + dragView.getDragRegion().width() / 2;
             res[1] = top + dragView.getDragRegion().height() / 2;

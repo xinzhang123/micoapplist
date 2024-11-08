@@ -64,11 +64,11 @@ public class FolderIconPreviewVerifier {
     public boolean isItemInPreview(int page, int rank) {
         // First page items are laid out such that the first 4 items are always in the upper
         // left quadrant. For all other pages, we need to check the row and col.
-        if (page > 0 || mDisplayingUpperLeftQuadrant) {
-            int col = rank % mGridCountX;
-            int row = rank / mGridCountX;
-            return col < 2 && row < 2;
-        }
+//        if (page > 0 || mDisplayingUpperLeftQuadrant) {
+//            int col = rank % mGridCountX;
+//            int row = rank / mGridCountX;
+//            return col < 2 && row < 2;
+//        }
         return rank < MAX_NUM_ITEMS_IN_PREVIEW;
     }
 }

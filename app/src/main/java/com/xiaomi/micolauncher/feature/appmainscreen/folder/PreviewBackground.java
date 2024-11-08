@@ -38,6 +38,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.DeviceProfile;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils;
 import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
+import com.xiaomi.micolauncher.feature.appmainscreen.R;
 
 /**
  * This object represents a FolderIcon preview background. It stores drawing / measurement
@@ -77,6 +78,7 @@ public class PreviewBackground {
     int previewSize;
     int basePreviewOffsetX;
     int basePreviewOffsetY;
+    int baseCornerSize;
 
     private CellLayout mDrawingDelegate;
     public int delegateCellX;
@@ -142,6 +144,7 @@ public class PreviewBackground {
 
         // Stroke width is 1dp
         mStrokeWidth = launcher.getResources().getDisplayMetrics().density;
+        baseCornerSize = launcher.getResources().getDimensionPixelSize(R.dimen.dp_24);
 
         //oh21 修改去掉阴影
 //        float radius = getScaledRadius();
@@ -309,7 +312,7 @@ public class PreviewBackground {
 //        canvas.drawCircle(radius + getOffsetX(), radius + getOffsetY(),
 //                radius - deltaRadius, mPaint);
         canvas.drawRoundRect(getOffsetX(), getOffsetY(),
-                getOffsetX() + radius, getOffsetY() + radius, 40f, 40f, mPaint); //oh21 fixme 这里的圆角目前写死，需要修改成从dimens文件中读
+                getOffsetX() + radius, getOffsetY() + radius, baseCornerSize, baseCornerSize, mPaint); //oh21 fixme 这里的圆角目前写死，需要修改成从dimens文件中读
     }
 
     public Path getClipPath() {
@@ -318,7 +321,7 @@ public class PreviewBackground {
 //        float r = getScaledRadius();
 //        mPath.addCircle(r + getOffsetX(), r + getOffsetY(), r, Path.Direction.CW);
         mPath.addRoundRect(getOffsetX(), getOffsetY(),
-                getOffsetX() + previewSize, getOffsetY() + previewSize, new float[] {40f,40f,40f,40f,40f,40f,40f,40f},Path.Direction.CW);
+                getOffsetX() + previewSize, getOffsetY() + previewSize, new float[] {baseCornerSize,baseCornerSize,baseCornerSize,baseCornerSize,baseCornerSize,baseCornerSize,baseCornerSize,baseCornerSize},Path.Direction.CW);
         return mPath;
     }
 

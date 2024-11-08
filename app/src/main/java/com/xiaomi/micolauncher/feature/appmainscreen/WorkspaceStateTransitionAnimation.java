@@ -21,6 +21,7 @@ import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils.DR
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils.SCALE_PROPERTY;
 import static com.xiaomi.micolauncher.feature.appmainscreen.anim.AnimatorSetBuilder.ANIM_WORKSPACE_FADE;
 import static com.xiaomi.micolauncher.feature.appmainscreen.anim.AnimatorSetBuilder.ANIM_WORKSPACE_SCALE;
+import static com.xiaomi.micolauncher.feature.appmainscreen.anim.Interpolators.LINEAR;
 import static com.xiaomi.micolauncher.feature.appmainscreen.anim.Interpolators.ZOOM_OUT;
 import static com.xiaomi.micolauncher.feature.appmainscreen.anim.PropertySetter.NO_ANIM_PROPERTY_SETTER;
 
@@ -100,11 +101,11 @@ public class WorkspaceStateTransitionAnimation {
 //            return;
 //        }
 
-//        Interpolator translationInterpolator = !playAtomicComponent ? LINEAR : ZOOM_OUT;
+        Interpolator translationInterpolator = !playAtomicComponent ? LINEAR : ZOOM_OUT;
 //        propertySetter.setFloat(mWorkspace, View.TRANSLATION_X,
 //                scaleAndTranslation[1], translationInterpolator);
-//        propertySetter.setFloat(mWorkspace, View.TRANSLATION_Y,
-//                scaleAndTranslation[2], translationInterpolator);
+        propertySetter.setFloat(mWorkspace, View.TRANSLATION_Y,
+                scaleAndTranslation[2], translationInterpolator);
 
 //        propertySetter.setViewAlpha(mLauncher.getHotseatSearchBox(),
 //                (elements & HOTSEAT_SEARCH_BOX) != 0 ? 1 : 0, fadeInterpolator);

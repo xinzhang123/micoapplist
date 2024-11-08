@@ -578,6 +578,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
         //oh21 fixme add cellLayout布局的时候设置的padding
         int paddingLeftRight = mLauncher.getDeviceProfile().cellLayoutPaddingLeftRightPx;
         int paddingBottom = mLauncher.getDeviceProfile().cellLayoutBottomPaddingPx;
+        Log.d("padding", "insertNewWorkspaceScreen: paddingLeftRight " + paddingLeftRight + " paddingBottom " + paddingBottom);
         newScreen.setPadding(paddingLeftRight, paddingBottom, paddingLeftRight, paddingBottom);
 
         mWorkspaceScreens.put(screenId, newScreen);
@@ -2316,7 +2317,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
         // Ensure that we have proper spans for the item that we are dropping
         if (item.spanX < 0 || item.spanY < 0) throw new RuntimeException("Improper spans found");
         mDragViewVisualCenter = d.getVisualCenter(mDragViewVisualCenter);
-//        Log.d(TAG, "onDragOver: mDragViewVisualCenter x === " + mDragViewVisualCenter[0] + " y === " + mDragViewVisualCenter[1]);
+        Log.d(TAG, "onDragOver: mDragViewVisualCenter x === " + mDragViewVisualCenter[0] + " y === " + mDragViewVisualCenter[1]);
 
         final View child = (mDragInfo == null) ? null : mDragInfo.cell;
 

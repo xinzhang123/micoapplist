@@ -9,7 +9,7 @@ public class ClippedFolderIconLayoutRule {
     private static final float MAX_SCALE = 0.58f;
     private static final float MAX_RADIUS_DILATION = 0.15f;
     private static final float ITEM_RADIUS_SCALE_FACTOR = 1.33f;
-    private static final float MIN_SCALE_OH27 = 0.18f; //oh21 folder 文件夹item的缩放倍数
+    private static final float MIN_SCALE_OH27 = 0.19f; //oh21 folder 文件夹item的缩放倍数
 
     public static final int EXIT_INDEX = -2;
     public static final int ENTER_INDEX = -3;
@@ -21,13 +21,17 @@ public class ClippedFolderIconLayoutRule {
     private float mIconSize;
     private boolean mIsRtl;
     private float mBaselineIconScale;
+    private int mMargin;
+    private float mMarginBetween;
 
-    public void init(int availableSpace, float intrinsicIconSize, boolean rtl) {
+    public void init(int availableSpace, float intrinsicIconSize, boolean rtl, int dimensionPixelSize) {
         mAvailableSpace = availableSpace;
         mRadius = ITEM_RADIUS_SCALE_FACTOR * availableSpace / 2f;
         mIconSize = intrinsicIconSize;
         mIsRtl = rtl;
         mBaselineIconScale = availableSpace / (intrinsicIconSize * 1f);
+        mMargin = dimensionPixelSize;
+        mMarginBetween = (float) ((mIconSize - MIN_SCALE_OH27 * mIconSize * Math.sqrt(MAX_NUM_ITEMS_IN_PREVIEW) - dimensionPixelSize * 2) / 2);
     }
 
     public PreviewItemDrawingParams computePreviewItemDrawingParams(int index, int curNumItems,
@@ -37,23 +41,26 @@ public class ClippedFolderIconLayoutRule {
         float transY;
         float overlayAlpha = 0;
 
-        if (index == EXIT_INDEX) {
-            // 0 1 * <-- Exit position (row 0, col 2)
-            // 2 3
-            getGridPosition(0, 2, mTmpPoint);
-        } else if (index == ENTER_INDEX) {
-            // 0 1
-            // 2 3 * <-- Enter position (row 1, col 2)
-            getGridPosition(1, 2, mTmpPoint);
-        } else if (index >= MAX_NUM_ITEMS_IN_PREVIEW) {
-            // Items beyond those displayed in the preview are animated to the center
-            mTmpPoint[0] = mTmpPoint[1] = mAvailableSpace / 2 - (mIconSize * totalScale) / 2;
-        } else {
-            getPosition(index, curNumItems, mTmpPoint);
-        }
+//        if (index == EXIT_INDEX) {
+//            // 0 1 * <-- Exit position (row 0, col 2)
+//            // 2 3
+//            getGridPosition(0, 2, mTmpPoint);
+//        } else if (index == ENTER_INDEX) {
+//            // 0 1
+//            // 2 3 * <-- Enter position (row 1, col 2)
+//            getGridPosition(1, 2, mTmpPoint);
+//        } else if (index >= MAX_NUM_ITEMS_IN_PREVIEW) {
+//            // Items beyond those displayed in the preview are animated to the center
+//            mTmpPoint[0] = mTmpPoint[1] = mAvailableSpace / 2 - (mIconSize * totalScale) / 2;
+//        } else {
+//            getPosition(index, curNumItems, mTmpPoint);
+//        }
 
-        transX = mTmpPoint[0];
-        transY = mTmpPoint[1];
+        transX = index % 3f * (mMarginBetween + MIN_SCALE_OH27 * mIconSize) + mMargin;
+        transY = index / 3 * (mMarginBetween + MIN_SCALE_OH27 * mIconSize) + mMargin;
+
+//        transX = mTmpPoint[0];
+//        transY = mTmpPoint[1];
 
         if (params == null) {
             params = new PreviewItemDrawingParams(transX, transY, totalScale, overlayAlpha);

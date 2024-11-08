@@ -247,6 +247,7 @@ public class DragLayer extends BaseDragLayer<MainAppListFragment> {
         }
     }
 
+    //oh21 drop到缩放之前的位置
     public void animateViewIntoPosition(DragView dragView, final int[] pos, float alpha,
             float scaleX, float scaleY, int animationEndStyle, Runnable onFinishRunnable,
             int duration) {
@@ -259,10 +260,12 @@ public class DragLayer extends BaseDragLayer<MainAppListFragment> {
                 onFinishRunnable, animationEndStyle, duration, null);
     }
 
+    //oh21 外部drop到workspace 、 Folder中drop
     public void animateViewIntoPosition(DragView dragView, final View child, View anchorView) {
         animateViewIntoPosition(dragView, child, -1, anchorView);
     }
 
+    //oh21 workspace直接内部drop
     public void animateViewIntoPosition(DragView dragView, final View child, int duration,
             View anchorView) {
         ShortcutAndWidgetContainer parentChildren = (ShortcutAndWidgetContainer) child.getParent();

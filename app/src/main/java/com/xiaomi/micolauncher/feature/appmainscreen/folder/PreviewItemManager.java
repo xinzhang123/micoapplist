@@ -33,6 +33,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.BubbleTextView;
+import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 
@@ -109,7 +110,7 @@ public class PreviewItemManager {
 
             mIcon.mBackground.setup(mIcon.mLauncher, mIcon, mTotalWidth, mIcon.getPaddingTop());
             mIcon.mPreviewLayoutRule.init(mIcon.mBackground.previewSize, mIntrinsicIconSize,
-                    Utilities.isRtl(mIcon.getResources()));
+                    Utilities.isRtl(mIcon.getResources()), mIcon.getResources().getDimensionPixelSize(R.dimen.dp_11));
 
             updatePreviewItems(false);
         }

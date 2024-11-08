@@ -17,6 +17,7 @@
 package com.xiaomi.micolauncher.feature.appmainscreen;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.DELETE_APP;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.NORMAL;
 
 import android.animation.AnimatorSet;
@@ -32,6 +33,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,6 +46,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragController;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragLayer;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragOptions;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragView;
+import com.xiaomi.micolauncher.feature.appmainscreen.uninstall.UninstallConfirmDialog;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.Themes;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.Thunk;
 
@@ -52,7 +55,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.util.Thunk;
  */
 public abstract class ButtonDropTarget extends TextView
         implements DropTarget, DragController.DragListener, OnClickListener {
-
+    private static final String TAG = "ButtonDropTarget";
     private static final int[] sTempCords = new int[2];
     private static final int DRAG_VIEW_DROP_DURATION = 285;
 
@@ -85,6 +88,8 @@ public abstract class ButtonDropTarget extends TextView
 
     private AnimatorSet mCurrentColorAnim;
     @Thunk ColorMatrix mSrcFilter, mDstFilter, mCurrentFilter;
+    private int mLeftHalfMargin;
+    private int mTopMargin;
 
     public ButtonDropTarget(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -97,6 +102,9 @@ public abstract class ButtonDropTarget extends TextView
         Resources resources = getResources();
         mBottomDragPadding = resources.getDimensionPixelSize(R.dimen.drop_target_drag_padding);
         mDragDistanceThreshold = resources.getDimensionPixelSize(R.dimen.drag_distanceThreshold);
+        mLeftHalfMargin = getResources().getDisplayMetrics().widthPixels / 2;
+//        resources.getDimensionPixelSize(R.dimen.dp_912)
+        mTopMargin = resources.getDimensionPixelSize(R.dimen.dp_40);
     }
 
     @Override
@@ -138,29 +146,29 @@ public abstract class ButtonDropTarget extends TextView
 
     @Override
     public final void onDragEnter(DragObject d) {
-        if (!d.accessibleDrag && !mTextVisible) {
-            // Show tooltip
-            hideTooltip();
+//        if (!d.accessibleDrag && !mTextVisible) {
+//            // Show tooltip
+//            hideTooltip();
+//
+//            TextView message = (TextView) LayoutInflater.from(getContext()).inflate(
+//                    R.layout.drop_target_tool_tip, null);
+//            message.setText(mText);
+//
+//            mToolTip = new PopupWindow(message, WRAP_CONTENT, WRAP_CONTENT);
+//            int x = 0, y = 0;
+//            if (mToolTipLocation != TOOLTIP_DEFAULT) {
+//                y = -getMeasuredHeight();
+//                message.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+//                if (mToolTipLocation == TOOLTIP_LEFT) {
+//                    x = - getMeasuredWidth() - message.getMeasuredWidth() / 2;
+//                } else {
+//                    x = getMeasuredWidth() / 2 + message.getMeasuredWidth() / 2;
+//                }
+//            }
+//            mToolTip.showAsDropDown(this, x, y);
+//        }
 
-            TextView message = (TextView) LayoutInflater.from(getContext()).inflate(
-                    R.layout.drop_target_tool_tip, null);
-            message.setText(mText);
-
-            mToolTip = new PopupWindow(message, WRAP_CONTENT, WRAP_CONTENT);
-            int x = 0, y = 0;
-            if (mToolTipLocation != TOOLTIP_DEFAULT) {
-                y = -getMeasuredHeight();
-                message.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
-                if (mToolTipLocation == TOOLTIP_LEFT) {
-                    x = - getMeasuredWidth() - message.getMeasuredWidth() / 2;
-                } else {
-                    x = getMeasuredWidth() / 2 + message.getMeasuredWidth() / 2;
-                }
-            }
-            mToolTip.showAsDropDown(this, x, y);
-        }
-
-        d.dragView.setColor(mHoverColor);
+//        d.dragView.setColor(mHoverColor);
         animateTextColor(mHoverColor);
         if (d.stateAnnouncer != null) {
             d.stateAnnouncer.cancel();
@@ -210,14 +218,15 @@ public abstract class ButtonDropTarget extends TextView
 
     @Override
     public final void onDragExit(DragObject d) {
-        hideTooltip();
+//        hideTooltip();
 
         if (!d.dragComplete) {
-            d.dragView.setColor(0);
+//            d.dragView.setColor(0);
             resetHoverColor();
         } else {
             // Restore the hover color
-            d.dragView.setColor(mHoverColor);
+            Log.d(TAG, "onDragExit: ");
+//            d.dragView.setColor(mHoverColor);
         }
     }
 
@@ -230,7 +239,7 @@ public abstract class ButtonDropTarget extends TextView
             mCurrentColorAnim = null;
         }
         setTextColor(mOriginalTextColor);
-        setVisibility(mActive ? View.VISIBLE : View.GONE);
+        setVisibility(this instanceof DeleteDropTarget ? View.GONE : mActive ? View.VISIBLE : View.INVISIBLE);
 
         mAccessibleDrag = options.isAccessibleDrag;
         setOnClickListener(mAccessibleDrag ? this : null);
@@ -265,21 +274,19 @@ public abstract class ButtonDropTarget extends TextView
         final DragLayer dragLayer = mLauncher.getDragLayer();
         final Rect from = new Rect();
         dragLayer.getViewRectRelativeToSelf(d.dragView, from);
-
-        final Rect to = getIconRect(d);
-        final float scale = (float) to.width() / from.width();
-        mDropTargetBar.deferOnDragEnd();
+        final Rect to = new Rect(mLeftHalfMargin - from.width() / 2, mTopMargin, mLeftHalfMargin + from.width(), mTopMargin + from.height());
+//        mDropTargetBar.deferOnDragEnd();
 
         Runnable onAnimationEndRunnable = () -> {
             completeDrop(d);
             mDropTargetBar.onDragEnd();
-            mLauncher.getStateManager().goToState(NORMAL);
+            mLauncher.getStateManager().goToState(DELETE_APP);
         };
 
-        dragLayer.animateView(d.dragView, from, to, scale, 1f, 1f, 0.1f, 0.1f,
+        dragLayer.animateView(d.dragView, from, to, 1f, 1f, 1f, 1f, 1f,
                 DRAG_VIEW_DROP_DURATION,
                 Interpolators.DEACCEL_2, Interpolators.LINEAR, onAnimationEndRunnable,
-                DragLayer.ANIMATION_END_DISAPPEAR, null);
+                DragLayer.ANIMATION_END_REMAIN_VISIBLE, null);
     }
 
     public abstract int getAccessibilityAction();

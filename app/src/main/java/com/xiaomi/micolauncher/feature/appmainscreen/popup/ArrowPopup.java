@@ -93,8 +93,8 @@ public abstract class ArrowPopup extends AbstractFloatingView {
 
         // Initialize arrow view
         final Resources resources = getResources();
-        final int arrowWidth = resources.getDimensionPixelSize(R.dimen.popup_arrow_width);
-        final int arrowHeight = resources.getDimensionPixelSize(R.dimen.popup_arrow_height);
+        final int arrowWidth = resources.getDimensionPixelSize(R.dimen.dp_32);
+        final int arrowHeight = resources.getDimensionPixelSize(R.dimen.dp_9);
         mArrow = new View(context);
         mArrow.setLayoutParams(new DragLayer.LayoutParams(arrowWidth, arrowHeight));
         mArrayOffset = resources.getDimensionPixelSize(R.dimen.popup_arrow_vertical_offset);
@@ -163,7 +163,7 @@ public abstract class ArrowPopup extends AbstractFloatingView {
         final int arrowCenterOffset = res.getDimensionPixelSize(isAlignedWithStart()
                 ? R.dimen.popup_arrow_horizontal_center_start
                 : R.dimen.popup_arrow_horizontal_center_end);
-        final int halfArrowWidth = res.getDimensionPixelSize(R.dimen.popup_arrow_width) / 2;
+        final int halfArrowWidth = res.getDimensionPixelSize(R.dimen.dp_32) / 2;
         mLauncher.getDragLayer().addView(mArrow);
         DragLayer.LayoutParams arrowLp = (DragLayer.LayoutParams) mArrow.getLayoutParams();
         if (mIsLeftAligned) {
@@ -218,8 +218,7 @@ public abstract class ArrowPopup extends AbstractFloatingView {
     protected void orientAboutObject() {
         measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
         int width = getMeasuredWidth();
-        int extraVerticalSpace = mArrow.getLayoutParams().height + mArrayOffset
-                + getResources().getDimensionPixelSize(R.dimen.popup_vertical_padding);
+        int extraVerticalSpace = mArrow.getLayoutParams().height + mArrayOffset;
         int height = getMeasuredHeight() + extraVerticalSpace;
 
         getTargetObjectLocation(mTempRect);
@@ -374,7 +373,7 @@ public abstract class ArrowPopup extends AbstractFloatingView {
         });
 
         mOpenCloseAnimator = openAnim;
-        openAnim.playSequentially(revealAnim, arrowScale);
+        openAnim.playTogether(revealAnim, arrowScale);
         openAnim.start();
     }
 

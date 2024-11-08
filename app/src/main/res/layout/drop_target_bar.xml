@@ -32,6 +32,15 @@
         android:gravity="center"
         android:text="@string/remove_drop_target_label" />
 
+    <com.xiaomi.micolauncher.feature.appmainscreen.FolderDropTarget
+        android:id="@+id/folder_target_text"
+        style="@style/DropTargetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/folder_drop_target_label" />
+
     <!-- Uninstall target -->
     <com.xiaomi.micolauncher.feature.appmainscreen.SecondaryDropTarget
         android:id="@+id/uninstall_target_text"
@@ -41,5 +50,14 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="@string/uninstall_drop_target_label" />
+
+    <com.xiaomi.micolauncher.feature.appmainscreen.SelectDropTarget
+        android:id="@+id/select_target_text"
+        style="@style/DropTargetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/select_drop_target_label" />
 
 </com.xiaomi.micolauncher.feature.appmainscreen.DropTargetBar>

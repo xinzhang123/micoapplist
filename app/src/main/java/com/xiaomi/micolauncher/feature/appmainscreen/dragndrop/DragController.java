@@ -40,6 +40,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.LauncherSettings;
 import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
+import com.xiaomi.micolauncher.feature.appmainscreen.SecondaryDropTarget;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.accessibility.DragViewStateAnnouncer;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.ItemInfoMatcher;
@@ -53,6 +54,7 @@ import java.util.ArrayList;
  * Class for initiating a drag within a view or across multiple views.
  */
 public class DragController implements DragDriver.EventListener, TouchController {
+    private static final String TAG = "DragController";
     private static final boolean PROFILE_DRAWING_DURING_DRAG = false;
 
     @Thunk
@@ -188,8 +190,7 @@ public class DragController implements DragDriver.EventListener, TouchController
                 && !mOptions.preDragCondition.shouldStartDrag(0);
         Log.d("DragController", "startDrag: mIsInPreDrag === " + mIsInPreDrag);
         final Resources res = mLauncher.getResources();
-        final float scaleDps = mIsInPreDrag
-                ? res.getDimensionPixelSize(R.dimen.pre_drag_view_scale) : 0f; //oh21 fixme 长按放大的dp值
+        final float scaleDps = 0f; //oh21 fixme 长按放大的dp值
         final DragView dragView = mDragObject.dragView = new DragView(mLauncher, b, registrationX,
                 registrationY, initialDragViewScale, dragViewScaleOnDrop, scaleDps);
         dragView.setItemInfo(dragInfo);
@@ -271,6 +272,7 @@ public class DragController implements DragDriver.EventListener, TouchController
     public void cancelDrag() {
         if (isDragging()) {
             if (mLastDropTarget != null) {
+                Log.d("DragController", "cancelDrag: onDragExit");
                 mLastDropTarget.onDragExit(mDragObject);
             }
             mDragObject.deferDragViewCleanupPostAnimation = false;
@@ -308,6 +310,7 @@ public class DragController implements DragDriver.EventListener, TouchController
     }
 
     private void endDrag() {
+        Log.d(TAG, "endDrag: ");
         if (isDragging()) {
             mDragDriver = null;
             boolean isDeferred = false;
@@ -343,10 +346,12 @@ public class DragController implements DragDriver.EventListener, TouchController
                 }
             }
         };
+        Log.d(TAG, "animateDragViewToOriginalPosition: ");
         mDragObject.dragView.animateTo(mMotionDownX, mMotionDownY, onCompleteRunnable, duration);
     }
 
     private void callOnDragEnd() {
+        Log.d(TAG, "callOnDragEnd: ");
         if (mIsInPreDrag && mOptions.preDragCondition != null) {
             mOptions.preDragCondition.onPreDragEnd(mDragObject, false /* dragStarted*/);
         }
@@ -402,6 +407,7 @@ public class DragController implements DragDriver.EventListener, TouchController
     @Override
     public void onDriverDragExitWindow() {
         if (mLastDropTarget != null) {
+            Log.d(TAG, "onDriverDragExitWindow: onDragExit");
             mLastDropTarget.onDragExit(mDragObject);
             mLastDropTarget = null;
         }
@@ -522,6 +528,7 @@ public class DragController implements DragDriver.EventListener, TouchController
         if (dropTarget != null) {
             if (mLastDropTarget != dropTarget) {
                 if (mLastDropTarget != null) {
+                    Log.d(TAG, "checkTouchMove: onDragExit 111");
                     mLastDropTarget.onDragExit(mDragObject);
                 }
                 dropTarget.onDragEnter(mDragObject);
@@ -529,6 +536,7 @@ public class DragController implements DragDriver.EventListener, TouchController
             dropTarget.onDragOver(mDragObject);
         } else {
             if (mLastDropTarget != null) {
+                Log.d(TAG, "checkTouchMove: onDragExit 222");
                 mLastDropTarget.onDragExit(mDragObject);
             }
         }
@@ -598,6 +606,7 @@ public class DragController implements DragDriver.EventListener, TouchController
         // Move dragging to the final target.
         if (dropTarget != mLastDropTarget) {
             if (mLastDropTarget != null) {
+                Log.d(TAG, "drop: onDragExit 111");
                 mLastDropTarget.onDragExit(mDragObject);
             }
             mLastDropTarget = dropTarget;
@@ -609,6 +618,7 @@ public class DragController implements DragDriver.EventListener, TouchController
         mDragObject.dragComplete = true;
         if (mIsInPreDrag) {
             if (dropTarget != null) {
+                Log.d(TAG, "drop: onDragExit 222");
                 dropTarget.onDragExit(mDragObject);
             }
             return;
@@ -618,6 +628,7 @@ public class DragController implements DragDriver.EventListener, TouchController
         // Drop onto the target.
         boolean accepted = false;
         if (dropTarget != null) {
+            Log.d(TAG, "drop: onDragExit 333");
             dropTarget.onDragExit(mDragObject);
             if (dropTarget.acceptDrop(mDragObject)) {
                 if (flingAnimation != null) {

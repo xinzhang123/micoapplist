@@ -1,0 +1,113 @@
+/*
+ * Copyright (C) 2011 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.xiaomi.micolauncher.feature.appmainscreen;
+
+import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherSettings.BaseLauncherColumns.ITEM_TYPE_APPLICATION;
+
+import android.content.Context;
+import android.util.AttributeSet;
+import android.view.View;
+
+import com.xiaomi.micolauncher.feature.appmainscreen.accessibility.LauncherAccessibilityDelegate;
+import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragOptions;
+import com.xiaomi.micolauncher.feature.appmainscreen.folder.Folder;
+
+public class FolderDropTarget extends ButtonDropTarget {
+
+    public FolderDropTarget(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public FolderDropTarget(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        // Get the hover color
+        mHoverColor = getResources().getColor(R.color.delete_target_hover_tint);
+
+        setDrawable(R.drawable.ic_folder_shadow);
+    }
+
+    @Override
+    public void onDragStart(DragObject dragObject, DragOptions options) {
+        super.onDragStart(dragObject, options);
+        setTextBasedOnDragSource(dragObject.dragInfo);
+    }
+
+    /**
+     * @return true for items that should have a "Remove" action in accessibility.
+     */
+    @Override
+    public boolean supportsAccessibilityDrop(ItemInfo info, View view) {
+        return (info instanceof ShortcutInfo)
+                || (info instanceof LauncherAppWidgetInfo)
+                || (info instanceof FolderInfo);
+    }
+
+    @Override
+    public int getAccessibilityAction() {
+        return LauncherAccessibilityDelegate.REMOVE;
+    }
+
+    @Override
+    protected boolean supportsDrop(ItemInfo info) {
+        return false; //oh21 fixme 长按显示
+    }
+
+    /**
+     * Set the drop target's text to either "Remove" or "Cancel" depending on the drag item.
+     */
+    private void setTextBasedOnDragSource(ItemInfo item) {
+        mText = getResources().getString(item.itemType != ITEM_TYPE_APPLICATION
+                ? R.string.folder_drop_target_label
+                : android.R.string.cancel);
+        /*  mText = getResources().getString( android.R.string.cancel);*/
+        requestLayout();
+    }
+
+    @Override
+    public void completeDrop(DragObject d) {
+        ItemInfo item = d.dragInfo;
+        if ((d.dragSource instanceof Workspace) || (d.dragSource instanceof Folder)) {
+            onAccessibilityDrop(null, item);
+        }
+    }
+
+    /**h
+     * Removes the item from the workspace. If the view is not null, it also removes the view.
+     */
+    @Override
+    public void onAccessibilityDrop(View view, ItemInfo item) {
+        // Remove the item from launcher and the db, we can ignore the containerInfo in this call
+        // because we already remove the drag view from the folder (if the drag originated from
+        // a folder) in Folder.beginDrag()
+        if(isCanDrop(item)) {
+            mLauncher.removeItem(view, item, true /* deleteFromDb */);
+            mLauncher.getWorkspace().stripEmptyScreens();
+            mLauncher.getDragLayer()
+                    .announceForAccessibility(getContext().getString(R.string.item_removed));
+        }
+    }
+
+    private boolean isCanDrop(ItemInfo item){
+        return !(item.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPLICATION ||
+                item.itemType == LauncherSettings.Favorites.ITEM_TYPE_FOLDER);
+    }
+}

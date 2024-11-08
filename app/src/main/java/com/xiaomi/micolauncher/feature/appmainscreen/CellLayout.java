@@ -719,6 +719,7 @@ public class CellLayout extends ViewGroup {
     void regionToCenterPoint(int cellX, int cellY, int spanX, int spanY, int[] result) {
         final int hStartPadding = getPaddingLeft();
         final int vStartPadding = getPaddingTop();
+        Log.d("padding", "insertNewWorkspaceScreen: hStartPadding " + hStartPadding + " vStartPadding " + vStartPadding);
         result[0] = hStartPadding + cellX * mCellWidth + (spanX * mCellWidth) / 2; //oh21 fixme 这里需要处理中心点坐标，目前有偏差
         result[1] = vStartPadding + cellY * mCellHeight + (spanY * mCellHeight) / 2;
     }

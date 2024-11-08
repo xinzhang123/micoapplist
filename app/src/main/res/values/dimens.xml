@@ -45,7 +45,9 @@
     <dimen name="vertical_drag_handle_size">24dp</dimen>
 
 <!-- Drop target bar -->
-    <dimen name="dynamic_grid_drop_target_size">48dp</dimen>
+    <dimen name="dynamic_grid_drop_target_size">@dimen/dp_80</dimen>
+    <dimen name="dynamic_grid_drop_target_width">@dimen/dp_740</dimen>
+    <dimen name="dynamic_grid_drop_target_margin">@dimen/dp_250</dimen>
     <dimen name="drop_target_vertical_gap">20dp</dimen>
 
 <!-- App Widget resize frame -->
@@ -167,7 +169,7 @@
     <dimen name="bg_popup_item_width">220dp</dimen>
     <dimen name="bg_popup_item_height">56dp</dimen>
     <dimen name="bg_popup_item_condensed_height">48dp</dimen>
-    <dimen name="pre_drag_view_scale">10dp</dimen>
+    <dimen name="pre_drag_view_scale">@dimen/dp_12</dimen>
     <!-- an icon with shortcuts must be dragged this far before the container is removed. -->
     <dimen name="deep_shortcuts_start_drag_threshold">16dp</dimen>
     <dimen name="deep_shortcut_icon_size">36dp</dimen>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xiaomi.micolauncher.feature.appmainscreen.uninstall.UninstallConfirmDialog xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_127"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_32"
+        tools:text="@string/dialog_uninstall_title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:text="@string/dialog_uninstall_content"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_32" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_46"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_26"
+            android:background="@drawable/sp_r24_ffffff"
+            android:paddingHorizontal="@dimen/dp_93"
+            android:paddingVertical="@dimen/dp_19"
+            android:text="@string/tv_cancel"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_32" />
+
+        <TextView
+            android:id="@+id/tv_uninstall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sp_r24_ffffff"
+            android:paddingHorizontal="@dimen/dp_93"
+            android:paddingVertical="@dimen/dp_19"
+            android:text="@string/uninstall_drop_target_label"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_32" />
+    </LinearLayout>
+</com.xiaomi.micolauncher.feature.appmainscreen.uninstall.UninstallConfirmDialog>

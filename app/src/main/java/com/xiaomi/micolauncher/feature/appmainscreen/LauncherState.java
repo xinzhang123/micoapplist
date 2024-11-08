@@ -25,6 +25,7 @@ import android.graphics.Rect;
 import android.util.Log;
 import android.view.animation.Interpolator;
 
+import com.xiaomi.micolauncher.feature.appmainscreen.states.UninstallTopDropState;
 import com.xiaomi.micolauncher.feature.appmainscreen.states.FolderOpenState;
 import com.xiaomi.micolauncher.feature.appmainscreen.states.SpringLoadedState;
 import com.xiaomi.micolauncher.feature.appmainscreen.uioverrides.AllAppsState;
@@ -72,7 +73,7 @@ public class LauncherState {
                 }
             };
 
-    private static final LauncherState[] sAllStates = new LauncherState[6];
+    private static final LauncherState[] sAllStates = new LauncherState[7];
 
     /**
      * TODO: Create a separate class for NORMAL state.
@@ -89,6 +90,7 @@ public class LauncherState {
     public static final LauncherState FAST_OVERVIEW = new FastOverviewState(3);
     public static final LauncherState ALL_APPS = new AllAppsState(4);
     public static final LauncherState OPEN_FOLDER = new FolderOpenState(5);
+    public static final LauncherState DELETE_APP = new UninstallTopDropState(6);
 
     protected static final Rect sTempRect = new Rect();
 

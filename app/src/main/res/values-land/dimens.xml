@@ -34,4 +34,6 @@
     <!-- Will be set to equal the hotseat icon size. -->
     <dimen name="dynamic_grid_hotseat_size">0dp</dimen>
     <dimen name="dynamic_grid_hotseat_side_padding">16dp</dimen>
+    <dimen name="dynamic_grid_drop_target_width">@dimen/dp_1260</dimen>
+    <dimen name="dynamic_grid_drop_target_margin">@dimen/dp_510</dimen>
 </resources>

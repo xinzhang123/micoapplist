@@ -159,10 +159,10 @@ public class FolderPagedView extends PagedView<PageIndicatorDots> {
      */
     public void setupContentDimensions(int count) {
         mAllocatedContentSize = count;
-        calculateGridSize(count, mGridCountX, mGridCountY, mMaxCountX, mMaxCountY, mMaxItemsPerPage,
-                sTmpArray);
-        mGridCountX = sTmpArray[0];
-        mGridCountY = sTmpArray[1];
+//        calculateGridSize(count, mGridCountX, mGridCountY, mMaxCountX, mMaxCountY, mMaxItemsPerPage,
+//                sTmpArray);
+        mGridCountX = 4;
+        mGridCountY = 4;
 
         // Update grid size
         for (int i = getPageCount() - 1; i >= 0; i--) {

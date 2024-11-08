@@ -174,7 +174,7 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver, 
         setEllipsize(TruncateAt.END);
         setAccessibilityDelegate(mActivity.getAccessibilityDelegate());
         setTextAlpha(1f);
-        setBackgroundColor(Color.parseColor("#afe2ff")); //oh21 快捷方式的背景颜色
+//        setBackgroundColor(Color.parseColor("#afe2ff")); //oh21 快捷方式的背景颜色
     }
 
     @Override

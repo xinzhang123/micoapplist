@@ -70,11 +70,12 @@ public abstract class AbstractFloatingView extends LinearLayout implements Touch
     public static final int TYPE_QUICKSTEP_PREVIEW = 1 << 6;
     public static final int TYPE_TASK_MENU = 1 << 7;
     public static final int TYPE_OPTIONS_POPUP = 1 << 8;
+    public static final int TYPE_UNINSTALL_POPUP = 1 << 9;
 
     public static final int TYPE_ALL = TYPE_FOLDER | TYPE_ACTION_POPUP
             | TYPE_WIDGETS_BOTTOM_SHEET | TYPE_WIDGET_RESIZE_FRAME | TYPE_WIDGETS_FULL_SHEET
             | TYPE_QUICKSTEP_PREVIEW | TYPE_ON_BOARD_POPUP | TYPE_DISCOVERY_BOUNCE | TYPE_TASK_MENU
-            | TYPE_OPTIONS_POPUP;
+            | TYPE_OPTIONS_POPUP | TYPE_UNINSTALL_POPUP;
 
     // Type of popups which should be kept open during launcher rebind
     public static final int TYPE_REBIND_SAFE = TYPE_WIDGETS_FULL_SHEET

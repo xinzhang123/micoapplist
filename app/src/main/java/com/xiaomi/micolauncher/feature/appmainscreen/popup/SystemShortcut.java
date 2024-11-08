@@ -120,7 +120,7 @@ public abstract class SystemShortcut<T extends BaseDraggingFragment2> extends It
 
     public static class UnInstall extends SystemShortcut {
         public UnInstall() {
-            super(R.drawable.ic_uninstall_no_shadow, R.string.uninstall_drop_target_label);
+            super(R.drawable.ic_uninstall_pop, R.string.uninstall_drop_target_label);
         }
 
         @Override

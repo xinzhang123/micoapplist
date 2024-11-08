@@ -28,6 +28,8 @@ import android.util.DisplayMetrics;
 import android.view.Surface;
 import android.view.WindowManager;
 
+import androidx.annotation.Px;
+
 import com.xiaomi.micolauncher.feature.appmainscreen.CellLayout.ContainerType;
 import com.xiaomi.micolauncher.feature.appmainscreen.badge.BadgeRenderer;
 
@@ -115,6 +117,8 @@ public class DeviceProfile {
 
     // Drop Target
     public int dropTargetBarSizePx;
+    public int dropTargetBarWidthPx;
+    public int dropTargetBarMarginPx;
 
     // Insets
     private final Rect mInsets = new Rect();
@@ -170,6 +174,8 @@ public class DeviceProfile {
                 res.getDimensionPixelSize(R.dimen.dynamic_grid_icon_drawable_padding); //oh21 fixme 这里设置BubbleTextView的drawablePadding
         cellCornerPx = res.getDimensionPixelSize(R.dimen.dp_cell_corner);
         dropTargetBarSizePx = res.getDimensionPixelSize(R.dimen.dynamic_grid_drop_target_size);
+        dropTargetBarWidthPx = res.getDimensionPixelSize(R.dimen.dynamic_grid_drop_target_width);
+        dropTargetBarMarginPx = res.getDimensionPixelSize(R.dimen.dynamic_grid_drop_target_margin);
         workspaceSpringLoadedBottomSpace =
                 res.getDimensionPixelSize(R.dimen.dynamic_grid_min_spring_loaded_space);
 

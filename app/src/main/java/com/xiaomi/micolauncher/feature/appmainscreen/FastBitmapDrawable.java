@@ -46,7 +46,7 @@ public class FastBitmapDrawable extends Drawable {
     private static final float PRESSED_SCALE = 0.8f;
     private static final float DISABLED_DESATURATION = 1f;
     private static final float DISABLED_BRIGHTNESS = 0.5f;
-    public static final float DRAWABLE_CORNER = 40; //oh21 fixme 这里的圆角目前写死，需要修改成从dimens文件中读
+    public static final float DRAWABLE_CORNER = 24;
 
     public static final int CLICK_FEEDBACK_DURATION = 100;
 

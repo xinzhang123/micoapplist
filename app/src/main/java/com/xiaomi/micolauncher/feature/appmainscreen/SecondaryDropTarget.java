@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.LauncherActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.UserHandle;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.compat.LauncherAppsCompat;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragOptions;
+import com.xiaomi.micolauncher.feature.appmainscreen.uninstall.UninstallConfirmDialog;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.Themes;
 
 import java.net.URISyntaxException;
@@ -56,6 +58,7 @@ public class SecondaryDropTarget extends ButtonDropTarget implements OnAlarmList
 
         mCacheExpireAlarm = new Alarm();
         mCacheExpireAlarm.setOnAlarmListener(this);
+//        setBackgroundColor(Color.parseColor("#afe2ff"));
     }
 
     @Override
@@ -162,16 +165,17 @@ public class SecondaryDropTarget extends ButtonDropTarget implements OnAlarmList
 
     @Override
     public void completeDrop(final DragObject d) {
-        ComponentName target = performDropAction(getViewUnderDrag(d.dragInfo), d.dragInfo);
-        if (d.dragSource instanceof DeferredOnComplete) {
-            DeferredOnComplete deferred = (DeferredOnComplete) d.dragSource;
-            if (target != null) {
-                deferred.mPackageName = target.getPackageName();
-                mLauncher.setOnResumeCallback(deferred);
-            } else {
-                deferred.sendFailure();
-            }
-        }
+        UninstallConfirmDialog.showUninstallConfirmDialog(mLauncher, d);
+//        ComponentName target = performDropAction(getViewUnderDrag(d.dragInfo), d.dragInfo);
+//        if (d.dragSource instanceof DeferredOnComplete) {
+//            DeferredOnComplete deferred = (DeferredOnComplete) d.dragSource;
+//            if (target != null) {
+//                deferred.mPackageName = target.getPackageName();
+//                mLauncher.setOnResumeCallback(deferred);
+//            } else {
+//                deferred.sendFailure();
+//            }
+//        }
     }
 
     private View getViewUnderDrag(ItemInfo info) {

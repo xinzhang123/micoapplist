@@ -22,5 +22,5 @@
     android:background="?attr/mico_popupColorPrimary"
     android:clipToPadding="false"
     android:clipChildren="false"
-    android:elevation="@dimen/deep_shortcuts_elevation"
+    android:elevation="@dimen/dp_5"
     android:orientation="vertical" />

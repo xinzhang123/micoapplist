@@ -16,5 +16,7 @@
 <resources>
     <drawable name="ic_setup_shadow">@drawable/ic_setting</drawable>
     <drawable name="ic_remove_shadow">@drawable/ic_remove_no_shadow</drawable>
-    <drawable name="ic_uninstall_shadow">@drawable/ic_uninstall_no_shadow</drawable>
+    <drawable name="ic_uninstall_shadow">@drawable/ic_uninstall_no_shadow2</drawable>
+    <drawable name="ic_folder_shadow">@drawable/ic_top_folder</drawable>
+    <drawable name="ic_select_shadow">@drawable/ic_top_select</drawable>
 </resources>
