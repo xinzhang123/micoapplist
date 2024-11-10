@@ -83,7 +83,7 @@ public class FolderIcon extends FrameLayout implements FolderListener {
     private CheckLongPressHelper mLongPressHelper;
     private StylusEventHelper mStylusEventHelper;
 
-    static final int DROP_IN_ANIMATION_DURATION = 400;
+    static final int DROP_IN_ANIMATION_DURATION = 301;
 
     // Flag whether the folder should open itself when an item is dragged over is enabled.
     public static final boolean SPRING_LOADING_ENABLED = true;
@@ -346,10 +346,10 @@ public class FolderIcon extends FrameLayout implements FolderListener {
             to.offset(center[0] - animateView.getMeasuredWidth() / 2,
                     center[1] - animateView.getMeasuredHeight() / 2);
 
-            float finalAlpha = index < MAX_NUM_ITEMS_IN_PREVIEW ? 0.5f : 0f;
+//            float finalAlpha = index < MAX_NUM_ITEMS_IN_PREVIEW ? 0.5f : 0f;
 
             float finalScale = scale * scaleRelativeToDragLayer;
-            dragLayer.animateView(animateView, from, to, finalAlpha,
+            dragLayer.animateView(animateView, from, to, 1,
                     1, 1, finalScale, finalScale, DROP_IN_ANIMATION_DURATION,
                     Interpolators.DEACCEL_2, Interpolators.ACCEL_2,
                     null, DragLayer.ANIMATION_END_DISAPPEAR, null);

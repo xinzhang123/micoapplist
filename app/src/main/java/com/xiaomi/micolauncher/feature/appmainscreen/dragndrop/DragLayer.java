@@ -405,7 +405,7 @@ public class DragLayer extends BaseDragLayer<MainAppListFragment> {
                 float initialScaleY = initScaleY * dropViewScale;
                 float scaleX = finalScaleX * percent + initialScaleX * (1 - percent);
                 float scaleY = finalScaleY * percent + initialScaleY * (1 - percent);
-                float alpha = finalAlpha * alphaPercent + initAlpha * (1 - alphaPercent);
+//                float alpha = finalAlpha * alphaPercent + initAlpha * (1 - alphaPercent);
 
                 float fromLeft = from.left + (initialScaleX - 1f) * width / 2;
                 float fromTop = from.top + (initialScaleY - 1f) * height / 2;
@@ -423,7 +423,7 @@ public class DragLayer extends BaseDragLayer<MainAppListFragment> {
                 mDropView.setTranslationY(yPos);
                 mDropView.setScaleX(scaleX);
                 mDropView.setScaleY(scaleY);
-                mDropView.setAlpha(alpha);
+//                mDropView.setAlpha(alpha);
             }
         };
         animateView(view, updateCb, duration, interpolator, onCompleteRunnable, animationEndStyle,

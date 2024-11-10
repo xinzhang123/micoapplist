@@ -57,7 +57,7 @@
             android:textColor="?android:attr/textColorTertiary"
             android:textColorHighlight="?android:attr/colorControlHighlight"
             android:textColorHint="?android:attr/textColorHint"
-            android:textSize="@dimen/folder_label_text_size" />
+            android:textSize="@dimen/folder_child_text_size" />
 
         <com.xiaomi.micolauncher.feature.appmainscreen.pageindicators.PageIndicatorDots
             android:id="@+id/folder_page_indicator"
