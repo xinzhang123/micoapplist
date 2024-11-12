@@ -321,7 +321,9 @@ public class DragController implements DragDriver.EventListener, TouchController
                 } else if (mIsInPreDrag) {
                     animateDragViewToOriginalPosition(null, null, -1);
                 }
-                mDragObject.dragView = null;
+                if (!(mLastDropTarget instanceof SecondaryDropTarget)) {
+                    mDragObject.dragView = null;
+                }
             }
 
             // Only end the drag if we are not deferred
@@ -346,7 +348,8 @@ public class DragController implements DragDriver.EventListener, TouchController
                 }
             }
         };
-        Log.d(TAG, "animateDragViewToOriginalPosition: ");
+        mLastDropTarget = null;
+        Log.d(TAG, "animateDragViewToOriginalPosition: mMotionDownX === " + mMotionDownX + " mMotionDownY === " + mMotionDownY);
         mDragObject.dragView.animateTo(mMotionDownX, mMotionDownY, onCompleteRunnable, duration);
     }
 
@@ -371,6 +374,12 @@ public class DragController implements DragDriver.EventListener, TouchController
         if (mDragObject.deferDragViewCleanupPostAnimation) {
             // If we skipped calling onDragEnd() before, do it now
             callOnDragEnd();
+        }
+    }
+
+    public void removeDragView() {
+        if (null != mDragObject.dragView) {
+            mDragObject.dragView.remove();
         }
     }
 
@@ -452,8 +461,10 @@ public class DragController implements DragDriver.EventListener, TouchController
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 // Remember location of down touch
-                mMotionDownX = dragLayerX;
-                mMotionDownY = dragLayerY;
+                if (!(null != mLastDropTarget && mLastDropTarget instanceof SecondaryDropTarget)) {
+                    mMotionDownX = dragLayerX;
+                    mMotionDownY = dragLayerY;
+                }
                 break;
             case MotionEvent.ACTION_UP:
                 mLastTouchUpTime = System.currentTimeMillis();

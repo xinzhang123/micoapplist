@@ -17,6 +17,7 @@
 package com.xiaomi.micolauncher.feature.appmainscreen;
 
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherSettings.BaseLauncherColumns.ITEM_TYPE_APPLICATION;
+import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.SELECT_NORMAL;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -71,12 +72,22 @@ public class SelectDropTarget extends ButtonDropTarget {
         return false; //oh21 fixme 长按显示
     }
 
+    @Override
+    protected boolean isCanClick() {
+        return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        mLauncher.getStateManager().goToState(SELECT_NORMAL);
+    }
+
     /**
      * Set the drop target's text to either "Remove" or "Cancel" depending on the drag item.
      */
     private void setTextBasedOnDragSource(ItemInfo item) {
         mText = getResources().getString(item.itemType != ITEM_TYPE_APPLICATION
-                ? R.string.folder_drop_target_label
+                ? R.string.select_drop_target_label
                 : android.R.string.cancel);
         /*  mText = getResources().getString( android.R.string.cancel);*/
         requestLayout();

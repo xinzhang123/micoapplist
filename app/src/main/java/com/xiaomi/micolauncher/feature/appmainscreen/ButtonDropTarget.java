@@ -242,7 +242,11 @@ public abstract class ButtonDropTarget extends TextView
         setVisibility(this instanceof DeleteDropTarget ? View.GONE : mActive ? View.VISIBLE : View.INVISIBLE);
 
         mAccessibleDrag = options.isAccessibleDrag;
-        setOnClickListener(mAccessibleDrag ? this : null);
+        setOnClickListener(isCanClick() ? this : null);
+    }
+
+    protected boolean isCanClick() {
+        return mAccessibleDrag;
     }
 
     @Override

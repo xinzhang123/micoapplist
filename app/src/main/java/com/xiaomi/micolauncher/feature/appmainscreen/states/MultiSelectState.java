@@ -27,20 +27,19 @@ import com.xiaomi.micolauncher.feature.appmainscreen.Workspace;
 /**
  * Definition for spring loaded state used during drag and drop.
  */
-public class UninstallTopDropState extends LauncherState {
+public class MultiSelectState extends LauncherState {
 
     private static final int STATE_FLAGS = FLAG_MULTI_PAGE |
             FLAG_DISABLE_ACCESSIBILITY | FLAG_DISABLE_RESTORE | FLAG_WORKSPACE_ICONS_CAN_BE_DRAGGED |
             FLAG_DISABLE_PAGE_CLIPPING | FLAG_PAGE_BACKGROUNDS | FLAG_HIDE_BACK_BUTTON;
 
-    public UninstallTopDropState(int id) {
+    public MultiSelectState(int id) {
         super(id, 0, SPRING_LOADED_TRANSITION_MS, STATE_FLAGS);
     }
 
     @Override
     public float[] getWorkspaceScaleAndTranslation(MainAppListFragment launcher) {
-        int translateY = launcher.getResources().getDimensionPixelSize(R.dimen.dp_240);
-        return new float[] {0.875f, 1, translateY};
+        return new float[] {0.875f, 1, 0};
     }
 
     @Override

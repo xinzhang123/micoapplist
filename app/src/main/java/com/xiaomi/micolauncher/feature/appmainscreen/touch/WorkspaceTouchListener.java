@@ -20,6 +20,7 @@ import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_POINTER_UP;
 import static android.view.MotionEvent.ACTION_UP;
 import static android.view.ViewConfiguration.getLongPressTimeout;
+import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.MULTI_SELECT;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.NORMAL;
 
 import android.graphics.PointF;
@@ -157,7 +158,9 @@ public class WorkspaceTouchListener implements OnTouchListener, Runnable {
 
                 mWorkspace.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS,
                         HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
-                OptionsPopupView.showDefaultOptions(mLauncher, mTouchDownPoint.x, mTouchDownPoint.y);
+//                mLauncher.getStateManager().goToState(MULTI_SELECT);
+//                mLauncher.getDropTargetBar().onDragStart(null, null);
+//                OptionsPopupView.showDefaultOptions(mLauncher, mTouchDownPoint.x, mTouchDownPoint.y);
             } else {
                 cancelLongPress();
             }

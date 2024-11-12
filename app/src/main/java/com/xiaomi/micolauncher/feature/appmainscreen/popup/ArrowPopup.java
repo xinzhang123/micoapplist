@@ -163,7 +163,7 @@ public abstract class ArrowPopup extends AbstractFloatingView {
         final int arrowCenterOffset = res.getDimensionPixelSize(isAlignedWithStart()
                 ? R.dimen.popup_arrow_horizontal_center_start
                 : R.dimen.popup_arrow_horizontal_center_end);
-        final int halfArrowWidth = res.getDimensionPixelSize(R.dimen.dp_32) / 2;
+        final int halfArrowWidth = 0;
         mLauncher.getDragLayer().addView(mArrow);
         DragLayer.LayoutParams arrowLp = (DragLayer.LayoutParams) mArrow.getLayoutParams();
         if (mIsLeftAligned) {
@@ -185,7 +185,7 @@ public abstract class ArrowPopup extends AbstractFloatingView {
             int radius = getResources().getDimensionPixelSize(R.dimen.popup_arrow_corner_radius);
             arrowPaint.setPathEffect(new CornerPathEffect(radius));
             mArrow.setBackground(arrowDrawable);
-            mArrow.setElevation(getElevation());
+//            mArrow.setElevation(getElevation());
         }
 
         mArrow.setPivotX(arrowLp.width / 2);

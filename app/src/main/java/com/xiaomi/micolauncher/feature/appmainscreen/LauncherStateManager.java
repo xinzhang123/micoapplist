@@ -17,7 +17,9 @@
 package com.xiaomi.micolauncher.feature.appmainscreen;
 
 import static android.view.View.VISIBLE;
+import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.MULTI_SELECT;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.NORMAL;
+import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.SELECT_NORMAL;
 import static com.xiaomi.micolauncher.feature.appmainscreen.anim.AnimatorSetBuilder.ANIM_OVERVIEW_FADE;
 import static com.xiaomi.micolauncher.feature.appmainscreen.anim.AnimatorSetBuilder.ANIM_OVERVIEW_SCALE;
 import static com.xiaomi.micolauncher.feature.appmainscreen.anim.AnimatorSetBuilder.ANIM_WORKSPACE_FADE;
@@ -224,6 +226,10 @@ public class LauncherStateManager {
                 return;
             }
         }
+
+//        if (mLauncher.isInState(MULTI_SELECT) && state != SELECT_NORMAL) {
+//            return;
+//        }
 
         // Cancel the current animation. This will reset mState to mCurrentStableState, so store it.
         LauncherState fromState = mState;

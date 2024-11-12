@@ -21,4 +21,8 @@
 
     <color name="all_apps_bg_hand_fill">#E5E5E5</color>
     <color name="all_apps_bg_hand_fill_dark">#9AA0A6</color>
+
+    <color name="color_2c354a">#2C354A</color>
+    <color name="color_80000000">#80000000</color>
+    <color name="color_4d000000">#4D000000</color>
 </resources>

@@ -19,6 +19,8 @@ import com.xiaomi.micolauncher.feature.appmainscreen.R;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Utilities;
 import com.xiaomi.micolauncher.feature.appmainscreen.model.WidgetItem;
+import com.xiaomi.micolauncher.feature.appmainscreen.uninstall.UninstallConfirmDialog;
+import com.xiaomi.micolauncher.feature.appmainscreen.uninstall.UninstallConfirmDialog2;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.InstantAppResolver;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.PackageManagerHelper;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.PackageUserKey;
@@ -118,14 +120,14 @@ public abstract class SystemShortcut<T extends BaseDraggingFragment2> extends It
         }
     }
 
-    public static class UnInstall extends SystemShortcut {
+    public static class UnInstall extends SystemShortcut<MainAppListFragment> {
         public UnInstall() {
             super(R.drawable.ic_uninstall_pop, R.string.uninstall_drop_target_label);
         }
 
         @Override
         public View.OnClickListener getOnClickListener(
-                BaseDraggingFragment2 activity, ItemInfo itemInfo) {
+                MainAppListFragment activity, ItemInfo itemInfo) {
             ComponentName targetComponent = itemInfo.getTargetComponent();
             if( null == itemInfo || null == targetComponent || TextUtils.isEmpty(targetComponent.getPackageName()))
                 return  null;
@@ -136,18 +138,19 @@ public abstract class SystemShortcut<T extends BaseDraggingFragment2> extends It
         }
 
         public View.OnClickListener createOnClickListener(
-                BaseDraggingFragment2 activity, ItemInfo itemInfo) {
+                MainAppListFragment activity, ItemInfo itemInfo) {
             return view -> {
-                ComponentName cn = itemInfo.getTargetComponent();
-                Intent intent = null;
-                try {
-                    intent = Intent.parseUri(activity.getString(R.string.delete_package_intent), 0)
-                            .setData(Uri.fromParts("package", cn.getPackageName(), cn.getClassName()))
-                            .putExtra(Intent.EXTRA_USER, itemInfo.user);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                activity.startActivitySafely(view, intent, itemInfo);
+//                ComponentName cn = itemInfo.getTargetComponent();
+//                Intent intent = null;
+//                try {
+//                    intent = Intent.parseUri(activity.getString(R.string.delete_package_intent), 0)
+//                            .setData(Uri.fromParts("package", cn.getPackageName(), cn.getClassName()))
+//                            .putExtra(Intent.EXTRA_USER, itemInfo.user);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                activity.startActivitySafely(view, intent, itemInfo);
+                UninstallConfirmDialog2.showUninstallConfirmDialog(activity, itemInfo);
                 AbstractFloatingView.closeAllOpenViews(activity);
             };
         }

@@ -54,9 +54,9 @@
             android:paddingBottom="@dimen/folder_label_padding_bottom"
             android:paddingTop="@dimen/folder_label_padding_top"
             android:singleLine="true"
-            android:textColor="?android:attr/textColorTertiary"
+            android:textColor="@color/white"
             android:textColorHighlight="?android:attr/colorControlHighlight"
-            android:textColorHint="?android:attr/textColorHint"
+            android:textColorHint="@color/white"
             android:textSize="@dimen/folder_child_text_size" />
 
         <com.xiaomi.micolauncher.feature.appmainscreen.pageindicators.PageIndicatorDots

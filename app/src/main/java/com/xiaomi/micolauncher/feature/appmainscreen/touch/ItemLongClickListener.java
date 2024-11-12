@@ -18,6 +18,7 @@ package com.xiaomi.micolauncher.feature.appmainscreen.touch;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.ALL_APPS;
+import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.MULTI_SELECT;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.NORMAL;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.OVERVIEW;
 
@@ -50,7 +51,7 @@ public class ItemLongClickListener {
         Log.d("123", "onWorkspaceItemLongClick: ");
         MainAppListFragment launcher = MainAppListFragment.getLauncher(v.getContext());
         if (!canStartDrag(launcher)) return false;
-        if (!launcher.isInState(NORMAL) && !launcher.isInState(OVERVIEW)) return false;
+        if (!launcher.isInState(NORMAL) && !launcher.isInState(OVERVIEW) && !launcher.isInState(MULTI_SELECT)) return false;
         if (!(v.getTag() instanceof ItemInfo)) return false;
 
         launcher.setWaitingForResult(null);

@@ -17,6 +17,7 @@
 package com.xiaomi.micolauncher.feature.appmainscreen;
 
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils.OVERVIEW_TRANSITION_MS;
+import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils.SPRING_LOADED_EXIT_DELAY;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils.SPRING_LOADED_TRANSITION_MS;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.ALL_APPS;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.NORMAL;
@@ -1934,7 +1935,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
                         dropTargetLayout, mTargetCell, distance, false, d.dragView) ||
                         addToExistingFolderIfNecessary(cell, dropTargetLayout, mTargetCell,
                                 distance, d, false)) {
-                    mLauncher.getStateManager().goToState(NORMAL, 0);//oh21 workspace合并文件夹的时候会有个一个500ms的延迟执行workspace的动画
+                    mLauncher.getStateManager().goToState(NORMAL, SPRING_LOADED_EXIT_DELAY);//oh21 workspace合并文件夹的时候会有个一个500ms的延迟执行workspace的动画
                     return;
                 }
 
@@ -2075,7 +2076,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
             parent.onDropChild(cell);
 
             mLauncher.getStateManager().goToState(
-                    NORMAL, 0, onCompleteRunnable);//oh21 workspace去掉nromal的延迟动画
+                    NORMAL, SPRING_LOADED_EXIT_DELAY, onCompleteRunnable);//oh21 workspace去掉nromal的延迟动画
         }
 
         if (d.stateAnnouncer != null && !droppedOnOriginalCell) {

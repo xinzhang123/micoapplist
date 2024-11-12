@@ -16,6 +16,7 @@
 
 package com.xiaomi.micolauncher.feature.appmainscreen.folder;
 
+import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.OPEN_FOLDER;
 import static com.xiaomi.micolauncher.feature.appmainscreen.folder.ClippedFolderIconLayoutRule.MAX_NUM_ITEMS_IN_PREVIEW;
 import static com.xiaomi.micolauncher.feature.appmainscreen.folder.PreviewItemManager.INITIAL_ITEM_ANIMATION_DURATION;
 
@@ -245,6 +246,7 @@ public class FolderIcon extends FrameLayout implements FolderListener {
         public void onAlarm(Alarm alarm) {
             mFolder.beginExternalDrag();
             mFolder.animateOpen();
+            mLauncher.getStateManager().goToState(OPEN_FOLDER);
         }
     };
 

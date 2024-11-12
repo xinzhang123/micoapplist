@@ -83,12 +83,15 @@ public class UninstallConfirmDialog extends AbstractFloatingView implements View
         if (v.getId() == R.id.tv_cancel) {
             Log.d(TAG, "onClick: ");
             close(false);
-//            final View cell = mLauncher.getWorkspace().getDragInfo().cell;
-//            mLauncher.getDragController().animateDragViewToOriginalPosition(
-//                    null, cell, SPRING_LOADED_TRANSITION_MS);
-//            mLauncher.getStateManager().goToState(NORMAL);
+            final View cell = mLauncher.getWorkspace().getDragInfo().cell;
+            mLauncher.getDragController().animateDragViewToOriginalPosition(
+                    null, cell, SPRING_LOADED_TRANSITION_MS);
+            mLauncher.getStateManager().goToState(NORMAL);
         } else if (v.getId() == R.id.tv_uninstall) {
             close(false);
+            //oh21 fixme 需要修改
+            mLauncher.getDragController().removeDragView();
+            mLauncher.getStateManager().goToState(NORMAL);
         }
     }
 }

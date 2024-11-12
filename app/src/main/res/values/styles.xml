@@ -46,11 +46,13 @@
 
     <style name="LauncherTheme" parent="@style/BaseLauncherThemeWithCustomAttrs">
         <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">#00000000</item>
         <item name="android:navigationBarColor">#00000000</item>
     </style>
+
+    <style name="ActivityTheme" parent="LauncherTheme" />
 
     <style name="LauncherTheme.DarkText" parent="@style/LauncherTheme">
         <item name="mico_workspaceTextColor">#FF212121</item>

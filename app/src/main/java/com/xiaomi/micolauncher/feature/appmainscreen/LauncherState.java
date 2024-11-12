@@ -25,6 +25,7 @@ import android.graphics.Rect;
 import android.util.Log;
 import android.view.animation.Interpolator;
 
+import com.xiaomi.micolauncher.feature.appmainscreen.states.MultiSelectState;
 import com.xiaomi.micolauncher.feature.appmainscreen.states.UninstallTopDropState;
 import com.xiaomi.micolauncher.feature.appmainscreen.states.FolderOpenState;
 import com.xiaomi.micolauncher.feature.appmainscreen.states.SpringLoadedState;
@@ -73,7 +74,7 @@ public class LauncherState {
                 }
             };
 
-    private static final LauncherState[] sAllStates = new LauncherState[7];
+    private static final LauncherState[] sAllStates = new LauncherState[8];
 
     /**
      * TODO: Create a separate class for NORMAL state.
@@ -81,6 +82,10 @@ public class LauncherState {
     public static final LauncherState NORMAL = new LauncherState(0, 0, 0,
             FLAG_DISABLE_RESTORE | FLAG_WORKSPACE_ICONS_CAN_BE_DRAGGED | FLAG_HIDE_BACK_BUTTON |
             FLAG_HAS_SYS_UI_SCRIM);
+
+    public static final LauncherState SELECT_NORMAL = new LauncherState(0, 0, 0,
+            FLAG_DISABLE_RESTORE | FLAG_WORKSPACE_ICONS_CAN_BE_DRAGGED | FLAG_HIDE_BACK_BUTTON |
+                    FLAG_HAS_SYS_UI_SCRIM);
 
     /**
      * Various Launcher states arranged in the increasing order of UI layers
@@ -91,6 +96,7 @@ public class LauncherState {
     public static final LauncherState ALL_APPS = new AllAppsState(4);
     public static final LauncherState OPEN_FOLDER = new FolderOpenState(5);
     public static final LauncherState DELETE_APP = new UninstallTopDropState(6);
+    public static final LauncherState MULTI_SELECT = new MultiSelectState(7);
 
     protected static final Rect sTempRect = new Rect();
 

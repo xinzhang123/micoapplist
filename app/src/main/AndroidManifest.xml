@@ -29,6 +29,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <uses-permission android:name="android.permission.DELETE_PACKAGES" />
 
     <application
         android:allowBackup="true"
@@ -42,7 +43,8 @@
         android:theme="@style/LauncherTheme">
         <activity
             android:name=".Launcher2"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/ActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

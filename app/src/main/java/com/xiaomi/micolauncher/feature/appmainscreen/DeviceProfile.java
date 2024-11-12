@@ -340,15 +340,12 @@ public class DeviceProfile {
         hotseatCellHeightPx = cellHeightPx ;
 
         if (!isVerticalLayout) {
-            int expectedWorkspaceHeight = availableHeightPx - hotseatBarSizePx
-                    - verticalDragHandleSizePx - topWorkspacePadding;
-            float minRequiredHeight = dropTargetBarSizePx + workspaceSpringLoadedBottomSpace;
-            workspaceSpringLoadShrinkFactor = Math.min(
-                    res.getInteger(R.integer.config_workspaceSpringLoadShrinkPercentage) / 100.0f, //oh21 fixme 应该改成0.875 竖屏缩小的倍数
-                    1 - (minRequiredHeight / expectedWorkspaceHeight));
+//            int expectedWorkspaceHeight = availableHeightPx - hotseatBarSizePx
+//                    - verticalDragHandleSizePx - topWorkspacePadding;
+//            float minRequiredHeight = dropTargetBarSizePx + workspaceSpringLoadedBottomSpace;
+            workspaceSpringLoadShrinkFactor = 0.875f;
         } else {
-            workspaceSpringLoadShrinkFactor =
-                    res.getInteger(R.integer.config_workspaceSpringLoadShrinkPercentage) / 100.0f; //oh21 fixme 应该改成0.875 竖屏缩小的倍数
+            workspaceSpringLoadShrinkFactor = 0.875f; //oh21 fixme 应该改成0.875 竖屏缩小的倍数
         }
 
         //oh21 fixme Folder icon文件夹图标大小

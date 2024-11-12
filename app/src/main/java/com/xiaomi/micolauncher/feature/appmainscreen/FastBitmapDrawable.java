@@ -69,6 +69,7 @@ public class FastBitmapDrawable extends Drawable {
 
     private boolean mIsPressed;
     private boolean mIsDisabled;
+    public float mMaxScale = 1f;
 
     // Animator and properties for the fast bitmap drawable's scale
     private static final Property<FastBitmapDrawable, Float> SCALE
@@ -227,13 +228,13 @@ public class FastBitmapDrawable extends Drawable {
             if (mIsPressed) {
                 // Animate when going to pressed state
                 //oh21 按下图标时去除放大动画
-                mScaleAnimation = ObjectAnimator.ofFloat(this, SCALE, PRESSED_SCALE);
+                mScaleAnimation = ObjectAnimator.ofFloat(this, SCALE, mMaxScale * PRESSED_SCALE);
                 mScaleAnimation.setDuration(CLICK_FEEDBACK_DURATION);
                 mScaleAnimation.setInterpolator(LINEAR);
                 mScaleAnimation.start();
             } else {
-                Log.d(TAG, "onStateChange: mScale = 1");
-                mScale = 1f;
+                Log.d(TAG, "onStateChange: mScale = " + mMaxScale);
+                mScale = mMaxScale;
                 invalidateSelf();
             }
             return true;

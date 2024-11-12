@@ -130,6 +130,8 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver, 
 
     private IconLoadRequest mIconLoadRequest;
 
+    private Paint mPaint = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.ANTI_ALIAS_FLAG);
+
     public BubbleTextView(Context context) {
         this(context, null, 0);
     }
@@ -174,6 +176,7 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver, 
         setEllipsize(TruncateAt.END);
         setAccessibilityDelegate(mActivity.getAccessibilityDelegate());
         setTextAlpha(1f);
+        mPaint.setColor(Color.parseColor("#000000"));
 //        setBackgroundColor(Color.parseColor("#afe2ff")); //oh21 快捷方式的背景颜色
     }
 
@@ -355,6 +358,17 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver, 
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawBadgeIfNecessary(canvas);
+//        drawSelectCircle(canvas);
+    }
+
+    private void drawSelectCircle(Canvas canvas) {
+        int width = getWidth();
+        int height = getHeight();
+        int circleLeft = width - 38;
+        int circleTop = 0;
+        Log.d(TAG, "drawSelectCircle: ");
+        canvas.drawCircle(circleLeft, circleTop, 38, mPaint);
+        canvas.drawText("测试", (float) getMeasuredWidth() / 2, getMeasuredHeight(), mPaint);
     }
 
     /**
