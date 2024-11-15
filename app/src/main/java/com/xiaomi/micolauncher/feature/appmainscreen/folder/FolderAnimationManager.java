@@ -115,11 +115,19 @@ public class FolderAnimationManager {
         final DragLayer.LayoutParams lp = (DragLayer.LayoutParams) mFolder.getLayoutParams();
         ClippedFolderIconLayoutRule rule = mFolderIcon.getLayoutRule();
         final List<BubbleTextView> itemsInPreview = mFolderIcon.getPreviewItems();
-
-        // Match position of the FolderIcon
         final Rect folderIconPos = new Rect();
-        float scaleRelativeToDragLayer = mLauncher.getDragLayer()
-                .getDescendantRectRelativeToSelf(mFolderIcon, folderIconPos);
+        float scaleRelativeToDragLayer = 1;
+        // Match position of the FolderIcon
+        if (!mIsOpening && !mLauncher.getStateManager().isScaledState() && !mLauncher.getDragController().isDragging()) {
+            ShortcutAndWidgetContainer parentChildren = (ShortcutAndWidgetContainer) mFolderIcon.getParent();
+            CellLayout.LayoutParams clLp =  (CellLayout.LayoutParams) mFolderIcon.getLayoutParams();
+            int x = clLp.x + ((CellLayout) parentChildren.getParent()).getPaddingLeft(); //oh21 drop释放后dragview移动到的坐标
+            int y = clLp.y + ((CellLayout) parentChildren.getParent()).getPaddingTop() + 60;
+            folderIconPos.set(x, y, x + mFolderIcon.getMeasuredWidth(), y + mFolderIcon.getMeasuredHeight());
+        } else {
+            scaleRelativeToDragLayer = mLauncher.getDragLayer()
+                    .getDescendantRectRelativeToSelf(mFolderIcon, folderIconPos);
+        }
         int scaledRadius = mPreviewBackground.getScaledRadius();
         float initialSize = (scaledRadius * 2) * scaleRelativeToDragLayer;
 
@@ -155,22 +163,22 @@ public class FolderAnimationManager {
         final float yDistance = initialY - lp.y;
 
         // Set up the Folder background.
-        final int finalColor = Themes.getAttrColor(mContext, android.R.attr.colorPrimary);
-        final int initialColor =
-                ColorUtils.setAlphaComponent(finalColor, mPreviewBackground.getBackgroundAlpha());
+//        final int finalColor = Themes.getAttrColor(mContext, android.R.attr.colorPrimary);
+//        final int initialColor =
+//                ColorUtils.setAlphaComponent(finalColor, mPreviewBackground.getBackgroundAlpha());
         //oh21 修改文件夹打开的背景
 //        mFolderBackground.setColor(mIsOpening ? initialColor : finalColor);
 
         // Set up the reveal animation that clips the Folder.
-        int totalOffsetX = paddingOffsetX + previewItemOffsetX;
-        Rect startRect = new Rect(
-                Math.round(totalOffsetX / initialScale),
-                Math.round(paddingOffsetY / initialScale),
-                Math.round((totalOffsetX + initialSize) / initialScale),
-                Math.round((paddingOffsetY + initialSize) / initialScale));
-        Rect endRect = new Rect(0, 0, lp.width, lp.height);
-        float initialRadius = initialSize / initialScale / 2f;
-        float finalRadius = Utilities.pxFromDp(2, mContext.getResources().getDisplayMetrics());
+//        int totalOffsetX = paddingOffsetX + previewItemOffsetX;
+//        Rect startRect = new Rect(
+//                Math.round(totalOffsetX / initialScale),
+//                Math.round(paddingOffsetY / initialScale),
+//                Math.round((totalOffsetX + initialSize) / initialScale),
+//                Math.round((paddingOffsetY + initialSize) / initialScale));
+//        Rect endRect = new Rect(0, 0, lp.width, lp.height);
+//        float initialRadius = initialSize / initialScale / 2f;
+//        float finalRadius = Utilities.pxFromDp(2, mContext.getResources().getDisplayMetrics());
 
         // Create the animators.
         AnimatorSet a = LauncherAnimUtils.createAnimatorSet();
@@ -193,14 +201,14 @@ public class FolderAnimationManager {
         //oh21 修改文件夹打开的背景
 //        play(a, getAnimator(mFolderBackground, "color", initialColor, finalColor));
         play(a, mFolderIcon.mFolderName.createTextAlphaAnimator(!mIsOpening));
-        RoundedRectRevealOutlineProvider outlineProvider = new RoundedRectRevealOutlineProvider(
-                initialRadius, finalRadius, startRect, endRect) {
-            @Override
-            public boolean shouldRemoveElevationDuringAnimation() {
-                return true;
-            }
-        };
-        play(a, outlineProvider.createRevealAnimator(mFolder, !mIsOpening));
+//        RoundedRectRevealOutlineProvider outlineProvider = new RoundedRectRevealOutlineProvider(
+//                initialRadius, finalRadius, startRect, endRect) {
+//            @Override
+//            public boolean shouldRemoveElevationDuringAnimation() {
+//                return true;
+//            }
+//        };
+//        play(a, outlineProvider.createRevealAnimator(mFolder, !mIsOpening));
 
         // Animate the elevation midway so that the shadow is not noticeable in the background.
         int midDuration = mDuration / 2;

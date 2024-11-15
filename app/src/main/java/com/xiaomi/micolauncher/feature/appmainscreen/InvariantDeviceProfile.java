@@ -164,6 +164,13 @@ public class InvariantDeviceProfile {
         iconTextSize = interpolatedDeviceProfileOut.iconTextSize;
         fillResIconDpi = getLauncherIconDensity(iconBitmapSize);
 
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        Log.d(TAG, "initProfile: " + result);
+
         // If the partner customization apk contains any grid overrides, apply them
         // Supported overrides: numRows, numColumns, iconSize
         applyPartnerDeviceProfileOverrides(context, dm);

@@ -19,7 +19,9 @@ package com.xiaomi.micolauncher.feature.appmainscreen;
 import static android.view.View.VISIBLE;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.MULTI_SELECT;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.NORMAL;
+import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.OPEN_FOLDER;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.SELECT_NORMAL;
+import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.SPRING_LOADED;
 import static com.xiaomi.micolauncher.feature.appmainscreen.anim.AnimatorSetBuilder.ANIM_OVERVIEW_FADE;
 import static com.xiaomi.micolauncher.feature.appmainscreen.anim.AnimatorSetBuilder.ANIM_OVERVIEW_SCALE;
 import static com.xiaomi.micolauncher.feature.appmainscreen.anim.AnimatorSetBuilder.ANIM_WORKSPACE_FADE;
@@ -133,6 +135,14 @@ public class LauncherStateManager {
 
     public LauncherState getState() {
         return mState;
+    }
+
+    public boolean isScaledState() {
+        return mState == SPRING_LOADED || mState == MULTI_SELECT;
+    }
+
+    public boolean isOpenFolderState() {
+        return mState == OPEN_FOLDER;
     }
 
     public StateHandler[] getStateHandlers() {

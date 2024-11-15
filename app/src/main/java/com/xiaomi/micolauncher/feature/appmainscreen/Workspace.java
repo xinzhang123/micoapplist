@@ -1935,7 +1935,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
                         dropTargetLayout, mTargetCell, distance, false, d.dragView) ||
                         addToExistingFolderIfNecessary(cell, dropTargetLayout, mTargetCell,
                                 distance, d, false)) {
-                    mLauncher.getStateManager().goToState(NORMAL, SPRING_LOADED_EXIT_DELAY);//oh21 workspace合并文件夹的时候会有个一个500ms的延迟执行workspace的动画
+                    mLauncher.getStateManager().goToState(NORMAL, 0);//oh21 workspace合并文件夹的时候会有个一个500ms的延迟执行workspace的动画
                     return;
                 }
 
@@ -2064,10 +2064,11 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
                             ANIMATE_INTO_POSITION_AND_DISAPPEAR;
                     animateWidgetDrop(info, parent, d.dragView, null, animationType, cell, false);
                 } else {
-                    int duration = snapScreen < 0 ? -1 : ADJACENT_SCREEN_DROP_DURATION;
+//                    int duration = snapScreen < 0 ? -1 : ADJACENT_SCREEN_DROP_DURATION;
+                    int duration = SPRING_LOADED_TRANSITION_MS; //oh21 固定200ms drop
                     Log.d(TAG, "onDrop: snapScreen === " + snapScreen + " duration === " + duration);
                     mLauncher.getDragLayer().animateViewIntoPosition(d.dragView, cell, duration,
-                            this);
+                            this, true);
                 }
             } else {
                 d.deferDragViewCleanupPostAnimation = false;
@@ -2076,7 +2077,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
             parent.onDropChild(cell);
 
             mLauncher.getStateManager().goToState(
-                    NORMAL, SPRING_LOADED_EXIT_DELAY, onCompleteRunnable);//oh21 workspace去掉nromal的延迟动画
+                    NORMAL, 0, onCompleteRunnable);//oh21 workspace去掉nromal的延迟动画
         }
 
         if (d.stateAnnouncer != null && !droppedOnOriginalCell) {
@@ -2465,7 +2466,13 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
 
     private void manageFolderFeedback(CellLayout targetLayout,
                                       int[] targetCell, float distance, DragObject dragObject) {
-        if (distance > mMaxDistanceForFolderCreation) return;
+        if (distance > mMaxDistanceForFolderCreation) {
+            if ((mDragMode == DRAG_MODE_ADD_TO_FOLDER
+                    || mDragMode == DRAG_MODE_CREATE_FOLDER)) {
+                setDragMode(DRAG_MODE_NONE);
+            }
+            return;
+        }
 
         final View dragOverView = mDragTargetLayout.getChildAt(mTargetCell[0], mTargetCell[1]);
         ItemInfo info = dragObject.dragInfo;
@@ -2768,7 +2775,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
                 // cellLayout to its final transform -- this means we animate the drag view to
                 // the correct final location.
                 setFinalTransitionTransform();
-                mLauncher.getDragLayer().animateViewIntoPosition(d.dragView, view, this);
+                mLauncher.getDragLayer().animateViewIntoPosition(d.dragView, view, SPRING_LOADED_TRANSITION_MS, this, true);
                 resetTransitionTransform();
             }
         }

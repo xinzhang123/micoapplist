@@ -9,6 +9,7 @@ import static android.content.pm.ActivityInfo.CONFIG_SCREEN_SIZE;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils.SPRING_LOADED_EXIT_DELAY;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.ALL_APPS;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.NORMAL;
+import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.SPRING_LOADED;
 import static com.xiaomi.micolauncher.feature.appmainscreen.Utilities.drawableToBitmap;
 import static com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragLayer.ALPHA_INDEX_LAUNCHER_LOAD;
 
@@ -34,6 +35,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -88,6 +91,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.states.RotationHelper;
 import com.xiaomi.micolauncher.feature.appmainscreen.touch.ItemClickHandler;
 import com.xiaomi.micolauncher.feature.appmainscreen.uioverrides.UiFactory;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.ActivityResultInfo;
+import com.xiaomi.micolauncher.feature.appmainscreen.util.BlurUtil;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.ComponentKey;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.ItemInfoMatcher;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.MultiHashMap;
@@ -908,6 +912,16 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
         mDropTargetBar.setup(mDragController);
 
         mAllAppsController.setupViews(mAppsView);
+
+//        setViewBackground();
+    }
+
+    private void setViewBackground(){
+        // 获取当前壁纸
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bg_main_screen);
+        Bitmap blur = BlurUtil.blur(getActivity(), bitmap, BlurUtil.BLUR_RADIUS_MAX);
+        Drawable drawable = new BitmapDrawable(blur);
+        mDragLayer.setBackground(drawable);
     }
 
     View createShortcut(ShortcutInfo info) {

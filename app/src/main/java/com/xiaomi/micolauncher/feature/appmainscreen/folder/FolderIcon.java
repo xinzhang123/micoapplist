@@ -29,6 +29,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.Property;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -54,6 +55,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.LauncherSettings;
 import com.xiaomi.micolauncher.feature.appmainscreen.MainAppListFragment;
 import com.xiaomi.micolauncher.feature.appmainscreen.OnAlarmListener;
 import com.xiaomi.micolauncher.feature.appmainscreen.R;
+import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutAndWidgetContainer;
 import com.xiaomi.micolauncher.feature.appmainscreen.ShortcutInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.SimpleOnStylusPressListener;
 import com.xiaomi.micolauncher.feature.appmainscreen.StylusEventHelper;
@@ -76,6 +78,7 @@ import java.util.List;
  * An icon that can appear on in the workspace representing an {@link Folder}.
  */
 public class FolderIcon extends FrameLayout implements FolderListener {
+    private static final String TAG = "FolderIcon";
     @Thunk MainAppListFragment mLauncher;
     @Thunk Folder mFolder;
     private FolderInfo mInfo;
@@ -266,7 +269,7 @@ public class FolderIcon extends FrameLayout implements FolderListener {
 
         //oh21 fixme folder 合并文件夹时将dragview松开后动画到指定位置
         // This will animate the dragView (srcView) into the new folder
-        onDrop(srcInfo, srcView, dstRect, scaleRelativeToDragLayer, 1,
+        onDrop(srcInfo, srcView, null, scaleRelativeToDragLayer, 1,
                 false /* itemReturnedOnFailedDrop */);
     }
 
@@ -304,7 +307,16 @@ public class FolderIcon extends FrameLayout implements FolderListener {
                 float scaleY = getScaleY();
                 setScaleX(1.0f);
                 setScaleY(1.0f);
-                scaleRelativeToDragLayer = dragLayer.getDescendantRectRelativeToSelf(this, to);
+                if (mLauncher.getStateManager().isScaledState()) {
+                    scaleRelativeToDragLayer = 1;
+                    ShortcutAndWidgetContainer parentChildren = (ShortcutAndWidgetContainer) getParent();
+                    CellLayout.LayoutParams lp =  (CellLayout.LayoutParams) getLayoutParams();
+                    int x = lp.x + ((CellLayout) parentChildren.getParent()).getPaddingLeft(); //oh21 drop释放后dragview移动到的坐标
+                    int y = lp.y + ((CellLayout) parentChildren.getParent()).getPaddingTop() + 60;
+                    to.set(x, y, x + getMeasuredWidth(), y + getMeasuredHeight());
+                } else {
+                    scaleRelativeToDragLayer = dragLayer.getDescendantRectRelativeToSelf(this, to);
+                }
                 // Finished computing final animation locations, restore current state
                 setScaleX(scaleX);
                 setScaleY(scaleY);
@@ -353,7 +365,7 @@ public class FolderIcon extends FrameLayout implements FolderListener {
             float finalScale = scale * scaleRelativeToDragLayer;
             dragLayer.animateView(animateView, from, to, 1,
                     1, 1, finalScale, finalScale, DROP_IN_ANIMATION_DURATION,
-                    Interpolators.DEACCEL_2, Interpolators.ACCEL_2,
+                    null, null,
                     null, DragLayer.ANIMATION_END_DISAPPEAR, null);
 
             mFolder.hideItem(item);
@@ -478,8 +490,11 @@ public class FolderIcon extends FrameLayout implements FolderListener {
             saveCount = canvas.save();
             canvas.clipPath(mBackground.getClipPath());
         }
-
-        mPreviewItemManager.draw(canvas);
+        Log.d(TAG, "dispatchDraw: ");
+        if (!mLauncher.getStateManager().isOpenFolderState()) {
+            Log.d(TAG, "drawFolder: ");
+            mPreviewItemManager.draw(canvas);
+        }
 
         //oh21 folder 去掉clip
 //        if (canvas.isHardwareAccelerated()) {

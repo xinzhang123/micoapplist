@@ -26,6 +26,7 @@ import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.text.InputType;
 import android.text.Selection;
@@ -117,7 +118,7 @@ public class Folder extends AbstractFloatingView implements DragSource,
 
     private static final int FOLDER_NAME_ANIMATION_DURATION = 633;
 
-    private static final int REORDER_DELAY = 250;
+    private static final int REORDER_DELAY = 150;
     private static final int ON_EXIT_CLOSE_DELAY = 400;
     private static final Rect sTempRect = new Rect();
 
@@ -201,6 +202,7 @@ public class Folder extends AbstractFloatingView implements DragSource,
         // name is complete, we have something to focus on, thus hiding the cursor and giving
         // reliable behavior when clicking the text field (since it will always gain focus on click).
         setFocusableInTouchMode(true);
+//        setBackgroundColor(Color.parseColor("#afe2ff"));
     }
 
     @Override
@@ -1218,7 +1220,7 @@ public class Folder extends AbstractFloatingView implements DragSource,
                 float scaleY = getScaleY();
                 setScaleX(1.0f);
                 setScaleY(1.0f);
-                mLauncher.getDragLayer().animateViewIntoPosition(d.dragView, currentDragView, null);
+                mLauncher.getDragLayer().animateViewIntoPosition(d.dragView, currentDragView, null, false);
                 setScaleX(scaleX);
                 setScaleY(scaleY);
             } else {

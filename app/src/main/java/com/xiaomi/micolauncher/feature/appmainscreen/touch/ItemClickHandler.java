@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.AppInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.BubbleTextView;
+import com.xiaomi.micolauncher.feature.appmainscreen.FastBitmapDrawable;
 import com.xiaomi.micolauncher.feature.appmainscreen.FolderInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.ItemInfo;
 import com.xiaomi.micolauncher.feature.appmainscreen.Launcher;
@@ -74,10 +75,12 @@ public class ItemClickHandler {
 
         Object tag = v.getTag();
         if (tag instanceof ShortcutInfo) {
+            ((FastBitmapDrawable) ((BubbleTextView) v).getIcon()).resetScale(1);
             onClickAppShortcut(v, (ShortcutInfo) tag, launcher);
         } else if (tag instanceof FolderInfo) {
             if (v instanceof FolderIcon) {
                 launcher.getStateManager().goToState(OPEN_FOLDER, 0);
+                v.postInvalidate();
                 onClickFolderIcon(v);
             }
         } else if (tag instanceof AppInfo) {

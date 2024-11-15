@@ -214,7 +214,7 @@ public class PreviewBackground {
 
         drawCircle(canvas, 0 /* deltaRadius */);
 
-        drawShadow(canvas);
+//        drawShadow(canvas);
     }
 
     public void drawShadow(Canvas canvas) {

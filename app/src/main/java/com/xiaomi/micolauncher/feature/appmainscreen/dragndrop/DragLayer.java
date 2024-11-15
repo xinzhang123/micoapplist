@@ -261,13 +261,13 @@ public class DragLayer extends BaseDragLayer<MainAppListFragment> {
     }
 
     //oh21 外部drop到workspace 、 Folder中drop
-    public void animateViewIntoPosition(DragView dragView, final View child, View anchorView) {
-        animateViewIntoPosition(dragView, child, -1, anchorView);
+    public void animateViewIntoPosition(DragView dragView, final View child, View anchorView, boolean isDropToOriginal) {
+        animateViewIntoPosition(dragView, child, -1, anchorView, isDropToOriginal);
     }
 
     //oh21 workspace直接内部drop
     public void animateViewIntoPosition(DragView dragView, final View child, int duration,
-            View anchorView) {
+            View anchorView, boolean isDropToOriginal) {
         ShortcutAndWidgetContainer parentChildren = (ShortcutAndWidgetContainer) child.getParent();
         CellLayout.LayoutParams lp =  (CellLayout.LayoutParams) child.getLayoutParams();
         parentChildren.measureChild(child);
@@ -277,12 +277,11 @@ public class DragLayer extends BaseDragLayer<MainAppListFragment> {
 
         int coord[] = new int[2];
         float childScale = child.getScaleX();
-        coord[0] = lp.x + (int) (child.getMeasuredWidth() * (1 - childScale) / 2); //oh21 fixme drop释放后dragview移动到的坐标
-        coord[1] = lp.y + (int) (child.getMeasuredHeight() * (1 - childScale) / 2);
-
+        coord[0] = lp.x + (int) (child.getMeasuredWidth() * (1 - childScale) / 2 + (isDropToOriginal ? ((CellLayout) parentChildren.getParent()).getPaddingLeft() : 0)); //oh21 drop释放后dragview移动到的坐标
+        coord[1] = lp.y + (int) (child.getMeasuredHeight() * (1 - childScale) / 2 + (isDropToOriginal ? ((CellLayout) parentChildren.getParent()).getPaddingTop() + 60 : 0)); //oh21 fixme 17这里是状态栏的高度
         // Since the child hasn't necessarily been laid out, we force the lp to be updated with
         // the correct coordinates (above) and use these to determine the final location
-        float scale = getDescendantCoordRelativeToSelf((View) child.getParent(), coord);
+        float scale = isDropToOriginal ? 1 : getDescendantCoordRelativeToSelf((View) child.getParent(), coord);
         // We need to account for the scale of the child itself, as the above only accounts for
         // for the scale in parents.
         scale *= childScale;

@@ -178,6 +178,15 @@ public class FastBitmapDrawable extends Drawable {
         return mScaleAnimation == null ? 1 : mScale;
     }
 
+    public void resetScale(float scale) {
+        if (mScaleAnimation != null) {
+            mScaleAnimation.cancel();
+            mScaleAnimation = null;
+        }
+        this.mScale = scale;
+        invalidateSelf();
+    }
+
     @Override
     public int getIntrinsicWidth() {
         return mBitmap.getWidth();
