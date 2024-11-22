@@ -166,24 +166,24 @@ public class LoaderTask implements Runnable {
 
         TraceHelper.beginSection(TAG);
         try (LauncherModel.LoaderTransaction transaction = mApp.getModel().beginLoader(this)) {
-            TraceHelper.partitionSection(TAG, "step 1.1: loading workspace");
+//            TraceHelper.partitionSection(TAG, "step 1.1: loading workspace");
             loadWorkspace();
 
-            verifyNotStopped();
-            TraceHelper.partitionSection(TAG, "step 1.2: bind workspace workspace");
+//            verifyNotStopped();
+//            TraceHelper.partitionSection(TAG, "step 1.2: bind workspace workspace");
             mResults.bindWorkspace();
 
             // Notify the installer packages of packages with active installs on the first screen.
-            TraceHelper.partitionSection(TAG, "step 1.3: send first screen broadcast");
-            sendFirstScreenActiveInstallsBroadcast();
+//            TraceHelper.partitionSection(TAG, "step 1.3: send first screen broadcast");
+//            sendFirstScreenActiveInstallsBroadcast();
 
             // Take a break
-            TraceHelper.partitionSection(TAG, "step 1 completed, wait for idle");
-            waitForIdle();
-            verifyNotStopped();
+//            TraceHelper.partitionSection(TAG, "step 1 completed, wait for idle");
+//            waitForIdle();
+//            verifyNotStopped();
 
             // second step
-            TraceHelper.partitionSection(TAG, "step 2.1: loading all apps");
+//            TraceHelper.partitionSection(TAG, "step 2.1: loading all apps");
 //            loadAllApps(); //oh21 fixme 加载AllAppsContainerView的数据，用不到。看后续时候有更新icon的bug
             getAllApplications();
 
@@ -191,35 +191,35 @@ public class LoaderTask implements Runnable {
 //            verifyNotStopped();
 //            mResults.bindAllApps();//oh21 加载AllAppsContainerView。看后续时候有更新icon的bug
 
-            verifyNotStopped();
-            TraceHelper.partitionSection(TAG, "step 2.3: Update icon cache");
+//            verifyNotStopped();
+//            TraceHelper.partitionSection(TAG, "step 2.3: Update icon cache");
             updateIconCache();
 
             // Take a break
-            TraceHelper.partitionSection(TAG, "step 2 completed, wait for idle");
-            waitForIdle();
-            verifyNotStopped();
+//            TraceHelper.partitionSection(TAG, "step 2 completed, wait for idle");
+//            waitForIdle();
+//            verifyNotStopped();
 
             // third step
-            TraceHelper.partitionSection(TAG, "step 3.1: loading deep shortcuts");
-            loadDeepShortcuts();
-
-            verifyNotStopped();
-            TraceHelper.partitionSection(TAG, "step 3.2: bind deep shortcuts");
-            mResults.bindDeepShortcuts();
+//            TraceHelper.partitionSection(TAG, "step 3.1: loading deep shortcuts");
+//            loadDeepShortcuts();
+//
+//            verifyNotStopped();
+//            TraceHelper.partitionSection(TAG, "step 3.2: bind deep shortcuts");
+//            mResults.bindDeepShortcuts();
 
             // Take a break
-            TraceHelper.partitionSection(TAG, "step 3 completed, wait for idle");
-            waitForIdle();
-            verifyNotStopped();
+//            TraceHelper.partitionSection(TAG, "step 3 completed, wait for idle");
+//            waitForIdle();
+//            verifyNotStopped();
 
             // fourth step
-            TraceHelper.partitionSection(TAG, "step 4.1: loading widgets");
-            mBgDataModel.widgetsModel.update(mApp, null);
+//            TraceHelper.partitionSection(TAG, "step 4.1: loading widgets");
+//            mBgDataModel.widgetsModel.update(mApp, null);
 
-            verifyNotStopped();
-            TraceHelper.partitionSection(TAG, "step 4.2: Binding widgets");
-            mResults.bindWidgets();
+//            verifyNotStopped();
+//            TraceHelper.partitionSection(TAG, "step 4.2: Binding widgets");
+//            mResults.bindWidgets();
 
             transaction.commit();
         } catch (CancellationException e) {

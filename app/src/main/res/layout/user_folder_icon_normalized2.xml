@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2015 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,16 +17,40 @@
     xmlns:launcher="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
-<!-- oh21 修改 -->
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/folder_head"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_97"
+        android:clipChildren="false"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_22"
+        android:visibility="gone"
+        android:background="@color/black">
+
+        <com.xiaomi.micolauncher.feature.appmainscreen.ExtendedEditText
+            android:id="@+id/folder_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/transparent"
+            android:hint="@string/folder_hint_text"
+            android:imeOptions="flagNoExtractUi"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHighlight="@color/color_3482ff"
+            android:textColorHint="@color/white"
+            android:textSize="@dimen/sp_40" />
+    </LinearLayout>
+
+    <!-- oh21 修改 -->
     <com.xiaomi.micolauncher.feature.appmainscreen.folder.FolderPagedView
         android:id="@+id/folder_content"
-        android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingTop="16dp"
+        android:clipToPadding="false"
         launcher:mico_pageIndicator="@+id/folder_page_indicator" />
 
     <LinearLayout
@@ -35,36 +58,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipChildren="false"
-        android:orientation="horizontal"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp" >
-
-        <com.xiaomi.micolauncher.feature.appmainscreen.ExtendedEditText
-            android:id="@+id/folder_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:gravity="center_horizontal"
-            android:hint="@string/folder_hint_text"
-            android:imeOptions="flagNoExtractUi"
-            android:paddingBottom="@dimen/folder_label_padding_bottom"
-            android:paddingTop="@dimen/folder_label_padding_top"
-            android:singleLine="true"
-            android:textColor="@color/white"
-            android:textColorHighlight="@color/color_3482ff"
-            android:textColorHint="@color/white"
-            android:textSize="@dimen/sp_40" />
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <com.xiaomi.micolauncher.feature.appmainscreen.pageindicators.PageIndicatorDots
             android:id="@+id/folder_page_indicator"
-            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="1dp"
-            />
-
+            android:layout_gravity="center"
+            android:elevation="1dp" />
     </LinearLayout>
 
 </com.xiaomi.micolauncher.feature.appmainscreen.folder.Folder>

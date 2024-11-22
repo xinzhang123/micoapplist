@@ -39,8 +39,7 @@ public class UiFactory {
     public static void setOnTouchControllersChangedListener(Context context, Runnable listener) { }
 
     public static StateHandler[] getStateHandler(MainAppListFragment launcher) {
-        return new StateHandler[] {
-                launcher.getAllAppsController(), launcher.getWorkspace() };
+        return new StateHandler[] { launcher.getWorkspace() };
     }
 
     public static void resetOverview(MainAppListFragment launcher) { }

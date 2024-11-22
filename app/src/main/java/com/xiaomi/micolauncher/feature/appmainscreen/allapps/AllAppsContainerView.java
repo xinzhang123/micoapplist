@@ -25,6 +25,7 @@ import android.os.Process;
 import android.text.Selection;
 import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -61,7 +62,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.views.SpringRelativeLayout;
  */
 public class AllAppsContainerView extends SpringRelativeLayout implements DragSource,
         Insettable, OnDeviceProfileChangeListener {
-
+    private static final String TAG = "AllAppsContainerView";
     private static final float FLING_VELOCITY_MULTIPLIER = 135f;
     // Starts the springs after at least 55% of the animation has passed.
     private static final float FLING_ANIMATION_THRESHOLD = 0.55f;
@@ -98,7 +99,7 @@ public class AllAppsContainerView extends SpringRelativeLayout implements DragSo
 
     public AllAppsContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
+        Log.d(TAG, "onCreateView: start AllAppsContainerView");
         mLauncher = MainAppListFragment.getLauncher(context);
         mLauncher.addOnDeviceProfileChangeListener(this);
 
@@ -117,6 +118,7 @@ public class AllAppsContainerView extends SpringRelativeLayout implements DragSo
         addSpringView(R.id.all_apps_header);
         addSpringView(R.id.apps_list_view);
         addSpringView(R.id.all_apps_tabs_view_pager);
+        Log.d(TAG, "onCreateView: end AllAppsContainerView");
     }
 
     public AllAppsStore getAppsStore() {

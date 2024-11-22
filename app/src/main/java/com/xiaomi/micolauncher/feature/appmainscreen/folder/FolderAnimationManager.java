@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 import android.util.Property;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -58,7 +59,7 @@ import java.util.List;
  * in its place before starting the animation.
  */
 public class FolderAnimationManager {
-
+    private static final String TAG = "FolderAnimationManager";
     private Folder mFolder;
     private FolderPagedView mContent;
     private GradientDrawable mFolderBackground;
@@ -122,11 +123,13 @@ public class FolderAnimationManager {
             ShortcutAndWidgetContainer parentChildren = (ShortcutAndWidgetContainer) mFolderIcon.getParent();
             CellLayout.LayoutParams clLp =  (CellLayout.LayoutParams) mFolderIcon.getLayoutParams();
             int x = clLp.x + ((CellLayout) parentChildren.getParent()).getPaddingLeft(); //oh21 drop释放后dragview移动到的坐标
-            int y = clLp.y + ((CellLayout) parentChildren.getParent()).getPaddingTop() + 60;
+            int y = clLp.y + ((CellLayout) parentChildren.getParent()).getPaddingTop() + 41;
             folderIconPos.set(x, y, x + mFolderIcon.getMeasuredWidth(), y + mFolderIcon.getMeasuredHeight());
+            Log.d(TAG, "getAnimator: normal folderIconPos " + folderIconPos);
         } else {
             scaleRelativeToDragLayer = mLauncher.getDragLayer()
                     .getDescendantRectRelativeToSelf(mFolderIcon, folderIconPos);
+            Log.d(TAG, "getAnimator: scale folderIconPos " + folderIconPos);
         }
         int scaledRadius = mPreviewBackground.getScaledRadius();
         float initialSize = (scaledRadius * 2) * scaleRelativeToDragLayer;
@@ -195,6 +198,7 @@ public class FolderAnimationManager {
             play(a, anim);
         }
 
+        Log.d(TAG, "getAnimator: xDistance " + xDistance + " yDistance " + yDistance);
         play(a, getAnimator(mFolder, View.TRANSLATION_X, xDistance, 0f));
         play(a, getAnimator(mFolder, View.TRANSLATION_Y, yDistance, 0f));
         play(a, getAnimator(mFolder, SCALE_PROPERTY, initialScale, finalScale));

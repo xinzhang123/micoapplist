@@ -137,7 +137,7 @@
     <string name="uninstall_system_app_text">This is a system app and can\'t be uninstalled.</string>
 
     <!-- Default folder title -->
-    <string name="folder_hint_text">未命名文件夹</string>
+    <string name="folder_hint_text">文件夹</string>
 
     <!-- Accessibility -->
     <!-- The format string for when an app is temporarily disabled. -->

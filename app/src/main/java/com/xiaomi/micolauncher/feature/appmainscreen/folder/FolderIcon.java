@@ -312,7 +312,7 @@ public class FolderIcon extends FrameLayout implements FolderListener {
                     ShortcutAndWidgetContainer parentChildren = (ShortcutAndWidgetContainer) getParent();
                     CellLayout.LayoutParams lp =  (CellLayout.LayoutParams) getLayoutParams();
                     int x = lp.x + ((CellLayout) parentChildren.getParent()).getPaddingLeft(); //oh21 drop释放后dragview移动到的坐标
-                    int y = lp.y + ((CellLayout) parentChildren.getParent()).getPaddingTop() + 60;
+                    int y = lp.y + ((CellLayout) parentChildren.getParent()).getPaddingTop() + 41;
                     to.set(x, y, x + getMeasuredWidth(), y + getMeasuredHeight());
                 } else {
                     scaleRelativeToDragLayer = dragLayer.getDescendantRectRelativeToSelf(this, to);

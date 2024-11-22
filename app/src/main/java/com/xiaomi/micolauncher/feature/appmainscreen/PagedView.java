@@ -58,7 +58,7 @@ import java.util.ArrayList;
  */
 public abstract class PagedView<T extends View & PageIndicator> extends ViewGroup {
     private static final String TAG = "PagedView";
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     protected static final int INVALID_PAGE = -1;
     protected static final ComputePageScrollsLogic SIMPLE_SCROLL_LOGIC = (v) -> v.getVisibility() != GONE;
@@ -1415,7 +1415,7 @@ public abstract class PagedView<T extends View & PageIndicator> extends ViewGrou
         // we want the page's snap velocity to approximately match the velocity at which the
         // user flings, so we scale the duration by a value near to the derivative of the scroll
         // interpolator at zero, ie. 5. We use 4 to make it a little slower.
-        duration = 4 * Math.round(1000 * Math.abs(distance / velocity));
+        duration = Math.round(1000 * Math.abs(distance / velocity));
 
         return snapToPage(whichPage, delta, duration);
     }

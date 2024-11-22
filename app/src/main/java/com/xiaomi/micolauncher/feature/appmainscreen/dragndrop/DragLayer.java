@@ -29,6 +29,7 @@ import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -61,7 +62,7 @@ import java.util.ArrayList;
  * A ViewGroup that coordinates dragging across its descendants
  */
 public class DragLayer extends BaseDragLayer<MainAppListFragment> {
-
+    private static final String TAG = "DragLayer";
     public static final int ALPHA_INDEX_OVERLAY = 0;
     public static final int ALPHA_INDEX_LAUNCHER_LOAD = 1;
     public static final int ALPHA_INDEX_TRANSITIONS = 2;
@@ -87,7 +88,7 @@ public class DragLayer extends BaseDragLayer<MainAppListFragment> {
 
     // Related to adjacent page hints
     private final ViewGroupFocusHelper mFocusIndicatorHelper;
-    private final WorkspaceAndHotseatScrim mScrim;
+//    private final WorkspaceAndHotseatScrim mScrim;
 
     /**
      * Used to create a new DragLayer from XML.
@@ -97,18 +98,19 @@ public class DragLayer extends BaseDragLayer<MainAppListFragment> {
      */
     public DragLayer(Context context, AttributeSet attrs) {
         super(context, attrs, ALPHA_CHANNEL_COUNT);
-
+        Log.d(TAG, "onCreateView: start DragLayer");
         // Disable multitouch across the workspace/all apps/customize tray
         setMotionEventSplittingEnabled(false);
         setChildrenDrawingOrderEnabled(true);
 
         mFocusIndicatorHelper = new ViewGroupFocusHelper(this);
-        mScrim = new WorkspaceAndHotseatScrim(this);
+//        mScrim = new WorkspaceAndHotseatScrim(this);
+        Log.d(TAG, "onCreateView: end DragLayer");
     }
 
     public void setup(DragController dragController, Workspace workspace) {
         mDragController = dragController;
-        mScrim.setWorkspace(workspace);
+//        mScrim.setWorkspace(workspace);
         recreateControllers();
     }
 
@@ -278,7 +280,7 @@ public class DragLayer extends BaseDragLayer<MainAppListFragment> {
         int coord[] = new int[2];
         float childScale = child.getScaleX();
         coord[0] = lp.x + (int) (child.getMeasuredWidth() * (1 - childScale) / 2 + (isDropToOriginal ? ((CellLayout) parentChildren.getParent()).getPaddingLeft() : 0)); //oh21 drop释放后dragview移动到的坐标
-        coord[1] = lp.y + (int) (child.getMeasuredHeight() * (1 - childScale) / 2 + (isDropToOriginal ? ((CellLayout) parentChildren.getParent()).getPaddingTop() + 60 : 0)); //oh21 fixme 17这里是状态栏的高度
+        coord[1] = lp.y + (int) (child.getMeasuredHeight() * (1 - childScale) / 2 + (isDropToOriginal ? ((CellLayout) parentChildren.getParent()).getPaddingTop() + 41 : 0)); //oh21 fixme 17这里是状态栏的高度
         // Since the child hasn't necessarily been laid out, we force the lp to be updated with
         // the correct coordinates (above) and use these to determine the final location
         float scale = isDropToOriginal ? 1 : getDescendantCoordRelativeToSelf((View) child.getParent(), coord);
@@ -546,7 +548,7 @@ public class DragLayer extends BaseDragLayer<MainAppListFragment> {
     @Override
     protected void dispatchDraw(Canvas canvas) {
         // Draw the background below children.
-        mScrim.draw(canvas);
+//        mScrim.draw(canvas);
         mFocusIndicatorHelper.draw(canvas);
         super.dispatchDraw(canvas);
     }
@@ -554,16 +556,16 @@ public class DragLayer extends BaseDragLayer<MainAppListFragment> {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mScrim.setSize(w, h);
+//        mScrim.setSize(w, h);
     }
 
     @Override
     public void setInsets(Rect insets) {
         super.setInsets(insets);
-        mScrim.onInsetsChanged(insets);
+//        mScrim.onInsetsChanged(insets);
     }
 
-    public WorkspaceAndHotseatScrim getScrim() {
-        return mScrim;
-    }
+//    public WorkspaceAndHotseatScrim getScrim() {
+//        return mScrim;
+//    }
 }

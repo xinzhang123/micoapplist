@@ -28,7 +28,7 @@ abstract class BaseFlags {
 
     BaseFlags() {}
 
-    public static final boolean IS_DOGFOOD_BUILD = false;
+    public static final boolean IS_DOGFOOD_BUILD = true;
     public static final String AUTHORITY = "com.xiaomi.micolauncher.settings2".intern();
 
     // When enabled allows to use any point on the fast scrollbar to start dragging.

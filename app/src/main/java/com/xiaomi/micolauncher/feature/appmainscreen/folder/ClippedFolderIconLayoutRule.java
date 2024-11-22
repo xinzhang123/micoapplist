@@ -31,7 +31,7 @@ public class ClippedFolderIconLayoutRule {
         mIsRtl = rtl;
         mBaselineIconScale = availableSpace / (intrinsicIconSize * 1f);
         mMargin = dimensionPixelSize;
-        mMarginBetween = (float) ((mIconSize - MIN_SCALE_OH27 * mIconSize * Math.sqrt(MAX_NUM_ITEMS_IN_PREVIEW) - dimensionPixelSize * 2) / 2);
+        mMarginBetween = (float) ((mIconSize - MIN_SCALE_OH27 * mIconSize * Math.sqrt(MAX_NUM_ITEMS_IN_PREVIEW) - dimensionPixelSize * 2) / (Math.sqrt(MAX_NUM_ITEMS_IN_PREVIEW) - 1));
     }
 
     public PreviewItemDrawingParams computePreviewItemDrawingParams(int index, int curNumItems,

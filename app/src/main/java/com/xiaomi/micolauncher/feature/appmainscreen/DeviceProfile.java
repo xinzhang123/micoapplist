@@ -354,45 +354,43 @@ public class DeviceProfile {
     }
 
     private void updateAvailableFolderCellDimensions(DisplayMetrics dm, Resources res) {
-        int folderBottomPanelSize = res.getDimensionPixelSize(R.dimen.folder_label_padding_top)
-                + res.getDimensionPixelSize(R.dimen.folder_label_padding_bottom)
-                + Utilities.calculateTextHeight(res.getDimension(R.dimen.folder_label_text_size));
+//        int folderBottomPanelSize = res.getDimensionPixelSize(R.dimen.folder_label_padding_top)
+//                + res.getDimensionPixelSize(R.dimen.folder_label_padding_bottom)
+//                + Utilities.calculateTextHeight(res.getDimension(R.dimen.folder_label_text_size));
 
         updateFolderCellSize(1f, dm, res);
 
         // Don't let the folder get too close to the edges of the screen.
-        int folderMargin = edgeMarginPx;
-        Point totalWorkspacePadding = getTotalWorkspacePadding();
-
-        // Check if the icons fit within the available height.
-        float usedHeight = folderCellHeightPx * inv.numFolderRows + folderBottomPanelSize;
-        int maxHeight = availableHeightPx - totalWorkspacePadding.y - folderMargin;
-        float scaleY = maxHeight / usedHeight;
-
-        // Check if the icons fit within the available width.
-        float usedWidth = folderCellWidthPx * inv.numFolderColumns;
-        int maxWidth = availableWidthPx - totalWorkspacePadding.x - folderMargin;
-        float scaleX = maxWidth / usedWidth;
-
-        float scale = Math.min(scaleX, scaleY);
-        if (scale < 1f) {
-            updateFolderCellSize(scale, dm, res);
-        }
+//        int folderMargin = edgeMarginPx;
+//        Point totalWorkspacePadding = getTotalWorkspacePadding();
+//
+//        // Check if the icons fit within the available height.
+//        float usedHeight = folderCellHeightPx * inv.numFolderRows + folderBottomPanelSize;
+//        int maxHeight = availableHeightPx - totalWorkspacePadding.y - folderMargin;
+//        float scaleY = maxHeight / usedHeight;
+//
+//        // Check if the icons fit within the available width.
+//        float usedWidth = folderCellWidthPx * inv.numFolderColumns;
+//        int maxWidth = availableWidthPx - totalWorkspacePadding.x - folderMargin;
+//        float scaleX = maxWidth / usedWidth;
+//
+//        float scale = Math.min(scaleX, scaleY);
+//        if (scale < 1f) {
+//            updateFolderCellSize(scale, dm, res);
+//        }
     }
 
     private void updateFolderCellSize(float scale, DisplayMetrics dm, Resources res) {
         folderChildIconSizePx = (int) (Utilities.pxFromDp(inv.iconSize, dm) * scale);
-        folderChildTextSizePx =
-                (int) (res.getDimensionPixelSize(R.dimen.folder_child_text_size) * scale);
+        folderChildTextSizePx = (int) (Utilities.pxFromSp(inv.iconTextSize, dm) * scale);
 
-        int textHeight = Utilities.calculateTextHeight(folderChildTextSizePx);
-        int cellPaddingX = (int) (res.getDimensionPixelSize(R.dimen.folder_cell_x_padding) * scale);//oh21 文件夹cell的padding设置
-        int cellPaddingY = (int) (res.getDimensionPixelSize(R.dimen.folder_cell_y_padding) * scale);
+//        int textHeight = Utilities.calculateTextHeight(folderChildTextSizePx);
+//        int cellPaddingX = (int) (res.getDimensionPixelSize(R.dimen.folder_cell_x_padding) * scale);//oh21 文件夹cell的padding设置
+//        int cellPaddingY = (int) (res.getDimensionPixelSize(R.dimen.folder_cell_y_padding) * scale);
 
-        folderCellWidthPx = folderChildIconSizePx + 2 * cellPaddingX;
-        folderCellHeightPx = folderChildIconSizePx + 2 * cellPaddingY + textHeight;
-        folderChildDrawablePaddingPx = Math.max(0,
-                (folderCellHeightPx - folderChildIconSizePx - textHeight) / 3);
+        folderCellWidthPx = folderChildIconSizePx + res.getDimensionPixelSize(R.dimen.dp_109);
+        folderCellHeightPx = folderChildIconSizePx + res.getDimensionPixelSize(R.dimen.dp_89);
+        folderChildDrawablePaddingPx = res.getDimensionPixelSize(R.dimen.dynamic_grid_icon_drawable_padding);
     }
 
     public void updateInsets(Rect insets) {

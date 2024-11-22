@@ -331,6 +331,7 @@ public class LauncherModel extends BroadcastReceiver
 
     @Override
     public void onPackageAdded(String packageName, UserHandle user) {
+        Log.d(TAG, "onPackageAdded: " + packageName);
         int op = PackageUpdatedTask.OP_ADD;
         enqueueModelUpdateTask(new PackageUpdatedTask(op, user, packageName));
     }
@@ -464,8 +465,8 @@ public class LauncherModel extends BroadcastReceiver
                     // For now, continue posting the binding of AllApps as there are other
                     // issues that arise from that.
 //                    loaderResults.bindAllApps(); //oh21 跟LoadTask中注释loadAllApps一个意思,做相同处理
-                    loaderResults.bindDeepShortcuts();
-                    loaderResults.bindWidgets();
+//                    loaderResults.bindDeepShortcuts();
+//                    loaderResults.bindWidgets();
                     return true;
                 } else {
                     startLoaderForResults(loaderResults);

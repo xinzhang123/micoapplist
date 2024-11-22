@@ -145,7 +145,9 @@ public class Folder extends AbstractFloatingView implements DragSource,
     private PageIndicatorDots mPageIndicator;
 
     private View mFooter;
+    private View mHeader;
     private int mFooterHeight;
+    private int mHeaderHeight;
 
     // Cell ranks used for drag and drop
     @Thunk int mTargetRank, mPrevTargetRank, mEmptyCellRank;
@@ -245,12 +247,15 @@ public class Folder extends AbstractFloatingView implements DragSource,
         mFolderName.forceDisableSuggestions(true);
 
         mFooter = findViewById(R.id.folder_footer);
+//        mHeader = findViewById(R.id.folder_head);
 
         // We find out how tall footer wants to be (it is set to wrap_content), so that
         // we can allocate the appropriate amount of space for it.
         int measureSpec = MeasureSpec.UNSPECIFIED;
         mFooter.measure(measureSpec, measureSpec);
+//        mHeader.measure(measureSpec, measureSpec);
         mFooterHeight = mFooter.getMeasuredHeight();
+//        mHeaderHeight = mHeader.getMeasuredHeight();
     }
 
     public boolean onLongClick(View v) {
@@ -476,6 +481,8 @@ public class Folder extends AbstractFloatingView implements DragSource,
      * is played.
      */
     public void animateOpen() {
+        mFolderName.setVisibility(View.VISIBLE);
+        setBgColor(false);
         Folder openFolder = getOpen(mLauncher);
         if (openFolder != null && openFolder != this) {
             // Close any open folder before opening a folder.
@@ -528,40 +535,40 @@ public class Folder extends AbstractFloatingView implements DragSource,
         });
 
         // Footer animation
-        if (mContent.getPageCount() > 1 && !mInfo.hasOption(FolderInfo.FLAG_MULTI_PAGE_ANIMATION)) {
-            int footerWidth = mContent.getDesiredWidth()
-                    - mFooter.getPaddingLeft() - mFooter.getPaddingRight();
+//        if (mContent.getPageCount() > 1 && !mInfo.hasOption(FolderInfo.FLAG_MULTI_PAGE_ANIMATION)) {
+//            int footerWidth = mContent.getDesiredWidth()
+//                    - mFooter.getPaddingLeft() - mFooter.getPaddingRight();
+//
+//            float textWidth =  mFolderName.getPaint().measureText(mFolderName.getText().toString());
+//            float translation = (footerWidth - textWidth) / 2;
+//            mFolderName.setTranslationX(mContent.mIsRtl ? -translation : translation);
+//            mPageIndicator.prepareEntryAnimation();
+//
+//            // Do not update the flag if we are in drag mode. The flag will be updated, when we
+//            // actually drop the icon.
+//            final boolean updateAnimationFlag = !mDragInProgress;
+//            anim.addListener(new AnimatorListenerAdapter() {
+//
+//                @SuppressLint("InlinedApi")
+//                @Override
+//                public void onAnimationEnd(Animator animation) {
+//                    mFolderName.animate().setDuration(FOLDER_NAME_ANIMATION_DURATION)
+//                        .translationX(0)
+//                        .setInterpolator(AnimationUtils.loadInterpolator(
+//                                mLauncher.getActivity(), android.R.interpolator.fast_out_slow_in));
+//                    mPageIndicator.playEntryAnimation();
+//
+//                    if (updateAnimationFlag) {
+//                        mInfo.setOption(FolderInfo.FLAG_MULTI_PAGE_ANIMATION, true,
+//                                mLauncher.getModelWriter());
+//                    }
+//                }
+//            });
+//        } else {
+//            mFolderName.setTranslationX(0);
+//        }
 
-            float textWidth =  mFolderName.getPaint().measureText(mFolderName.getText().toString());
-            float translation = (footerWidth - textWidth) / 2;
-            mFolderName.setTranslationX(mContent.mIsRtl ? -translation : translation);
-            mPageIndicator.prepareEntryAnimation();
-
-            // Do not update the flag if we are in drag mode. The flag will be updated, when we
-            // actually drop the icon.
-            final boolean updateAnimationFlag = !mDragInProgress;
-            anim.addListener(new AnimatorListenerAdapter() {
-
-                @SuppressLint("InlinedApi")
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mFolderName.animate().setDuration(FOLDER_NAME_ANIMATION_DURATION)
-                        .translationX(0)
-                        .setInterpolator(AnimationUtils.loadInterpolator(
-                                mLauncher.getActivity(), android.R.interpolator.fast_out_slow_in));
-                    mPageIndicator.playEntryAnimation();
-
-                    if (updateAnimationFlag) {
-                        mInfo.setOption(FolderInfo.FLAG_MULTI_PAGE_ANIMATION, true,
-                                mLauncher.getModelWriter());
-                    }
-                }
-            });
-        } else {
-            mFolderName.setTranslationX(0);
-        }
-
-        mPageIndicator.stopAllAnimations();
+//        mPageIndicator.stopAllAnimations();
         startAnimation(anim);
 
         // Make sure the folder picks up the last drag move even if the finger doesn't move.
@@ -570,6 +577,14 @@ public class Folder extends AbstractFloatingView implements DragSource,
         }
 
         mContent.verifyVisibleHighResIcons(mContent.getNextPage());
+    }
+
+    private void setBgColor(boolean isForceClearBg) {
+        if (mDragController.isDragging() && !isForceClearBg) {
+            setBackground(getResources().getDrawable(R.drawable.sp_40_stroke_ffffff, null));
+        } else {
+            setBackground(getResources().getDrawable(R.drawable.sp_00000000, null));
+        }
     }
 
     public void beginExternalDrag() {
@@ -613,6 +628,7 @@ public class Folder extends AbstractFloatingView implements DragSource,
     }
 
     private void animateClosed() {
+        mFolderName.setVisibility(View.INVISIBLE);
         AnimatorSet a = new FolderAnimationManager(this, false /* isOpening */).getAnimator();
         a.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -681,6 +697,7 @@ public class Folder extends AbstractFloatingView implements DragSource,
     }
 
     public void onDragEnter(DragObject d) {
+        setBgColor(false);
         mPrevTargetRank = -1;
         mOnExitAlarm.cancelAlarm();
         // Get the area offset such that the folder only closes if half the drag icon width
@@ -798,6 +815,7 @@ public class Folder extends AbstractFloatingView implements DragSource,
         // We only close the folder if this is a true drag exit, ie. not because
         // a drop has occurred above the folder.
         Log.d("123", "Folder onDragExit: ");
+        setBgColor(true);
         if (!d.dragComplete) {
             mOnExitAlarm.setOnAlarmListener(mOnExitAlarmListener);
             mOnExitAlarm.setAlarm(ON_EXIT_CLOSE_DELAY);
@@ -906,19 +924,20 @@ public class Folder extends AbstractFloatingView implements DragSource,
         int width = getFolderWidth();
         int height = getFolderHeight();
 
-        parent.getDescendantRectRelativeToSelf(mFolderIcon, sTempRect);
+//        parent.getDescendantRectRelativeToSelf(mFolderIcon, sTempRect);
+        sTempRect.set(parent.getWidth() / 2 - mFolderIcon.getMeasuredWidth() / 2, parent.getHeight() / 2 - mFolderIcon.getMeasuredHeight() / 2, parent.getWidth() / 2 + mFolderIcon.getMeasuredWidth() / 2, parent.getHeight() / 2 + mFolderIcon.getMeasuredHeight() / 2);
         int centerX = sTempRect.centerX();
         int centerY = sTempRect.centerY();
         int centeredLeft = centerX - width / 2;
         int centeredTop = centerY - height / 2;
 
         // We need to bound the folder to the currently visible workspace area
-        if (mLauncher.getStateManager().getState().overviewUi) {
-            mLauncher.getDragLayer().getDescendantRectRelativeToSelf(mLauncher.getOverviewPanel(),
-                    sTempRect);
-        } else {
-            mLauncher.getWorkspace().getPageAreaRelativeToDragLayer(sTempRect);
-        }
+//        if (mLauncher.getStateManager().getState().overviewUi) {
+//            mLauncher.getDragLayer().getDescendantRectRelativeToSelf(mLauncher.getOverviewPanel(),
+//                    sTempRect);
+//        } else {
+//            mLauncher.getWorkspace().getPageAreaRelativeToDragLayer(sTempRect);
+//        }
         int left = Math.min(Math.max(sTempRect.left, centeredLeft),
                 sTempRect.right- width);
         int top = Math.min(Math.max(sTempRect.top, centeredTop),
@@ -973,8 +992,7 @@ public class Folder extends AbstractFloatingView implements DragSource,
         DeviceProfile grid = mLauncher.getDeviceProfile();
         int maxContentAreaHeight = grid.availableHeightPx
                 - grid.getTotalWorkspacePadding().y - mFooterHeight;
-        int height = Math.min(maxContentAreaHeight,
-                mContent.getDesiredHeight());
+        int height = mContent.getDesiredHeight();
         return Math.max(height, MIN_CONTENT_DIMEN);
     }
 
@@ -991,7 +1009,7 @@ public class Folder extends AbstractFloatingView implements DragSource,
     }
 
     private int getFolderHeight(int contentAreaHeight) {
-        return getPaddingTop() + getPaddingBottom() + contentAreaHeight + mFooterHeight;
+        return getPaddingTop() + getPaddingBottom() + contentAreaHeight + mFooterHeight + mHeaderHeight;
     }
 
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -1014,6 +1032,8 @@ public class Folder extends AbstractFloatingView implements DragSource,
         }
         mFooter.measure(contentAreaWidthSpec,
                 MeasureSpec.makeMeasureSpec(mFooterHeight, MeasureSpec.EXACTLY));
+//        mHeader.measure(contentAreaWidthSpec,
+//                MeasureSpec.makeMeasureSpec(mHeaderHeight, MeasureSpec.EXACTLY));
 
         int folderWidth = getPaddingLeft() + getPaddingRight() + contentWidth;
         int folderHeight = getFolderHeight(contentHeight);

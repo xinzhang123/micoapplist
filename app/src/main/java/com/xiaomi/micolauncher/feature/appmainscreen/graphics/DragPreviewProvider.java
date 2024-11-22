@@ -257,9 +257,9 @@ public class DragPreviewProvider {
             paint.setXfermode(null);
             canvas.setBitmap(preview);
             canvas.drawColor(0, PorterDuff.Mode.CLEAR);
-            canvas.drawBitmap(thickInnerBlur, thickInnerBlurOffset[0], thickInnerBlurOffset[1],
-                    paint);
-            canvas.drawBitmap(thickOuterBlur, outerBlurOffset[0], outerBlurOffset[1], paint);
+//            canvas.drawBitmap(thickInnerBlur, thickInnerBlurOffset[0], thickInnerBlurOffset[1],
+//                    paint);
+//            canvas.drawBitmap(thickOuterBlur, outerBlurOffset[0], outerBlurOffset[1], paint);
 
             // draw the bright outline
             canvas.drawBitmap(brightOutline, brightOutlineOffset[0], brightOutlineOffset[1], paint);

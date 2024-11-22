@@ -190,20 +190,20 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
 
     @Thunk
     Hotseat mHotseat;
-    @Nullable
-    private View mHotseatSearchBox;
+//    @Nullable
+//    private View mHotseatSearchBox;
 
     private DropTargetBar mDropTargetBar;
 
     // Main container view for the all apps screen.
-    @Thunk
-    AllAppsContainerView mAppsView;
-    AllAppsTransitionController mAllAppsController;
+//    @Thunk
+//    AllAppsContainerView mAppsView;
+//    AllAppsTransitionController mAllAppsController;
 
     // UI and state for the overview panel
-    private View mOverviewPanel;
-
-    private View mOverviewPanelContainer;
+//    private View mOverviewPanel;
+//
+//    private View mOverviewPanelContainer;
 
     @Thunk
     boolean mWorkspaceLoading = true;
@@ -240,18 +240,20 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView: start 111");
         LauncherAppState app = LauncherAppState.getInstance(getActivity());
 //        app.doConfigChange();
         mOldConfig = new Configuration(getResources().getConfiguration());
         mModel = app.setLauncher(this);
         initDeviceProfile(app.getInvariantDeviceProfile());
+        Log.d(TAG, "onCreateView: start 222");
 
         mSharedPrefs = Utilities.getPrefs(getActivity());
         mIconCache = app.getIconCache();
         mAccessibilityDelegate = new LauncherAccessibilityDelegate(this);
 
         mDragController = new DragController(this);
-        mAllAppsController = new AllAppsTransitionController(this);
+//        mAllAppsController = new AllAppsTransitionController(this);
         mStateManager = new LauncherStateManager(this);
         UiFactory.onCreate(this);
 
@@ -259,14 +261,18 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
 
         mAppWidgetHost = new LauncherAppWidgetHost(getActivity());
         mAppWidgetHost.startListening();
+        Log.d(TAG, "onCreateView: start 333");
         mLauncherView = inflater.inflate(R.layout.fragment_main_app_list, container, false);
+        Log.d(TAG, "onCreateView: start 333 end");
         return mLauncherView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "onCreateView: start 444");
         setupViews();
+        Log.d(TAG, "onCreateView: start 555");
         mPopupDataProvider = new PopupDataProvider(this);
 
         mRotationHelper = new RotationHelper(getActivity());
@@ -286,7 +292,7 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
         if (savedInstanceState != null) {
             currentScreen = savedInstanceState.getInt(RUNTIME_STATE_CURRENT_SCREEN, currentScreen);
         }
-
+        Log.d(TAG, "onCreateView: start 666");
         if (!mModel.startLoader(currentScreen)) {
             if (!internalStateHandled) {
                 // If we are not binding synchronously, show a fade in animation when
@@ -299,7 +305,7 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
 
             setWorkspaceLoading(true);
         }
-
+        Log.d(TAG, "onCreateView: start 777");
         getActivity().setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
 //        setContentView(mLauncherView);
@@ -315,6 +321,7 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
             mLauncherCallbacks.onCreate(savedInstanceState);
         }
         mRotationHelper.initialize();
+        Log.d(TAG, "onCreateView: start 888");
     }
 
     @Override
@@ -880,10 +887,9 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
         mFocusHandler = mDragLayer.getFocusIndicatorHelper();
         mWorkspace = mDragLayer.findViewById(R.id.workspace);
         mWorkspace.initParentViews(mDragLayer);
-        mOverviewPanel = findViewById(R.id.overview_panel);
-        mOverviewPanelContainer = findViewById(R.id.overview_panel_container);
-        mHotseat = findViewById(R.id.hotseat);
-        mHotseatSearchBox = findViewById(R.id.search_container_hotseat);
+//        mOverviewPanel = findViewById(R.id.overview_panel);
+//        mHotseat = findViewById(R.id.hotseat);
+//        mHotseatSearchBox = findViewById(R.id.search_container_hotseat);
 
         mLauncherView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -905,13 +911,13 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
         mDropTargetBar = mDragLayer.findViewById(R.id.drop_target_bar);
 
         // Setup Apps
-        mAppsView = findViewById(R.id.apps_view);
+//        mAppsView = findViewById(R.id.apps_view);
 
         // Setup the drag controller (drop targets have to be added in reverse order in priority)
         mDragController.setMoveTarget(mWorkspace);
         mDropTargetBar.setup(mDragController);
 
-        mAllAppsController.setupViews(mAppsView);
+//        mAllAppsController.setupViews(mAppsView);
 
 //        setViewBackground();
     }
@@ -1072,7 +1078,7 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
 
     public void updateIconBadges(final Set<PackageUserKey> updatedBadges) {
         mWorkspace.updateIconBadges(updatedBadges);
-        mAppsView.getAppsStore().updateIconBadges(updatedBadges);
+//        mAppsView.getAppsStore().updateIconBadges(updatedBadges);
 
         PopupContainerWithArrow popup = PopupContainerWithArrow.getOpen(this);
         if (popup != null) {
@@ -1100,7 +1106,7 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
 //    }
 
     public AllAppsTransitionController getAllAppsController() {
-        return mAllAppsController;
+        return null;
     }
 
     @Override
@@ -1114,7 +1120,7 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
     }
 
     public AllAppsContainerView getAppsView() {
-        return mAppsView;
+        return null;
     }
 
     public Workspace getWorkspace() {
@@ -1126,15 +1132,11 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
     }
 
     public View getHotseatSearchBox() {
-        return mHotseatSearchBox;
+        return null;
     }
 
     public <T extends View> T getOverviewPanel() {
-        return (T) mOverviewPanel;
-    }
-
-    public <T extends View> T getOverviewPanelContainer() {
-        return (T) mOverviewPanelContainer;
+        return (T) null;
     }
 
     public DropTargetBar getDropTargetBar() {
@@ -1984,10 +1986,10 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
             mPendingExecutor.markCompleted();
         }
         mPendingExecutor = executor;
-        if (!isInState(ALL_APPS)) {
-            mAppsView.getAppsStore().setDeferUpdates(true);
-            mPendingExecutor.execute(() -> mAppsView.getAppsStore().setDeferUpdates(false));
-        }
+//        if (!isInState(ALL_APPS)) {
+//            mAppsView.getAppsStore().setDeferUpdates(true);
+//            mPendingExecutor.execute(() -> mAppsView.getAppsStore().setDeferUpdates(false));
+//        }
 
         executor.attachTo(this);
     }
@@ -2048,11 +2050,11 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
 
     @Override
     public void bindAllApplications(ArrayList<AppInfo> apps) {
-        mAppsView.getAppsStore().setApps(apps);
-
-        if (mLauncherCallbacks != null) {
-            mLauncherCallbacks.bindAllApplications(apps);
-        }
+//        mAppsView.getAppsStore().setApps(apps);
+//
+//        if (mLauncherCallbacks != null) {
+//            mLauncherCallbacks.bindAllApplications(apps);
+//        }
     }
 
     @Override
@@ -2062,12 +2064,12 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
 
     @Override
     public void bindAppsAddedOrUpdated(ArrayList<AppInfo> apps) {
-        mAppsView.getAppsStore().addOrUpdateApps(apps);
+//        mAppsView.getAppsStore().addOrUpdateApps(apps);
     }
 
     @Override
     public void bindPromiseAppProgressUpdated(PromiseAppInfo app) {
-        mAppsView.getAppsStore().updatePromiseAppProgress(app);
+//        mAppsView.getAppsStore().updatePromiseAppProgress(app);
     }
 
     @Override
@@ -2095,7 +2097,7 @@ public class MainAppListFragment extends BaseDraggingFragment2 implements Launch
 
     @Override
     public void bindAppInfosRemoved(ArrayList<AppInfo> appInfos) {
-        mAppsView.getAppsStore().removeApps(appInfos);
+//        mAppsView.getAppsStore().removeApps(appInfos);
     }
 
     @Override

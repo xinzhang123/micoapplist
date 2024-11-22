@@ -262,7 +262,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
      */
     public Workspace(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-
+        Log.d(TAG, "onCreateView: start Workspace");
         mLauncher = MainAppListFragment.getLauncher(context);
         mStateTransitionAnimation = new WorkspaceStateTransitionAnimation(mLauncher, this);
         mWallpaperManager = WallpaperManager.getInstance(context);
@@ -275,6 +275,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
         // Disable multitouch across the workspace/all apps/customize tray
         setMotionEventSplittingEnabled(true);
         setOnTouchListener(new WorkspaceTouchListener(mLauncher, this));
+        Log.d(TAG, "onCreateView: end Workspace");
     }
 
     //oh21 ui初始化workspace ui的参数，padding值
@@ -364,14 +365,14 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
         }
 
         //oh21 去掉dragview虚化
-//        if (mOutlineProvider != null) {
-//            if (dragObject.dragView != null) {
-//                Bitmap preview = dragObject.dragView.getPreviewBitmap();
-//
-//                // The outline is used to visualize where the item will land if dropped
-//                mOutlineProvider.generateDragOutline(preview);
-//            }
-//        }
+        if (mOutlineProvider != null) {
+            if (dragObject.dragView != null) {
+                Bitmap preview = dragObject.dragView.getPreviewBitmap();
+
+                // The outline is used to visualize where the item will land if dropped
+                mOutlineProvider.generateDragOutline(preview);
+            }
+        }
 
         updateChildrenLayersEnabled();
 
@@ -1565,7 +1566,9 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
                 @Override
                 protected void enableAccessibleDrag(boolean enable) {
                     super.enableAccessibleDrag(enable);
-                    setEnableForLayout(mLauncher.getHotseat().getLayout(), enable);
+                    if (null != mLauncher.getHotseat()) {
+                        setEnableForLayout(mLauncher.getHotseat().getLayout(), enable);
+                    }
                 }
             });
         }
@@ -2207,7 +2210,7 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
         }
         // Invalidating the scrim will also force this CellLayout
         // to be invalidated so that it is highlighted if necessary.
-        mLauncher.getDragLayer().getScrim().invalidate();
+//        mLauncher.getDragLayer().getScrim().invalidate();
     }
 
     public CellLayout getCurrentDragOverlappingLayout() {
@@ -2371,8 +2374,8 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
 //            Log.d(TAG, "onDragOver: nearestDropOccupied === " + nearestDropOccupied);
             if (!nearestDropOccupied) {
                 //oh21 去掉dragview的虚框
-//                mDragTargetLayout.visualizeDropLocation(child, mOutlineProvider,
-//                        mTargetCell[0], mTargetCell[1], item.spanX, item.spanY, false, d);
+                mDragTargetLayout.visualizeDropLocation(child, mOutlineProvider,
+                        mTargetCell[0], mTargetCell[1], item.spanX, item.spanY, false, d);
             } else if ((mDragMode == DRAG_MODE_NONE || mDragMode == DRAG_MODE_REORDER)
                     && !mReorderAlarm.alarmPending() && (mLastReorderX != reorderX ||
                     mLastReorderY != reorderY)) {
@@ -2586,9 +2589,9 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
             }
 
             //oh21 修改去掉dragview的虚框
-//            boolean resize = resultSpan[0] != spanX || resultSpan[1] != spanY;
-//            mDragTargetLayout.visualizeDropLocation(child, mOutlineProvider,
-//                    mTargetCell[0], mTargetCell[1], resultSpan[0], resultSpan[1], resize, dragObject);
+            boolean resize = resultSpan[0] != spanX || resultSpan[1] != spanY;
+            mDragTargetLayout.visualizeDropLocation(child, mOutlineProvider,
+                    mTargetCell[0], mTargetCell[1], resultSpan[0], resultSpan[1], resize, dragObject);
         }
     }
 

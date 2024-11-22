@@ -72,7 +72,7 @@
             android:name="com.xiaomi.micolauncher.feature.appmainscreen.InstallShortcutReceiver"
             android:enabled="@bool/enable_install_shortcut_api"
             android:exported="true"
-            android:permission="com.android.launcher.permission.INSTALL_SHORTCUT">
+            android:permission="com.android.launcher.permission.INSTALL_SHORTCUT2">
             <intent-filter>
                 <action android:name="com.android.launcher.action.INSTALL_SHORTCUT" />
             </intent-filter>
@@ -142,8 +142,8 @@
             android:name=".LauncherProvider"
             android:authorities="com.xiaomi.micolauncher.settings2"
             android:exported="true"
-            android:writePermission="com.xiaomi.micolauncher.feature.appmainscreen.permission.WRITE_SETTINGS"
-            android:readPermission="com.xiaomi.micolauncher.feature.appmainscreen.permission.READ_SETTINGS" />
+            android:writePermission="com.xiaomi.micolauncher.feature.appmainscreen.permission.WRITE_SETTINGS2"
+            android:readPermission="com.xiaomi.micolauncher.feature.appmainscreen.permission.READ_SETTINGS2" />
     </application>
 
 </manifest>

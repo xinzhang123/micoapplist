@@ -46,7 +46,9 @@ public class MultiSelectState extends LauncherState {
     public void onStateEnabled(MainAppListFragment launcher) {
         Workspace ws = launcher.getWorkspace();
         ws.showPageIndicatorAtCurrentScroll();
-        ws.getPageIndicator().setShouldAutoHide(false);
+        if (null != ws.getPageIndicator()) {
+            ws.getPageIndicator().setShouldAutoHide(false);
+        }
 
         // Prevent any Un/InstallShortcutReceivers from updating the db while we are
         // in spring loaded mode
@@ -61,7 +63,9 @@ public class MultiSelectState extends LauncherState {
 
     @Override
     public void onStateDisabled(final MainAppListFragment launcher) {
-        launcher.getWorkspace().getPageIndicator().setShouldAutoHide(true);
+        if (null != launcher.getWorkspace().getPageIndicator()) {
+            launcher.getWorkspace().getPageIndicator().setShouldAutoHide(true);
+        }
 
         // Re-enable any Un/InstallShortcutReceiver and now process any queued items
         InstallShortcutReceiver.disableAndFlushInstallQueue(

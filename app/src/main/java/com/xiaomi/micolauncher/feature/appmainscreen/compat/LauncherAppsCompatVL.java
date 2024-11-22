@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.os.Process;
 import android.os.UserHandle;
 import android.util.ArrayMap;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,7 +44,7 @@ import java.util.List;
 
 //oh21 LauncherApps的实现类，监听应用状态回调OnAppsChangedCallbackCompat接口
 public class LauncherAppsCompatVL extends LauncherAppsCompat {
-
+    private static final String TAG = "LauncherAppsCompatVL";
     protected final LauncherApps mLauncherApps;
     protected final Context mContext;
 
@@ -147,22 +148,26 @@ public class LauncherAppsCompatVL extends LauncherAppsCompat {
 
         @Override
         public void onPackageAdded(String packageName, UserHandle user) {
+            Log.d(TAG, "onPackageAdded: " + packageName);
             mCallback.onPackageAdded(packageName, user);
         }
 
         @Override
         public void onPackageChanged(String packageName, UserHandle user) {
+            Log.d(TAG, "onPackageChanged: " + packageName);
             mCallback.onPackageChanged(packageName, user);
         }
 
         @Override
         public void onPackagesAvailable(String[] packageNames, UserHandle user, boolean replacing) {
+            Log.d(TAG, "onPackagesAvailable: " + packageNames);
             mCallback.onPackagesAvailable(packageNames, user, replacing);
         }
 
         @Override
         public void onPackagesUnavailable(String[] packageNames, UserHandle user,
                 boolean replacing) {
+            Log.d(TAG, "onPackagesUnavailable: " + packageNames);
             mCallback.onPackagesUnavailable(packageNames, user, replacing);
         }
 

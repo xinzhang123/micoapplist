@@ -25,6 +25,7 @@ import android.os.Handler;
 import android.os.Process;
 import android.os.UserHandle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.xiaomi.micolauncher.feature.appmainscreen.IconCache;
@@ -41,6 +42,7 @@ import java.util.List;
 //oh21 apk安装install过程的监听:开始安装->安装中->安装成功
 public class PackageInstallerCompatVL extends PackageInstallerCompat {
 
+    private static final String TAG = "PackageInstallerCompatVL";
     private static final boolean DEBUG = false;
 
     @Thunk final SparseArray<String> mActiveSessions = new SparseArray<>();
@@ -87,6 +89,7 @@ public class PackageInstallerCompatVL extends PackageInstallerCompat {
     }
 
     @Thunk void sendUpdate(PackageInstallInfo info) {
+        Log.d(TAG, "sendUpdate: " + info.packageName + " progress " + info.progress);
         LauncherAppState app = LauncherAppState.getInstanceNoCreate();
         if (app != null) {
             app.getModel().setPackageState(info);
@@ -111,6 +114,7 @@ public class PackageInstallerCompatVL extends PackageInstallerCompat {
         public void onFinished(int sessionId, boolean success) {
             // For a finished session, we can't get the session info. So use the
             // packageName from our local cache.
+            Log.d(TAG, "onFinished: " + success);
             String packageName = mActiveSessions.get(sessionId);
             mActiveSessions.remove(sessionId);
 
@@ -123,6 +127,7 @@ public class PackageInstallerCompatVL extends PackageInstallerCompat {
 
         @Override
         public void onProgressChanged(int sessionId, float progress) {
+            Log.d(TAG, "onProgressChanged: " + progress);
             SessionInfo session = verify(mInstaller.getSessionInfo(sessionId));
             if (session != null && session.getAppPackageName() != null) {
                 sendUpdate(PackageInstallInfo.fromInstallingState(session));

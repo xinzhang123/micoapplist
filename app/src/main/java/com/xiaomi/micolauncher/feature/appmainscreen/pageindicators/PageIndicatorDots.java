@@ -113,8 +113,8 @@ public class PageIndicatorDots extends View implements PageIndicator {
         mDotRadius = getResources().getDimension(R.dimen.page_indicator_dot_size) / 2;
         setOutlineProvider(new MyOutlineProver());
 
-        mActiveColor = Themes.getColorAccent(context);
-        mInActiveColor = Themes.getAttrColor(context, android.R.attr.colorControlHighlight);
+        mActiveColor = getResources().getColor(R.color.white, null);
+        mInActiveColor = getResources().getColor(R.color.color_4d000000, null);
 
         mIsRtl = Utilities.isRtl(getResources());
     }
@@ -233,7 +233,7 @@ public class PageIndicatorDots extends View implements PageIndicator {
         int width = MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY ?
                 MeasureSpec.getSize(widthMeasureSpec) : (int) ((mNumPages * 3 + 2) * mDotRadius);
         int height= MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY ?
-                MeasureSpec.getSize(heightMeasureSpec) : (int) (4 * mDotRadius);
+                MeasureSpec.getSize(heightMeasureSpec) : (int) (2 * mDotRadius);
         setMeasuredDimension(width, height);
     }
 
