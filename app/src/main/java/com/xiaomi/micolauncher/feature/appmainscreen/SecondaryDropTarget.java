@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.LauncherActivityInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.UserHandle;
@@ -30,6 +29,7 @@ import android.widget.Toast;
 import com.xiaomi.micolauncher.feature.appmainscreen.compat.LauncherAppsCompat;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragOptions;
 import com.xiaomi.micolauncher.feature.appmainscreen.uninstall.UninstallConfirmDialog;
+import com.xiaomi.micolauncher.feature.appmainscreen.uninstall.UninstallConfirmDialog2;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.Themes;
 
 import java.net.URISyntaxException;
@@ -285,5 +285,10 @@ public class SecondaryDropTarget extends ButtonDropTarget implements OnAlarmList
             mDragObject.cancelled = true;
             mOriginal.onDropCompleted(SecondaryDropTarget.this, mDragObject, false);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        UninstallConfirmDialog2.showUninstallConfirmDialog(mLauncher, mDropTargetBar.getList());
     }
 }

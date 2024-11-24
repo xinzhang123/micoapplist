@@ -133,6 +133,7 @@ public abstract class ArrowPopup extends AbstractFloatingView {
      * @param viewsToFlip number of views from the top to to flip in case of reverse order
      */
     protected void reorderAndShow(int viewsToFlip) {
+        mLauncher.getDragLayer().addView(mArrow);
         setVisibility(View.INVISIBLE);
         mIsOpen = true;
         mLauncher.getDragLayer().addView(this);
@@ -164,7 +165,7 @@ public abstract class ArrowPopup extends AbstractFloatingView {
                 ? R.dimen.popup_arrow_horizontal_center_start
                 : R.dimen.popup_arrow_horizontal_center_end);
         final int halfArrowWidth = 0;
-        mLauncher.getDragLayer().addView(mArrow);
+
         DragLayer.LayoutParams arrowLp = (DragLayer.LayoutParams) mArrow.getLayoutParams();
         if (mIsLeftAligned) {
             mArrow.setX(getX() + arrowCenterOffset - halfArrowWidth);
@@ -362,7 +363,9 @@ public abstract class ArrowPopup extends AbstractFloatingView {
         mArrow.setScaleX(0);
         mArrow.setScaleY(0);
         Animator arrowScale = ObjectAnimator.ofFloat(mArrow, LauncherAnimUtils.SCALE_PROPERTY, 1)
-                .setDuration(res.getInteger(R.integer.config_popupArrowOpenDuration));
+                .setDuration(res.getInteger(R.integer.config_popupOpenCloseDuration));
+        Animator arrowAlpha = ObjectAnimator.ofFloat(mArrow, ALPHA, 0, 1)
+                .setDuration(res.getInteger(R.integer.config_popupOpenCloseDuration));
 
         openAnim.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -373,7 +376,7 @@ public abstract class ArrowPopup extends AbstractFloatingView {
         });
 
         mOpenCloseAnimator = openAnim;
-        openAnim.playTogether(revealAnim, arrowScale);
+        openAnim.playTogether(revealAnim, arrowScale, arrowAlpha);
         openAnim.start();
     }
 

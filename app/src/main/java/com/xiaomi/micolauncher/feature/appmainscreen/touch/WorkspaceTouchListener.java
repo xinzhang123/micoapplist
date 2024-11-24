@@ -158,8 +158,8 @@ public class WorkspaceTouchListener implements OnTouchListener, Runnable {
 
                 mWorkspace.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS,
                         HapticFeedbackConstants.FLAG_IGNORE_VIEW_SETTING);
-//                mLauncher.getStateManager().goToState(MULTI_SELECT);
-//                mLauncher.getDropTargetBar().onDragStart(null, null);
+                mLauncher.getStateManager().goToState(MULTI_SELECT);
+                mLauncher.getDropTargetBar().gotoMultiSelect();
 //                OptionsPopupView.showDefaultOptions(mLauncher, mTouchDownPoint.x, mTouchDownPoint.y);
             } else {
                 cancelLongPress();

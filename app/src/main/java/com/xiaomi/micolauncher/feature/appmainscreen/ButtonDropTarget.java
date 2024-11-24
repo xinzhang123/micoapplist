@@ -16,7 +16,6 @@
 
 package com.xiaomi.micolauncher.feature.appmainscreen;
 
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.DELETE_APP;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.NORMAL;
 
@@ -34,7 +33,6 @@ import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.accessibility.AccessibilityEvent;
@@ -46,7 +44,6 @@ import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragController;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragLayer;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragOptions;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragView;
-import com.xiaomi.micolauncher.feature.appmainscreen.uninstall.UninstallConfirmDialog;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.Themes;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.Thunk;
 
@@ -54,7 +51,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.util.Thunk;
  * Implements a DropTarget.
  */
 public abstract class ButtonDropTarget extends TextView
-        implements DropTarget, DragController.DragListener, OnClickListener {
+        implements DropTarget, DragController.DragListener, OnClickListener, DropTargetMultiListener {
     private static final String TAG = "ButtonDropTarget";
     private static final int[] sTempCords = new int[2];
     private static final int DRAG_VIEW_DROP_DURATION = 285;
@@ -231,6 +228,18 @@ public abstract class ButtonDropTarget extends TextView
     }
 
     @Override
+    public void gotoMultiSelect() {
+        setVisibility(this instanceof DeleteDropTarget ? View.GONE : this instanceof SelectDropTarget ? View.VISIBLE : View.INVISIBLE);
+        setOnClickListener(this instanceof DeleteDropTarget ? null : this);
+    }
+
+    @Override
+    public void cancelMultiSelect() {
+        mDropTargetBar.cancelMultiSelect();
+        mLauncher.getStateManager().goToState(NORMAL);
+    }
+
+    @Override
     public void onDragStart(DragObject dragObject, DragOptions options) {
         mActive = supportsDrop(dragObject.dragInfo);
         mDrawable.setColorFilter(null);
@@ -242,7 +251,7 @@ public abstract class ButtonDropTarget extends TextView
         setVisibility(this instanceof DeleteDropTarget ? View.GONE : mActive ? View.VISIBLE : View.INVISIBLE);
 
         mAccessibleDrag = options.isAccessibleDrag;
-        setOnClickListener(isCanClick() ? this : null);
+        setOnClickListener(null);
     }
 
     protected boolean isCanClick() {

@@ -17,7 +17,6 @@
 package com.xiaomi.micolauncher.feature.appmainscreen;
 
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherSettings.BaseLauncherColumns.ITEM_TYPE_APPLICATION;
-import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.SELECT_NORMAL;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -79,7 +78,7 @@ public class SelectDropTarget extends ButtonDropTarget {
 
     @Override
     public void onClick(View v) {
-        mLauncher.getStateManager().goToState(SELECT_NORMAL);
+        cancelMultiSelect();
     }
 
     /**

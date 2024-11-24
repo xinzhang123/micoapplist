@@ -280,7 +280,7 @@ public class DragLayer extends BaseDragLayer<MainAppListFragment> {
         int coord[] = new int[2];
         float childScale = child.getScaleX();
         coord[0] = lp.x + (int) (child.getMeasuredWidth() * (1 - childScale) / 2 + (isDropToOriginal ? ((CellLayout) parentChildren.getParent()).getPaddingLeft() : 0)); //oh21 drop释放后dragview移动到的坐标
-        coord[1] = lp.y + (int) (child.getMeasuredHeight() * (1 - childScale) / 2 + (isDropToOriginal ? ((CellLayout) parentChildren.getParent()).getPaddingTop() + 41 : 0)); //oh21 fixme 17这里是状态栏的高度
+        coord[1] = lp.y + (int) (child.getMeasuredHeight() * (1 - childScale) / 2 + (isDropToOriginal ? ((CellLayout) parentChildren.getParent()).getPaddingTop() : 0)); //oh21 fixme 17这里是状态栏的高度
         // Since the child hasn't necessarily been laid out, we force the lp to be updated with
         // the correct coordinates (above) and use these to determine the final location
         float scale = isDropToOriginal ? 1 : getDescendantCoordRelativeToSelf((View) child.getParent(), coord);

@@ -27,6 +27,7 @@ import android.graphics.ColorFilter;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -54,6 +55,8 @@ public class FastBitmapDrawable extends Drawable {
     // reduce the value space to a smaller value V, which reduces the number of cached
     // ColorMatrixColorFilters that we need to keep to V^2
     private static final int REDUCED_FILTER_VALUE_SPACE = 48;
+    private static final int SELECT_CIRCLE_RADIUS = 19;
+    private static final int SELECT_CIRCLE_MARGIN = 9;
 
     // A cache of ColorFilters for optimizing brightness and saturation animations
     private static final SparseArray<ColorFilter> sCachedFilter = new SparseArray<>();
@@ -64,12 +67,16 @@ public class FastBitmapDrawable extends Drawable {
 
     protected final Paint mPaint = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.ANTI_ALIAS_FLAG);
     protected final Paint mPaintPressBg = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.ANTI_ALIAS_FLAG);
+    protected final Paint mPaintSelectBg = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.ANTI_ALIAS_FLAG);
+    protected final Paint mPaintSelectCheck = new Paint(Paint.FILTER_BITMAP_FLAG | Paint.ANTI_ALIAS_FLAG);
     protected Bitmap mBitmap;
     protected final int mIconColor;
 
     private boolean mIsPressed;
     private boolean mIsDisabled;
     public float mMaxScale = 1f;
+    private float mSelectScale = 0;
+    private boolean mIsSelect;
 
     // Animator and properties for the fast bitmap drawable's scale
     private static final Property<FastBitmapDrawable, Float> SCALE
@@ -112,6 +119,10 @@ public class FastBitmapDrawable extends Drawable {
     protected FastBitmapDrawable(Bitmap b, int iconColor) {
         mBitmap = b;
         mIconColor = iconColor;
+        mPaintPressBg.setColor(Color.parseColor("#73000000"));
+        mPaintSelectCheck.setColor(Color.parseColor("#ffffff"));
+        mPaintSelectCheck.setStyle(Paint.Style.STROKE);
+        mPaintSelectCheck.setStrokeWidth(3);
         setFilterBitmap(true);
     }
 
@@ -143,9 +154,37 @@ public class FastBitmapDrawable extends Drawable {
         RectF rectF = new RectF(0, 0, mBitmap.getWidth(), mBitmap.getWidth());
         canvas.drawRoundRect(rectF, DRAWABLE_CORNER, DRAWABLE_CORNER, mPaint);
         if (mScale != 1) {
-            mPaintPressBg.setColor(Color.parseColor("#73000000"));
             canvas.drawRoundRect(rectF, DRAWABLE_CORNER, DRAWABLE_CORNER, mPaintPressBg);
         }
+        Log.d(TAG, "drawInternal: SELECT_CIRCLE_MARGIN");
+        if (mSelectScale > 0f) {
+            if (mIsSelect) {
+                mPaintSelectBg.setColor(Color.parseColor("#007dff"));
+                canvas.drawCircle(mBitmap.getWidth() - SELECT_CIRCLE_MARGIN, SELECT_CIRCLE_MARGIN, SELECT_CIRCLE_RADIUS * mSelectScale, mPaintSelectBg);
+                Path path = new Path();
+                path.moveTo(mBitmap.getWidth() - SELECT_CIRCLE_MARGIN - 9, SELECT_CIRCLE_MARGIN);
+                path.lineTo(mBitmap.getWidth() - SELECT_CIRCLE_MARGIN - 2, SELECT_CIRCLE_MARGIN + 6);
+                path.lineTo(mBitmap.getWidth() - SELECT_CIRCLE_MARGIN + 9, SELECT_CIRCLE_MARGIN - 6);
+                canvas.drawPath(path, mPaintSelectCheck);
+            } else {
+                mPaintSelectBg.setColor(Color.parseColor("#b3ffffff"));
+                canvas.drawCircle(mBitmap.getWidth() - SELECT_CIRCLE_MARGIN, SELECT_CIRCLE_MARGIN, SELECT_CIRCLE_RADIUS * mSelectScale, mPaintSelectBg);
+            }
+        }
+    }
+
+    public void setSelectScale(float scale, boolean isSelect) {
+        mSelectScale = scale;
+        mIsSelect = isSelect;
+        invalidateSelf();
+    }
+
+    public boolean getIsSelect() {
+        return mIsSelect;
+    }
+
+    public float getSelectScale() {
+        return mSelectScale;
     }
 
     @Override

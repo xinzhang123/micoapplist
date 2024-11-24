@@ -16,14 +16,11 @@
 
 package com.xiaomi.micolauncher.feature.appmainscreen;
 
-import static com.xiaomi.micolauncher.feature.appmainscreen.ButtonDropTarget.TOOLTIP_DEFAULT;
-import static com.xiaomi.micolauncher.feature.appmainscreen.ButtonDropTarget.TOOLTIP_LEFT;
-import static com.xiaomi.micolauncher.feature.appmainscreen.ButtonDropTarget.TOOLTIP_RIGHT;
 import static com.xiaomi.micolauncher.feature.appmainscreen.anim.AlphaUpdateListener.updateVisibility;
+import static com.xiaomi.micolauncher.feature.appmainscreen.anim.Interpolators.OVERSHOOT_1_2;
 
 import android.animation.TimeInterpolator;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -38,11 +35,14 @@ import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragController;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragController.DragListener;
 import com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * The top bar containing various drop targets: Delete/App Info/Uninstall.
  */
 public class DropTargetBar extends FrameLayout
-        implements DragListener, Insettable {
+        implements DragListener, Insettable, DropTargetMultiListener {
 
     protected static final int DEFAULT_DRAG_FADE_DURATION = 200;
     protected static final TimeInterpolator DEFAULT_INTERPOLATOR = Interpolators.ACCEL;
@@ -61,6 +61,8 @@ public class DropTargetBar extends FrameLayout
 
     private boolean mIsVertical = true;
     private int mMarginPx;
+    private List<ShortcutInfo> mList = new ArrayList<>();
+    private boolean mIsMultiSelect;
 
     public DropTargetBar(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -88,7 +90,7 @@ public class DropTargetBar extends FrameLayout
         mIsVertical = grid.isVerticalBarLayout();
         Log.d("DropTargetBar", "setInsets: " + mIsVertical);
         lp.leftMargin = insets.left;
-        lp.topMargin = insets.top;
+        lp.topMargin = getResources().getDimensionPixelSize(R.dimen.dp_30);
         lp.bottomMargin = insets.bottom;
         lp.rightMargin = insets.right;
 
@@ -161,7 +163,7 @@ public class DropTargetBar extends FrameLayout
             if (Float.compare(getAlpha(), finalAlpha) != 0) {
                 setVisibility(View.VISIBLE);
                 mCurrentAnimation = animate().alpha(finalAlpha)
-                        .setInterpolator(DEFAULT_INTERPOLATOR)
+                        .setInterpolator(OVERSHOOT_1_2)
                         .setDuration(DEFAULT_DRAG_FADE_DURATION)
                         .withEndAction(mFadeAnimationEndRunnable);
             }
@@ -196,5 +198,48 @@ public class DropTargetBar extends FrameLayout
 
     public ButtonDropTarget[] getDropTargets() {
         return mDropTargets;
+    }
+
+    @Override
+    public void gotoMultiSelect() {
+        mIsMultiSelect = true;
+        animateToVisibility(true);
+        for (ButtonDropTarget dropTarget : getDropTargets()) {
+            dropTarget.gotoMultiSelect();
+        }
+    }
+
+    @Override
+    public void cancelMultiSelect() {
+        mIsMultiSelect = false;
+        mList.clear();
+        onDragEnd();
+    }
+
+    public boolean isIsMultiSelect() {
+        return mIsMultiSelect;
+    }
+
+    public List<ShortcutInfo> getList() {
+        return mList;
+    }
+
+    public void addOrRemoveSelectInfo(ShortcutInfo shortcutInfo, boolean isAdd) {
+        if (isAdd) {
+            mList.add(shortcutInfo);
+        } else {
+            mList.remove(shortcutInfo);
+        }
+        if (mList.size() > 0) {
+            mDropTargets[2].setVisibility(View.VISIBLE);
+            if (mList.size() > 1) {
+                mDropTargets[1].setVisibility(View.VISIBLE);
+            } else {
+                mDropTargets[1].setVisibility(View.INVISIBLE);
+            }
+        } else {
+            mDropTargets[1].setVisibility(View.INVISIBLE);
+            mDropTargets[2].setVisibility(View.INVISIBLE);
+        }
     }
 }

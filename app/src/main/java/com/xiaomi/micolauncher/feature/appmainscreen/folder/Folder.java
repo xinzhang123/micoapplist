@@ -16,6 +16,7 @@
 
 package com.xiaomi.micolauncher.feature.appmainscreen.folder;
 
+import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.MULTI_SELECT;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.NORMAL;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.SPRING_LOADED;
 import static com.xiaomi.micolauncher.feature.appmainscreen.compat.AccessibilityManagerCompat.sendCustomAccessibilityEvent;
@@ -613,14 +614,13 @@ public class Folder extends AbstractFloatingView implements DragSource,
         if (mFolderIcon != null) {
             mFolderIcon.clearLeaveBehindIfExists();
         }
-
+        mLauncher.getStateManager().goToState(mLauncher.getDropTargetBar().isIsMultiSelect() ? MULTI_SELECT : mDragController.isDragging() ? SPRING_LOADED : NORMAL, 0);
         if (animate) {
             animateClosed();
         } else {
             closeComplete(false);
             post(this::announceAccessibilityChanges);
         }
-        mLauncher.getStateManager().goToState(mDragController.isDragging() ? SPRING_LOADED : NORMAL, 0);
         // Notify the accessibility manager that this folder "window" has disappeared and no
         // longer occludes the workspace items
         mLauncher.getDragLayer().sendAccessibilityEvent(

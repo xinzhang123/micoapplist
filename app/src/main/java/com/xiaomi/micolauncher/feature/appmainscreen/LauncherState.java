@@ -25,6 +25,8 @@ import android.graphics.Rect;
 import android.util.Log;
 import android.view.animation.Interpolator;
 
+import com.xiaomi.micolauncher.feature.appmainscreen.states.FinishSelectState;
+import com.xiaomi.micolauncher.feature.appmainscreen.states.CloseFolderSelectState;
 import com.xiaomi.micolauncher.feature.appmainscreen.states.MultiSelectState;
 import com.xiaomi.micolauncher.feature.appmainscreen.states.UninstallTopDropState;
 import com.xiaomi.micolauncher.feature.appmainscreen.states.FolderOpenState;
@@ -82,10 +84,6 @@ public class LauncherState {
     public static final LauncherState NORMAL = new LauncherState(0, 0, 0,
             FLAG_DISABLE_RESTORE | FLAG_WORKSPACE_ICONS_CAN_BE_DRAGGED | FLAG_HIDE_BACK_BUTTON |
             FLAG_HAS_SYS_UI_SCRIM);
-
-    public static final LauncherState SELECT_NORMAL = new LauncherState(0, 0, 0,
-            FLAG_DISABLE_RESTORE | FLAG_WORKSPACE_ICONS_CAN_BE_DRAGGED | FLAG_HIDE_BACK_BUTTON |
-                    FLAG_HAS_SYS_UI_SCRIM);
 
     /**
      * Various Launcher states arranged in the increasing order of UI layers

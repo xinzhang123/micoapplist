@@ -26,6 +26,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.util.PackageManagerHelper;
 import com.xiaomi.micolauncher.feature.appmainscreen.util.PackageUserKey;
 import com.xiaomi.micolauncher.feature.appmainscreen.widget.WidgetsBottomSheet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -150,7 +151,9 @@ public abstract class SystemShortcut<T extends BaseDraggingFragment2> extends It
 //                    e.printStackTrace();
 //                }
 //                activity.startActivitySafely(view, intent, itemInfo);
-                UninstallConfirmDialog2.showUninstallConfirmDialog(activity, itemInfo);
+                List<ShortcutInfo> list = new ArrayList<>();
+                list.add((ShortcutInfo) itemInfo);
+                UninstallConfirmDialog2.showUninstallConfirmDialog(activity, list);
                 AbstractFloatingView.closeAllOpenViews(activity);
             };
         }

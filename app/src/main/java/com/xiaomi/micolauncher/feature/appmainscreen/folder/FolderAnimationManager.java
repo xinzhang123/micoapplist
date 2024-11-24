@@ -123,7 +123,7 @@ public class FolderAnimationManager {
             ShortcutAndWidgetContainer parentChildren = (ShortcutAndWidgetContainer) mFolderIcon.getParent();
             CellLayout.LayoutParams clLp =  (CellLayout.LayoutParams) mFolderIcon.getLayoutParams();
             int x = clLp.x + ((CellLayout) parentChildren.getParent()).getPaddingLeft(); //oh21 drop释放后dragview移动到的坐标
-            int y = clLp.y + ((CellLayout) parentChildren.getParent()).getPaddingTop() + 41;
+            int y = clLp.y + ((CellLayout) parentChildren.getParent()).getPaddingTop();
             folderIconPos.set(x, y, x + mFolderIcon.getMeasuredWidth(), y + mFolderIcon.getMeasuredHeight());
             Log.d(TAG, "getAnimator: normal folderIconPos " + folderIconPos);
         } else {
@@ -139,7 +139,7 @@ public class FolderAnimationManager {
         float previewSize = rule.getIconSize() * previewScale;
         float initialScale = !itemsInPreview.isEmpty() ? previewSize / itemsInPreview.get(0).getIconSize() //oh21 fixme 这里需要处理folder中只有一个iteminfo的情况
                 * scaleRelativeToDragLayer : 1;
-        final float finalScale = 1f;
+        final float finalScale = mLauncher.getDropTargetBar().isIsMultiSelect() ? 0.875f : 1f;
         float scale = mIsOpening ? initialScale : finalScale;
         mFolder.setScaleX(scale);
         mFolder.setScaleY(scale);
@@ -226,8 +226,8 @@ public class FolderAnimationManager {
                 mFolder.setTranslationX(0.0f);
                 mFolder.setTranslationY(0.0f);
                 mFolder.setTranslationZ(0.0f);
-                mFolder.setScaleX(1f);
-                mFolder.setScaleY(1f);
+                mFolder.setScaleX(mLauncher.getDropTargetBar().isIsMultiSelect() ? 0.875f : 1f);
+                mFolder.setScaleY(mLauncher.getDropTargetBar().isIsMultiSelect() ? 0.875f : 1f);
             }
         });
 

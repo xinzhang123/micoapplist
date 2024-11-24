@@ -75,6 +75,12 @@ public class ItemClickHandler {
 
         Object tag = v.getTag();
         if (tag instanceof ShortcutInfo) {
+            if (launcher.getStateManager().isMultiState()) {
+                FastBitmapDrawable icon = (FastBitmapDrawable) ((BubbleTextView) v).getIcon();
+                icon.setSelectScale(icon.getSelectScale(), !icon.getIsSelect());
+                launcher.getDropTargetBar().addOrRemoveSelectInfo((ShortcutInfo) tag, icon.getIsSelect());
+                return;
+            }
             ((FastBitmapDrawable) ((BubbleTextView) v).getIcon()).resetScale(1);
             onClickAppShortcut(v, (ShortcutInfo) tag, launcher);
         } else if (tag instanceof FolderInfo) {

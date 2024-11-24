@@ -312,7 +312,7 @@ public class FolderIcon extends FrameLayout implements FolderListener {
                     ShortcutAndWidgetContainer parentChildren = (ShortcutAndWidgetContainer) getParent();
                     CellLayout.LayoutParams lp =  (CellLayout.LayoutParams) getLayoutParams();
                     int x = lp.x + ((CellLayout) parentChildren.getParent()).getPaddingLeft(); //oh21 drop释放后dragview移动到的坐标
-                    int y = lp.y + ((CellLayout) parentChildren.getParent()).getPaddingTop() + 41;
+                    int y = lp.y + ((CellLayout) parentChildren.getParent()).getPaddingTop();
                     to.set(x, y, x + getMeasuredWidth(), y + getMeasuredHeight());
                 } else {
                     scaleRelativeToDragLayer = dragLayer.getDescendantRectRelativeToSelf(this, to);
@@ -325,28 +325,28 @@ public class FolderIcon extends FrameLayout implements FolderListener {
 
             int numItemsInPreview = Math.min(MAX_NUM_ITEMS_IN_PREVIEW, index + 1);
             boolean itemAdded = false;
-            if (itemReturnedOnFailedDrop || index >= MAX_NUM_ITEMS_IN_PREVIEW) {
-                List<BubbleTextView> oldPreviewItems = new ArrayList<>(mCurrentPreviewItems);
-                addItem(item, false);
-                mCurrentPreviewItems.clear();
-                mCurrentPreviewItems.addAll(getPreviewItems());
-
-                if (!oldPreviewItems.equals(mCurrentPreviewItems)) {
-                    for (int i = 0; i < mCurrentPreviewItems.size(); ++i) {
-                        if (mCurrentPreviewItems.get(i).getTag().equals(item)) {
-                            // If the item dropped is going to be in the preview, we update the
-                            // index here to reflect its position in the preview.
-                            index = i;
-                        }
-                    }
-
-                    mPreviewItemManager.hidePreviewItem(index, true);
-                    mPreviewItemManager.onDrop(oldPreviewItems, mCurrentPreviewItems, item);
-                    itemAdded = true;
-                } else {
-                    removeItem(item, false);
-                }
-            }
+//            if (itemReturnedOnFailedDrop || index >= MAX_NUM_ITEMS_IN_PREVIEW) {
+//                List<BubbleTextView> oldPreviewItems = new ArrayList<>(mCurrentPreviewItems);
+//                addItem(item, false);
+//                mCurrentPreviewItems.clear();
+//                mCurrentPreviewItems.addAll(getPreviewItems());
+//
+//                if (!oldPreviewItems.equals(mCurrentPreviewItems)) {
+//                    for (int i = 0; i < mCurrentPreviewItems.size(); ++i) {
+//                        if (mCurrentPreviewItems.get(i).getTag().equals(item)) {
+//                            // If the item dropped is going to be in the preview, we update the
+//                            // index here to reflect its position in the preview.
+//                            index = i;
+//                        }
+//                    }
+//
+//                    mPreviewItemManager.hidePreviewItem(index, true);
+//                    mPreviewItemManager.onDrop(oldPreviewItems, mCurrentPreviewItems, item);
+//                    itemAdded = true;
+//                } else {
+//                    removeItem(item, false);
+//                }
+//            }
 
             if (!itemAdded) {
                 addItem(item);
@@ -434,7 +434,7 @@ public class FolderIcon extends FrameLayout implements FolderListener {
 
     private float getLocalCenterForIndex(int index, int curNumItems, int[] center) {
         mTmpParams = mPreviewItemManager.computePreviewItemDrawingParams(
-                Math.min(MAX_NUM_ITEMS_IN_PREVIEW, index), curNumItems, mTmpParams);
+                Math.min(MAX_NUM_ITEMS_IN_PREVIEW - 1, index), curNumItems, mTmpParams);
 
         mTmpParams.transX += mBackground.basePreviewOffsetX;
         mTmpParams.transY += mBackground.basePreviewOffsetY;

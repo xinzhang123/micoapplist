@@ -17,7 +17,7 @@
 
         <ImageView
             android:id="@+id/iv_app"
-            android:layout_width="@dimen/dp_96"
+            android:layout_width="@dimen/dp_170"
             android:layout_height="@dimen/dp_96"
             android:layout_marginTop="@dimen/dp_40" />
 
@@ -27,8 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_46"
             android:textColor="@color/black"
-            android:textSize="@dimen/sp_32"
-            tools:text="@string/dialog_uninstall_title" />
+            android:textSize="@dimen/dp_32"
+            tools:text="@string/dialog_uninstall_title2" />
 
         <TextView
             android:id="@+id/tv_content"

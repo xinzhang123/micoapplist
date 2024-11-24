@@ -349,4 +349,5 @@
     <string name="dialog_uninstall_title">卸载“%s”</string>
     <string name="dialog_uninstall_content">卸载后其所有数据也将被删除</string>
     <string name="tv_cancel">取消</string>
+    <string name="dialog_uninstall_title2">卸载%d个应用</string>
 </resources>

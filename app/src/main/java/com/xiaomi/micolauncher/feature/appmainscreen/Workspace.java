@@ -20,6 +20,7 @@ import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils.OV
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils.SPRING_LOADED_EXIT_DELAY;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherAnimUtils.SPRING_LOADED_TRANSITION_MS;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.ALL_APPS;
+import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.MULTI_SELECT;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.NORMAL;
 import static com.xiaomi.micolauncher.feature.appmainscreen.LauncherState.SPRING_LOADED;
 import static com.xiaomi.micolauncher.feature.appmainscreen.dragndrop.DragLayer.ALPHA_INDEX_OVERLAY;
@@ -3524,6 +3525,21 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
         @Override
         public void onAnimationUpdate(ValueAnimator anim) {
             mTransitionProgress = anim.getAnimatedFraction();
+            if (mToState == MULTI_SELECT || mToState == NORMAL) {
+                for (int i = 0; i < getChildCount(); i++) {
+                    CellLayout cellLayout = (CellLayout) getChildAt(i);
+                    for (int j = 0; j < cellLayout.getChildCount(); j++) {
+                        ShortcutAndWidgetContainer shortcutAndWidgetContainer = (ShortcutAndWidgetContainer) cellLayout.getChildAt(j);
+                        for (int k = 0; k < shortcutAndWidgetContainer.getChildCount(); k++) {
+                            if (shortcutAndWidgetContainer.getChildAt(k) instanceof BubbleTextView) {
+                                BubbleTextView bubbleTextView = (BubbleTextView) shortcutAndWidgetContainer.getChildAt(k);
+                                ((FastBitmapDrawable) bubbleTextView.getIcon()).setSelectScale(mToState == MULTI_SELECT ? mTransitionProgress : 1 - mTransitionProgress, false);
+                            }
+                        }
+                    }
+                }
+                Log.d(TAG, "onAnimationUpdate: mTransitionProgress " + mTransitionProgress);
+            }
         }
 
         @Override
