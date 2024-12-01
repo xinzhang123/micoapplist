@@ -289,6 +289,6 @@ public class SecondaryDropTarget extends ButtonDropTarget implements OnAlarmList
 
     @Override
     public void onClick(View v) {
-        UninstallConfirmDialog2.showUninstallConfirmDialog(mLauncher, mDropTargetBar.getList());
+        UninstallConfirmDialog2.showUninstallConfirmDialog(mLauncher, mDropTargetBar.getShortCutInfoList());
     }
 }

@@ -93,6 +93,7 @@ import com.xiaomi.micolauncher.feature.appmainscreen.widget.PendingAppWidgetHost
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -1798,6 +1799,30 @@ public class Workspace extends PagedView<WorkspacePageIndicator>
             }
         }
         return false;
+    }
+
+    public void createFolderByMultiSelect(List<BubbleTextView> newViewList, CellLayout target,
+                                             int[] targetCell) {
+        View v = target.getChildAt(targetCell[0], targetCell[1]);
+        final long screenId = getIdForScreen(target);
+        boolean isExist = null != v && (v.getTag() instanceof ShortcutInfo);
+        if (isExist) {
+
+        }
+//        ShortcutInfo destInfo = (ShortcutInfo) v.getTag();
+//        Rect folderLocation = new Rect();
+//        float scale = mLauncher.getDragLayer().getDescendantRectRelativeToSelf(v, folderLocation);
+//        target.removeView(v);
+        FolderIcon fi =
+                mLauncher.addFolder(target, LauncherSettings.Favorites.CONTAINER_DESKTOP, screenId, targetCell[0], targetCell[1]);
+        fi.prepareCreateAnimation(mLauncher.getDeviceProfile().folderIconSizePx, target.getCellWidth());
+        for (BubbleTextView view : newViewList) {
+            ShortcutInfo info = (ShortcutInfo) view.getTag();
+            mLauncher.removeItem(view, info, false);
+            info.cellX = -1;
+            info.cellY = -1;
+            fi.addItem(info);
+        }
     }
 
     boolean createUserFolderIfNecessary(View newView, long container, CellLayout target,

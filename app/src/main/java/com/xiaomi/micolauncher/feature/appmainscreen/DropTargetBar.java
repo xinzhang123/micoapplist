@@ -61,7 +61,7 @@ public class DropTargetBar extends FrameLayout
 
     private boolean mIsVertical = true;
     private int mMarginPx;
-    private List<ShortcutInfo> mList = new ArrayList<>();
+    private List<BubbleTextView> mList = new ArrayList<>();
     private boolean mIsMultiSelect;
 
     public DropTargetBar(Context context, AttributeSet attrs) {
@@ -220,15 +220,23 @@ public class DropTargetBar extends FrameLayout
         return mIsMultiSelect;
     }
 
-    public List<ShortcutInfo> getList() {
+    public List<BubbleTextView> getList() {
         return mList;
     }
 
-    public void addOrRemoveSelectInfo(ShortcutInfo shortcutInfo, boolean isAdd) {
+    public List<ShortcutInfo> getShortCutInfoList() {
+        List<ShortcutInfo> list = new ArrayList<>();
+        for (BubbleTextView bubbleTextView : mList) {
+            list.add((ShortcutInfo) bubbleTextView.getTag());
+        }
+        return list;
+    }
+
+    public void addOrRemoveSelectInfo(BubbleTextView bubbleTextView, boolean isAdd) {
         if (isAdd) {
-            mList.add(shortcutInfo);
+            mList.add(bubbleTextView);
         } else {
-            mList.remove(shortcutInfo);
+            mList.remove(bubbleTextView);
         }
         if (mList.size() > 0) {
             mDropTargets[2].setVisibility(View.VISIBLE);

@@ -257,6 +257,10 @@ public class FolderIcon extends FrameLayout implements FolderListener {
         return mPreviewItemManager.prepareCreateAnimation(destView);
     }
 
+    public void prepareCreateAnimation(int drawableSize, int totalSize) {
+        mPreviewItemManager.prepareCreateAnimation(drawableSize, totalSize);
+    }
+
     public void performCreateAnimation(final ShortcutInfo destInfo, final View destView,
             final ShortcutInfo srcInfo, final DragView srcView, Rect dstRect,
             float scaleRelativeToDragLayer) {

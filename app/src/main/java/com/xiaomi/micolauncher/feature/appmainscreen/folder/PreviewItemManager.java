@@ -94,6 +94,10 @@ public class PreviewItemManager {
         return animateDrawable;
     }
 
+    public void prepareCreateAnimation(int drawableSize, int totalSize) {
+        computePreviewDrawingParams(drawableSize, totalSize);
+    }
+
     public void recomputePreviewDrawingParams() {
         if (mReferenceDrawable != null) {
             computePreviewDrawingParams(mReferenceDrawable.getIntrinsicWidth(),
@@ -129,7 +133,7 @@ public class PreviewItemManager {
     private PreviewItemDrawingParams getFinalIconParams(PreviewItemDrawingParams params) {
         float iconSize = mIcon.mLauncher.getDeviceProfile().iconSizePx;
 
-        final float scale = iconSize / mReferenceDrawable.getIntrinsicWidth();
+        final float scale = iconSize / mIcon.mBackground.previewSize;
         final float trans = (mIcon.mBackground.previewSize - iconSize) / 2;
 
         params.update(trans, trans, scale);

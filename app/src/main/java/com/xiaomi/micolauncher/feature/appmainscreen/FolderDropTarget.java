@@ -110,4 +110,12 @@ public class FolderDropTarget extends ButtonDropTarget {
         return !(item.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPLICATION ||
                 item.itemType == LauncherSettings.Favorites.ITEM_TYPE_FOLDER);
     }
+
+    @Override
+    public void onClick(View v) {
+        CellLayout cellLayout = ((CellLayout) mLauncher.getWorkspace().getChildAt(mLauncher.getWorkspace().getCurrentPage()));
+        int[] cell = new int[2];
+        cellLayout.findCellForSpan(cell, 1, 1);
+        mLauncher.getWorkspace().createFolderByMultiSelect(mDropTargetBar.getList(), cellLayout, cell);
+    }
 }
